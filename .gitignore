@@ -1,5 +1,5 @@
 /bootstrap/compiled.php
-/vendor
+/vendor/*/
 /build/logs
 /build/coverage
 /app/tests/_log
@@ -10,4 +10,4 @@ composer.phar
 /app/config/packages
 /public/packages
 /node_modules
-.env
+.env	
