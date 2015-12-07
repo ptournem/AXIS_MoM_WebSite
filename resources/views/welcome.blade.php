@@ -39,6 +39,11 @@
         <div class="container">
             <div class="content">
                 <div class="title">Laravel 5</div>
+
+		<div class="visible-print text-center">
+		    {!! QrCode::size(400)->generate('http://lookout.ig2i.fr'); !!}
+		    <p>Scan me to return to the original page.</p>
+		</div>
             </div>
         </div>
     </body>
