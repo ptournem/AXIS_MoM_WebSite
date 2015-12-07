@@ -44,6 +44,10 @@
 		    {!! QrCode::size(400)->generate('http://lookout.ig2i.fr'); !!}
 		    <p>Scan me to return to the original page.</p>
 		</div>
+		<div class="visible-print text-center">
+		    
+		    <p>Conversion avec le webService 1000 USD : {{ $convert }} AUD le 2014-06-05  </p>
+		</div>
             </div>
         </div>
     </body>

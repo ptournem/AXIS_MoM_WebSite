@@ -149,6 +149,12 @@ return [
 	 * QRCode library
 	 */
 	SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
+	
+	
+	/**
+	 * Soap library 
+	 */
+	Artisaninweb\SoapWrapper\ServiceProvider::class,
 
     ],
 
@@ -203,6 +209,11 @@ return [
 	 * QrCode library alias
 	 */
 	'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
+	
+	/**
+	 * Soap Library Alias
+	 */
+	'SoapWrapper' => Artisaninweb\SoapWrapper\Facades\SoapWrapper::class,
 
     ],
 
