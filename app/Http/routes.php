@@ -12,3 +12,5 @@
 */
 
 Route::get('/', 'WelcomeController@Index');
+
+Route::get('/infos', 'WelcomeController@Infos');
