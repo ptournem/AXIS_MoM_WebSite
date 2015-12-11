@@ -1,54 +1,60 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Laravel</title>
+@extends('template')
 
-        <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
+@section('header')
+    <link rel="stylesheet" type="text/css" href="css/style2.css">
+@stop
 
-        <style>
-            html, body {
-                height: 100%;
-            }
+@section('titre')
+    AXIS-MOM
+@stop
 
-            body {
-                margin: 0;
-                padding: 0;
-                width: 100%;
-                display: table;
-                font-weight: 100;
-                font-family: 'Lato';
-            }
-
-            .container {
-                text-align: center;
-                display: table-cell;
-                vertical-align: middle;
-            }
-
-            .content {
-                text-align: center;
-                display: inline-block;
-            }
-
-            .title {
-                font-size: 96px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <div class="content">
-                <div class="title">Laravel 5</div>
-
-		<div class="visible-print text-center">
-		    {!! QrCode::size(400)->generate('http://lookout.ig2i.fr'); !!}
-		    <p>Scan me to return to the original page.</p>
-		</div>
-		<div class="visible-print text-center">
-		    
-		    <p>Conversion avec le webService 1000 USD : {{ $convert }} AUD le 2014-06-05  </p>
-		</div>
-            </div>
+@section('top')
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">AXIS-MOM</a>
         </div>
-    </body>
-</html>
+        <div id="navbar" class="navbar-collapse collapse">
+          
+            <div class="input-group stylish-input-group">
+                <input type="text" class="form-control"  placeholder="Search" >
+                <span class="input-group-addon">
+                    <button type="submit">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </button>  
+                </span>
+            </div>
+            
+        </div><!--/.navbar-collapse -->
+      </div>
+    </nav>
+@stop
+
+
+@section('contenu')
+      <!-- Example row of columns -->
+      <div class="row">
+        <div class="col-md-8">
+          <h2>Graphe</h2>
+          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+        </div>
+
+        <div class="col-md-4">
+          <h2>Lache ton com</h2>
+          <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+        </div>
+      </div>
+      
+      
+      <hr>
+
+      <footer>
+        <p>&copy; 2015 Company, Inc.</p>
+      </footer>
+@stop
+
+@section('footer')
+
+@stop
