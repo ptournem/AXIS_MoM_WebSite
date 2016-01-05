@@ -11,8 +11,12 @@
 
         <!-- Latest compiled and minified JavaScript -->
         <script src="js/bootstrap.min.js"></script>
+        <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link rel="icon" type="image/png" href="img/favicon.png" />
         
-        
+        <script type="text/javascript" src="js/jquery.autocomplete.min.js"></script>
+    <script type="text/javascript" src="js/currency-autocomplete.js"></script>
+    
         @yield('header')
         
         
@@ -24,7 +28,7 @@
         
         <div id="connexion">
             <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modalConnexion">
-                <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Se connecter
+                <span class="fa fa-user" aria-hidden="true"></span>
             </button>
         </div>
         
@@ -51,7 +55,7 @@
             <div class="form-group">
               <div class="input-group">
                 <div class="input-group-addon"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></div>
-                <input type="text" class="form-control" id="exampleInputAmount" placeholder="Login">
+                <input type="text" class="form-control" id="exampleInputAmount" placeholder="Nom d'utilisateur">
               </div>
             </div>
             <br /><br />  
