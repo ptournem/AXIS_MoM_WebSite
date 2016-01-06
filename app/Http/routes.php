@@ -12,7 +12,15 @@
 */
 
 Route::get('/', 'WelcomeController@Index');
+Route::get('/home', 'WelcomeController@Index');
+Route::get('/infos', 'UserController@Infos');
 
-Route::get('/infos', 'WelcomeController@Infos');
+Route::resource('admin/users', 'UserController');
+Route::get('admin/users/{users}/editPW', array('as' => 'admin.users.editPW', 'uses' => 'UserController@editPW'));
+Route::post('admin/users/{users}', array('as' => 'admin.users.updatePW', 'uses' => 'UserController@updatePW') );
 
-Route::get('/admin', 'WelcomeController@Admin');
+// Authentication routes...
+Route::get('auth/login', 'Auth\AuthController@getLogin');
+Route::post('auth/login', 'Auth\AuthController@postLogin');
+Route::get('auth/logout', 'Auth\AuthController@getLogout');
+
