@@ -1,7 +1,7 @@
 @extends('template')
 
 @section('header')
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="{{ URL::asset('css/style.css') }}">
     <title>AXIS-MOM</title>
 @stop
 
@@ -12,7 +12,7 @@
 @section('contenu')
                 <div class="row">
                 <div class="col-sm-6 col-sm-offset-3">
-                    <form action="{{url('/infos')}}" method="GET">
+                    <form action="{{url('infos')}}" method="GET">
                         <div id="imaginary_container"> 
                             
                             <div id="blocSearch">
