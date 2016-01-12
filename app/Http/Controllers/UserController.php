@@ -20,19 +20,6 @@ class UserController extends Controller
     {
         $this->userRepository = $userRepository;
     }
-    
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $users = $this->userRepository->getPaginate($this->nbrPerPage);
-        $links = $users->setPath('')->render();
-        
-        return view('users.listUsers', compact('users', 'links'));
-    }
 
     /**
      * Show the form for creating a new resource.
