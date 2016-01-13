@@ -12,32 +12,6 @@
     AXIS-MOM
 @stop
 
-@section('top')
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container">
-        <div class="col-xs-4">
-            <div class="navbar-header">
-              <a class="navbar-brand" href="{{ url('home') }}"><img src="{{ URL::asset('img/axismom.png') }}" width="120px" /></a>
-            </div>
-        </div>
-        <form action="{{url('infos')}}" method="GET">
-            <div class="col-xs-8">
-                <div id="navbar" class="navbar-collapse collapse"> 
-                    <div class="input-group stylish-input-group">
-                        <input type="text" class="form-control" id="autocomplete" placeholder="Rechercher une oeuvre ou un artiste" >
-                        <span class="input-group-addon">
-                            <button type="submit">
-                                <span class="glyphicon glyphicon-search"></span>
-                            </button>  
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </form>
-      </div>
-    </nav>
-@stop
-
 
 @section('contenu')
       <!-- Example row of columns -->
