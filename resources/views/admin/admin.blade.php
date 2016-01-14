@@ -202,12 +202,6 @@ Bienvenue sur la page d'administration
 
 
 
-nom
-description
-image (lien, input texte)
-type
-
-
 <!-- Modal membre -->
 <div class="modal fade" id="ajouterMembre" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">

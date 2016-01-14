@@ -42,8 +42,18 @@ class AdminController extends Controller
         return redirect()->back();
     }  
     
-    public function view($id) {
-        return 'lala : ' . $id;
-        return redirect()->back();
+    public function view($id) {        
+        $entity = array(array('Artiste', 'Jacques Louis David'), 
+            array('Période', 'Néo-Classicisme'), 
+            array('Support', 'Peinture à l\'huile'),
+            array('Lieu', 'Musée du Louvre')); 
+        
+        $itemName = 'Le sacre de Napoléon';
+        
+        $data = array(
+            'entity'  => $entity,
+            'itemName' => $itemName
+        );
+	return view('admin/entityView')->with($data);
     }  
 }
