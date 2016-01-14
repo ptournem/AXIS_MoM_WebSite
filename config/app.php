@@ -155,6 +155,13 @@ return [
 	 * Soap library 
 	 */
 	Artisaninweb\SoapWrapper\ServiceProvider::class,
+	
+	/*
+         * Application Service Providers...
+         */
+	App\Providers\CommentsServiceProvider::class,
+	App\Providers\LogsServiceProvider::class,
+	App\Providers\SemanticsServiceProvider::class,
 
     ],
 
@@ -217,6 +224,13 @@ return [
 	 */
 	'SoapWrapper' => Artisaninweb\SoapWrapper\Facades\SoapWrapper::class,
 
+	
+	/**
+	 * Application Alias
+	 */
+	'Comments' => App\Facades\CommentsFacade::class,
+	'Logs' => App\Facades\LogsFacade::class,
+	'Semantics' => App\Facades\SemanticsFacade::class,
     ],
 
 ];
