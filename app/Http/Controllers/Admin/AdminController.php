@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
+use Semantics;
+use App\Classes\Dialog\Entity;
+use App\Http\Requests\Admin\AddEntityRequest;
 use App\Http\Controllers\Controller;
 use App\User;
 use App\Repositories\UserRepository;
@@ -37,16 +39,26 @@ class AdminController extends Controller
 	return view('admin/admin')->with($data);
     }  
     
-    public function addEntity(Request $request) {
+    public function addEntity(AddEntityRequest $addEntityRequest) {
+        try{
+            $entity = Semantics::AddEntity();
+            if($entity === Entity::class){
+                
+            }
+        }  
+        catch (Exception $e){
+            return false;
+        }
         // TODO appel WS
         return redirect()->back();
+        
     }  
     
     public function view($id) {        
-        $entity = array(array('Artiste', 'Jacques Louis David'), 
-            array('Période', 'Néo-Classicisme'), 
-            array('Support', 'Peinture à l\'huile'),
-            array('Lieu', 'Musée du Louvre')); 
+        $entity = array(array('Artiste', 'Jacques Louis David', 1), 
+            array('Période', 'Néo-Classicisme', 2), 
+            array('Support', 'Peinture à l\'huile', 3),
+            array('Lieu', 'Musée du Louvre', 4)); 
         
         $itemName = 'Le sacre de Napoléon';
         
@@ -56,4 +68,25 @@ class AdminController extends Controller
         );
 	return view('admin/entityView')->with($data);
     }  
+    
+    public function updateLOD($id, $value) {  
+        //return true;
+        $retour = [true, $id, $value];
+        return $retour;
+        
+        return json_encode($retour);
+        return 'reponse id : ' . $id . 'reponse value : ' . $value;
+        
+        //TODO: update
+    } 
+    
+    public function deleteLOD($id) {  
+        $retour = [$id, $value];
+        
+        return json_encode($retour);
+        return 'reponse id : ' . $id . 'reponse value : ' . $value;
+        
+        //TODO: update
+    } 
+    
 }

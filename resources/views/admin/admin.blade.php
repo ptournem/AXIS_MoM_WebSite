@@ -240,13 +240,17 @@ Bienvenue sur la page d'administration
                       <option value="Organisation">Organisation</option>
                       <option value="Objet">Objet</option>
                       <option value="Personne">Personne</option>
-                  </select><br/>
+                  </select>
+                  {!! $errors->first('entity-type', '<small class="help-block">:message</small>') !!}<br/>
                   <label for="entity-name">Nom</label> : 
-                  <input type="text" id="entity-name" name="entity-name" required="true"/><br/>
+                  <input type="text" id="entity-name" name="entity-name" required="true"/>
+                  {!! $errors->first('entity-name', '<small class="help-block">:message</small>') !!}<br/>
                   <label for="entity-description">Description</label> : 
-                  <input type="text" id="entity-description" name="entity-description" required="true"/><br/>
+                  <input type="text" id="entity-description" name="entity-description" required="true"/>
+                  {!! $errors->first('entity-description', '<small class="help-block">:message</small>') !!}<br/>
                   <label for="entity-image">Lien vers images</label> : 
                   <input type="text" id="entity-image" name="entity-image"/>
+                  {!! $errors->first('entity-image', '<small class="help-block">:message</small>') !!}
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

@@ -87,6 +87,11 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">Se connecter</h4>
       </div>
+        @if (session('status'))
+                <div class="alert alert-success">
+                        {{ session('status') }}
+                </div>
+        @endif
         @if (count($errors) > 0)
             <div class="alert alert-danger">
                     <strong>Whoops!</strong> There were some problems with your input.<br><br>
