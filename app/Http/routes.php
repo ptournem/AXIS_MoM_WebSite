@@ -21,8 +21,8 @@ Route::controller('public', 'PublicController', [
 
 Route::get('admin', 'Admin\AdminController@Index');
 Route::get('admin/view/{id}', 'Admin\AdminController@view');
-Route::post('admin/delete/LOD/{id}', 'Admin\AdminController@deleteLOD');
-Route::get('admin/update/LOD/{id}/{value}', 'Admin\AdminController@updateLOD');
+Route::get('admin/delete/LOD/{EntityID}/{LODID}', 'Admin\AdminController@deleteLOD');
+Route::get('admin/update/LOD/{EntityID}/{LODID}/{value}', 'Admin\AdminController@updateLOD');
 Route::post('admin/addEntity', 'Admin\AdminController@addEntity');
 
 // TODO

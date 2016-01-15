@@ -64,7 +64,8 @@ class AdminController extends Controller
         
         $data = array(
             'entity'  => $entity,
-            'itemName' => $itemName
+            'itemName' => $itemName,
+            'EntityID' => 4
         );
 	return view('admin/entityView')->with($data);
     }  
@@ -80,8 +81,8 @@ class AdminController extends Controller
         //TODO: update
     } 
     
-    public function deleteLOD($id) {  
-        $retour = [$id, $value];
+    public function deleteLOD($EntityID, $LODID) {  
+        $retour = [true, $EntityID, $LODID];
         
         return json_encode($retour);
         return 'reponse id : ' . $id . 'reponse value : ' . $value;

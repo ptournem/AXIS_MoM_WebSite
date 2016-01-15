@@ -6,17 +6,14 @@
         $(document).ready(function(){
             var hasChanged = false;
             var tempValue;
-            $('.editableProp').blur(function(){
-                console.log('tempValue : ' + tempValue);
-                console.log('lastValue : ' + $(this).text());
+            $(document).on('blur', '.editableProp', function(){
                 if(tempValue != $(this).text()){
-                    console.log('changé');
                     var uid = $(this).attr('uid');
                     var value = $(this).text();
-                    $.getJSON('../update/LOD/' + uid + '/' + value, null)
+                    var entityName = $('.Entity-name').attr('id');
+                    $.getJSON('../update/LOD/' + entityName + '/' + uid + '/' + value, null)
                         .done(function( json ) {
                             if(json[0] == true){
-                                console.log( "success" );
                                 $('.alert-success-update').show();
                             }
                             else{
@@ -31,13 +28,45 @@
                 else
                     console.log('pas changé');
             });
-            $('.editableProp').focus(function(){
+            $(document).on('focus', '.editableProp', function(){
                 tempValue = $(this).text();
                 $('.alert-success').hide();
             });
-            $('.editableProp').keydown(function(){
-                
-                console.log('keypress');
+            $(document).on('click', '.btn-delete', function(){
+                $('.alert-success').hide();
+                if(confirm('Vraiment supprimer ce lien LOD ?')){
+                    var uid = $(this).attr('uid');
+                    var entityName = $('.Entity-name').attr('id');
+                    $.getJSON('../delete/LOD/' + entityName + '/' + uid, null)
+                        .done(function( json ) {
+                            if(json[0] == true){
+                                $('.alert-success-delete').show();
+                            }
+                            else{
+                                console.log( "fail" );
+                            }
+                        })
+                        .fail(function( jqxhr, textStatus, error ) {
+                            var err = textStatus + ", " + error;
+                            console.log( "Request Failed: " + err );
+                        });
+                }
+            });
+            
+            $(document).on('click', '.btn-addLOD', function(){
+                $('.alert-success').hide();
+                $('.new-LOD').append('<label></label>');
+                $('.new-LOD label').attr('class', 'editableProp');
+                $('.new-LOD label').attr('uid', 7);
+                $('.new-LOD label').attr('style', "display: block; width: 100%; height: 100%");
+                $('.new-LOD label').attr('contenteditable', true);
+                $('.new-LOD label').attr('autofocus', true);
+                $('.new-LOD').removeClass();
+                $(this).attr('class', 'btn btn-danger btn-block btn-delete');
+                $(this).attr('uid', 7);
+                $(this).text('Supprimer');
+                $('.table-LOD').append("<tr><td class='new-LOD'></td><td><button class='btn btn-primary btn-addLOD'>Ajouter un lien LOD</button></td></tr>");
+                $('.editableProp[uid=7]').get(0).focus();
             });
         });
     </script>
@@ -48,7 +77,7 @@
 @stop
 
 @section('contenu')
-<h2>{{ $itemName }}</h2>
+<h2 class="Entity-name" id="{{ $EntityID }}">{{ $itemName }}</h2>
 <ul class="nav nav-tabs">
     <li class="active"><a data-toggle="tab" href="#informations">Informations</a></li>
     <li><a data-toggle="tab" href="#LODLink">Liens LoD</a></li>
@@ -76,8 +105,11 @@
     </div>
     <div id="LODLink" class="tab-pane fade">
         <br />
-        <div id='successMsg' class="alert alert-success alert-success-update" style="display: none">
+        <div id='successMsg-update' class="alert alert-success alert-success-update" style="display: none">
             Mise à jour du champ effectué.
+        </div>
+        <div id='successMsg-delete' class="alert alert-success alert-success-delete" style="display: none">
+            LOD supprimé.
         </div>
         <table id="LOD" class="table table-striped table-bordered" cellspacing="0" width="100%">
             <thead>
@@ -86,23 +118,20 @@
                     <th>Action</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="table-LOD">
                 @foreach ($entity as $entityItem)
                 <tr>
-                    <td><label class="editableProp" uid="{{$entityItem[2]}}"  contenteditable="true">{{ $entityItem[0] }}</label></td>
+                    <td><label class="editableProp" uid="{{$entityItem[2]}}" style="display: block; width: 100%; height: 100%;"  contenteditable="true">{{ $entityItem[0] }}</label></td>
                     <td>
-                        <form method="POST" action="{{ URL::to('admin/delete/LOD/' . $entityItem[2]) }}">
-                            {!! csrf_field() !!}
-                            <button class='btn btn-danger btn-block' onclick="return confirm(\'Vraiment supprimer cet utilisateur ?\')">
-                                Supprimer
-                            </button>
-                        </form>
+                        <button class='btn btn-danger btn-block btn-delete' uid="{{$entityItem[2]}}">
+                            Supprimer
+                        </button>
                     </td>
                 </tr>
                 @endforeach
                 <tr>
-                    <td></td>
-                    <td><button type="submit" class="btn btn-primary">Ajouter</button></td>
+                    <td class="new-LOD"></td>
+                    <td><button class="btn btn-primary btn-addLOD">Ajouter un lien LOD</button></td>
                 </tr>
             </tbody>
         </table>
