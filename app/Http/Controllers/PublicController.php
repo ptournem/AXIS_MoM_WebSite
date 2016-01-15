@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Semantics;
+use Comments;
+use App\Classes\Dialog\Entity;
+use App\Classes\Dialog\Property;
+use App\Classes\Dialog\Comment;
 
 class PublicController extends Controller {
 
@@ -16,6 +21,23 @@ class PublicController extends Controller {
      * @return type
      */
     public function anyIndex() {
+	$entity = new Entity("uRI","namebabar",'type','image');
+	$property = new Property("uri", "is child of","babybel","oeuvre",$entity);
+	$comment = new Comment("babibel", "babibel@yopmail.com", "I enjoyed it !!!");
+//	$ret = Semantics::AddEntity($entity);
+//	$ret = Semantics::RemoveEntity($entity);
+//	$ret = Semantics::SetEntityProperty($entity,$property);
+//	$ret = Semantics::RemoveEntityObjectProperty($entity,$property);
+//	$ret = Semantics::RemoveEntityObjectPropertyWithObject($entity,$property);
+//	$ret = Semantics::LoadEntityProperties($entity);
+//	$ret = Semantics::SearchOurEntitiesFromText("our");
+//	$ret = Semantics::SearchAllEntitiesFromText("all");
+//	$ret = Comments::AddComment($comment);
+//	$ret = Comments::GrantComment($comment);
+//	$ret = Comments::RemoveComment($comment);
+//	$ret = Comments::LoadComment($entity);
+	
+//	var_dump($ret);
 	return view('welcome');
     }
 

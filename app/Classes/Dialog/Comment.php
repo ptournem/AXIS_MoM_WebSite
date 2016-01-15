@@ -8,28 +8,28 @@ class Comment {
      *
      * @var string 
      */
-    private $AuthorName;
+    public $authorName;
 
     /**
      *
      * @var string 
      */
-    private $email;
+    public $email;
 
     /**
      *
      * @var string 
      */
-    private $comment;
+    public $comment;
 
     /**
      * 
-     * @param string $AuthorName
+     * @param string $authorName
      * @param string $email
      * @param string $comment
      */
-    function __construct($AuthorName, $email, $comment) {
-	$this->AuthorName = $AuthorName;
+    function __construct($authorName = null, $email = null, $comment = null) {
+	$this->authorName = $authorName;
 	$this->email = $email;
 	$this->comment = $comment;
     }
@@ -39,7 +39,7 @@ class Comment {
      * @return string
      */
     function getAuthorName() {
-	return $this->AuthorName;
+	return $this->authorName;
     }
 
     /**
@@ -60,10 +60,10 @@ class Comment {
 
     /**
      * 
-     * @param string $AuthorName
+     * @param string $authorName
      */
-    function setAuthorName($AuthorName) {
-	$this->AuthorName = $AuthorName;
+    function setAuthorName($authorName) {
+	$this->authorName = $authorName;
     }
 
     /**
