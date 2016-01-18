@@ -23,7 +23,7 @@ class PublicController extends Controller {
     public function anyIndex() {
 //	$entity = new Entity("uRI","namebabar",'type','image');
 //	$valueEntity = new Entity("1234","bibi",'Kind','png');
-//	$property = new Property("uri", "is child of","babybel","oeuvre",$entity);
+//	$property = new Property("is child of","babybel","oeuvre",$entity);
 //	$comment = new Comment("babibel", "babibel@yopmail.com", "I enjoyed it !!!");
 //	$ret = Semantics::AddEntity($entity);
 //	$ret = Semantics::RemoveEntity($entity);
