@@ -21,14 +21,15 @@ class PublicController extends Controller {
      * @return type
      */
     public function anyIndex() {
-	$entity = new Entity("uRI","namebabar",'type','image');
-	$property = new Property("uri", "is child of","babybel","oeuvre",$entity);
-	$comment = new Comment("babibel", "babibel@yopmail.com", "I enjoyed it !!!");
+//	$entity = new Entity("uRI","namebabar",'type','image');
+//	$valueEntity = new Entity("1234","bibi",'Kind','png');
+//	$property = new Property("uri", "is child of","babybel","oeuvre",$entity);
+//	$comment = new Comment("babibel", "babibel@yopmail.com", "I enjoyed it !!!");
 //	$ret = Semantics::AddEntity($entity);
 //	$ret = Semantics::RemoveEntity($entity);
-//	$ret = Semantics::SetEntityProperty($entity,$property);
-//	$ret = Semantics::RemoveEntityObjectProperty($entity,$property);
-//	$ret = Semantics::RemoveEntityObjectPropertyWithObject($entity,$property);
+//	$ret = Semantics::SetEntityProperty($entity,$property,$valueEntity);
+//	$ret = Semantics::RemoveEntityObjectProperty($entity,$property,$valueEntity);
+//	$ret = Semantics::RemoveEntityObjectPropertyWithObject($entity,$property,$valueEntity);
 //	$ret = Semantics::LoadEntityProperties($entity);
 //	$ret = Semantics::SearchOurEntitiesFromText("our");
 //	$ret = Semantics::SearchAllEntitiesFromText("all");

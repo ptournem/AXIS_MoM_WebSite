@@ -4,11 +4,6 @@ namespace App\Classes\Dialog;
 
 class Property {
 
-    /**
-     *
-     * @var string 
-     */
-    public $URI;
 
     /**
      *
@@ -50,13 +45,6 @@ class Property {
 	$this->e = $e;
     }
 
-    /**
-     * 
-     * @return string
-     */
-    public function getURI() {
-	return $this->URI;
-    }
 
     /**
      * 
@@ -90,13 +78,6 @@ class Property {
 	return $this->e;
     }
 
-    /**
-     * 
-     * @param string $URI
-     */
-    public function setURI($URI) {
-	$this->URI = $URI;
-    }
 
     /**
      * 

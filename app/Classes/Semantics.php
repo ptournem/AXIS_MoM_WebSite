@@ -27,26 +27,29 @@ class Semantics {
 	return $this->service->RemoveEntity($request);
     }
 
-    public function SetEntityProperty(Entity $e, Property $p) {
+    public function SetEntityProperty(Entity $e, Property $p,Entity $valueEntity) {
 	$request = new \stdClass();
 	$request->e = $e;
 	$request->p = $p;
+	$request->valueEntity = $valueEntity;
 	return $this->service->SetEntityProperty($request);
     }
 
   
 
-    public function RemoveEntityObjectProperty(Entity $e, Property $p) {
+    public function RemoveEntityObjectProperty(Entity $e, Property $p,Entity $valueEntity) {
 	$request = new \stdClass();
 	$request->e = $e;
 	$request->p = $p;
+	$request->valueEntity = $valueEntity;
 	return $this->service->RemoveEntityObjectProperty($request);
     }
 
-    public function RemoveEntityObjectPropertyWithObject(Entity $e, Property $p) {
+    public function RemoveEntityObjectPropertyWithObject(Entity $e, Property $p,Entity $valueEntity) {
 	$request = new \stdClass();
 	$request->e = $e;
 	$request->p = $p;
+	$request->valueEntity = $valueEntity;
 	return $this->service->RemoveEntityObjectPropertyWithObject($request);
     }
 
