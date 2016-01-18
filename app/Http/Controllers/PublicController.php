@@ -77,23 +77,8 @@ class PublicController extends Controller {
 	if (!$request->has("needle")) {
 	    return response()->json([]);
 	}
-	return response()->json(array(
-		    array("label" => "Leonard De Vinci", "category" => "Activite", "id" => "1"),
-		    array("label" => "Leonard De Vinci", "category" => "Activite", "id" => "1"),
-		    array("label" => "Leonard De Vinci", "category" => "Activite", "id" => "1"),
-		    array("label" => "David Bowie", "category" => "Evènement", "id" => "2"),
-		    array("label" => "David Bowie", "category" => "Evènement", "id" => "2"),
-		    array("label" => "David Bowie", "category" => "Lieu", "id" => "2"),
-		    array("label" => "David Bowie", "category" => "Lieu", "id" => "2"),
-		    array("label" => "La Joconde", "category" => "Organisation", "id" => "3"),
-		    array("label" => "La Joconde", "category" => "Organisation", "id" => "3"),
-		    array("label" => "La Joconde", "category" => "Objet", "id" => "3"),
-		    array("label" => "La Joconde", "category" => "Objet", "id" => "3"),
-		    array("label" => "La Joconde", "category" => "Personne", "id" => "3"),
-		    array("label" => "La Joconde", "category" => "Personne", "id" => "3"),
-		    array("label" => "La Joconde", "category" => "Oeuvre", "id" => "3"),
-		    array("label" => "La Joconde", "category" => "Oeuvre", "id" => "3"),
-	));
+	
+	return response()->json(Semantics::SearchAllEntitiesFromText($request->input("needle")));
     }
 
 }

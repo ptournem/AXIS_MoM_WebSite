@@ -4,23 +4,38 @@
 <link rel="stylesheet" type="text/css" href="{{ URL::asset('css/style.css') }}">
 <title>AXIS-MOM</title>
 <script type="text/javascript">
-    function getGlyphicon(cat) {
-	switch (cat) {
-	    case 'Activite':
-		return 'wrench';
-	    case 'Evènement':
-		return 'time';
-	    case 'Lieu':
-		return 'home';
-	    case 'Organisation':
-		return 'education';
-	    case 'Objet':
-		return 'book';
-	    case 'Personne':
-		return 'user';
-	    default:
-		return 'tag';
+    function getCatInfo(cat) {
+	var ret = {
+	    activity: {
+		class: 'wrench',
+		text: 'Activité'
+	    },
+	    event: {
+		class: 'time',
+		text: 'Evènement'
+	    },
+	    organisation: {
+		class: 'education',
+		text: 'Organisation'
+	    },
+	    location: {
+		class: 'home',
+		text: 'Lieu'
+	    },
+	    object: {
+		class: 'book',
+		text: 'Objet'
+	    },
+	    person: {
+		class: 'user',
+		text: 'Personne'
+	    }
+	};
+	if (ret.hasOwnProperty(cat)) {
+	    return ret[cat];
 	}
+
+	return {class: "tag", text: "Autre"};
     }
 
     $.widget("custom.catcomplete", $.ui.autocomplete, {
@@ -33,13 +48,12 @@
 	    var that = this,
 		    currentCategory = "";
 	    $.each(items, function (index, item) {
-
-		if (item.category != currentCategory) {
-		    ul.append("<li class='list-group-item ui-autocomplete-category'><span class='glyphicon glyphicon-" + getGlyphicon(item.category) + "'></span> " + item.category + "</li>");
-		    currentCategory = item.category;
+		if (item.type !== currentCategory) {
+		    var cat = getCatInfo(item.type);
+		    ul.append("<li class='list-group-item ui-autocomplete-category'><span class='glyphicon glyphicon-" + cat.class + "'></span> " + cat.text + "</li>");
+		    currentCategory = item.type;
 		}
-		" activite=> wrench , event=> time , lieu => home , organisation => education, objet => book, personne => user"
-		var li = that._renderItemData(ul, item);
+		var li = that._renderItemData(ul, $.extend({},item,{label : item.name, id:item.URI}));
 		li.addClass('list-group-item');
 
 	    });
