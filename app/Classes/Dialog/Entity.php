@@ -8,22 +8,38 @@ class Entity {
      *
      * @var string 
      */
-    private $URI;
+    public $URI;
 
     /**
      *
      * @var string
      */
-    private $name;
+    public $name;
+
+    /**
+     *
+     * @var string 
+     */
+    public $image;
+
+    /**
+     *
+     * @var string 
+     */
+    public $type;
 
     /**
      * 
      * @param string $URI
      * @param string $name
+     * @param string $image
+     * @param string $type
      */
-    public function __construct($URI, $name) {
+    function __construct($URI = null, $name = null, $image = null, $type = null) {
 	$this->URI = $URI;
 	$this->name = $name;
+	$this->image = $image;
+	$this->type = $type;
     }
 
     /**
@@ -56,6 +72,38 @@ class Entity {
      */
     public function setName($name) {
 	$this->name = $name;
+    }
+
+    /**
+     * 
+     * @return string
+     */
+    function getImage() {
+	return $this->image;
+    }
+
+    /**
+     * 
+     * @return string
+     */
+    function getType() {
+	return $this->type;
+    }
+
+    /**
+     * 
+     * @param string $image
+     */
+    function setImage($image) {
+	$this->image = $image;
+    }
+
+    /**
+     * 
+     * @param string $type
+     */
+    function setType($type) {
+	$this->type = $type;
     }
 
 }
