@@ -33,12 +33,14 @@ class PublicController extends Controller {
 //	$ret = Semantics::LoadEntityProperties($entity);
 //	$ret = Semantics::SearchOurEntitiesFromText("our");
 //	$ret = Semantics::SearchAllEntitiesFromText("all");
+//	$ret = Semantics::GetAllEntities();
+//	$ret = Semantics::GetAllPropertiesAdmin($entity);
 //	$ret = Comments::AddComment($comment);
 //	$ret = Comments::GrantComment($comment);
 //	$ret = Comments::RemoveComment($comment);
 //	$ret = Comments::LoadComment($entity);
 	
-//	var_dump($ret);
+	var_dump($ret);
 	return view('welcome');
     }
 
