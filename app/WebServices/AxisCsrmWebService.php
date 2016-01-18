@@ -71,7 +71,7 @@ class AxisCsrmWebService extends SoapService {
     public function __call($name, $arguments) {
 	// on fait appel à la fonction dans le WS
 	try {
-	    $ret = $this->getClient()->__soapCall($name, $arguments);
+	    $ret = $this->call($name, $arguments);
 	} catch (\Exception $e) {
 	    // si erreur on retourne null
 	    return null;
