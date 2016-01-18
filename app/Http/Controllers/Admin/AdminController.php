@@ -54,17 +54,34 @@ class AdminController extends Controller
         
     }  
     
-    public function view($id) {        
-        $entity = array(array('Artiste', 'Jacques Louis David', 1), 
-            array('Période', 'Néo-Classicisme', 2), 
-            array('Support', 'Peinture à l\'huile', 3),
-            array('Lieu', 'Musée du Louvre', 4)); 
+    public function view($id) {      
+        $entity = new Entity("uRI","namebabar",'type','image');
+        $ret = Semantics::LoadEntityProperties($entity);
+        $LODs = array();
+        
+        foreach($ret as $re){
+            if($re->type == 'sameas')
+                $LODs[$re->name] = $re;
+        }
+        var_dump($LODs);
+        $entity = array(array('Artiste', 'Jacques louis david', true), 
+            array('Période', 'Néo-Classicisme', false),
+            array('Date', '', false),
+            array('Personne', '', false),
+            array('Droit', '', false),
+            array('Support', 'Peinture à l\'huile', true),
+            array('Lieu', 'Musée du Louvre', false)); 
         
         $itemName = 'Le sacre de Napoléon';
         
+        $LODs = array(array('DBPedia', 1, array('Jacques Louis David', '1750-1830', '', '', '', '', ''), array(false, true, false, false, false, false, false)), 
+            array('Freebase', 2, array('Jacques-Louis David', '', '', '', '', '', 'Musée du Louvre'), array(false, false, false, false, false, false, true)));
+        
         $data = array(
+            'retours' => $ret,
             'entity'  => $entity,
             'itemName' => $itemName,
+            'LODs' => $LODs,
             'EntityID' => 4
         );
 	return view('admin/entityView')->with($data);
