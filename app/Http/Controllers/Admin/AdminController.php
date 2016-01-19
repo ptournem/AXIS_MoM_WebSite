@@ -6,12 +6,14 @@ use Illuminate\Http\Request;
 
 use Semantics;
 use App\Classes\Dialog\Entity;
+use App\Classes\Dialog\Property;
 use App\Http\Requests\Admin\AddEntityRequest;
 use App\Http\Controllers\Controller;
 use App\User;
 use App\Repositories\UserRepository;
 use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\UserUpdateRequest;
+use Illuminate\Support\Facades\Blade;
 
 
 class AdminController extends Controller
@@ -25,11 +27,7 @@ class AdminController extends Controller
 
     public function Index() {
         $users = User::all();
-        
-        $entities = array(array('name' => 'La Joconde', 'type' => 'Objet', 'id' => 1), 
-            array('name' => 'Le sacre de Napoléon', 'type' => 'Objet', 'id' => 2), 
-            array('name' => 'Le mortier du roi Den', 'type' => 'Objet', 'id' => 3),
-            array('name' => 'De Vinci', 'type' => 'Personne', 'id' => 4)); 
+        $entities = Semantics::GetAllEntities();
         
         $data = array(
             'users'  => $users,
@@ -39,50 +37,35 @@ class AdminController extends Controller
 	return view('admin/admin')->with($data);
     }  
     
-    public function addEntity(AddEntityRequest $addEntityRequest) {
+    public function addEntity($type, $name, $description, $image) {
         try{
-            $entity = Semantics::AddEntity();
-            if($entity === Entity::class){
-                
-            }
+            $entity = Semantics::AddEntity(new Entity("uRI",$name,$type,$image));
+            
+            //if($entity === Entity::class){
+                $retour['success'] = true;
+                $retour['type'] = $entity->type;
+                $retour['URI'] = $entity->URI;
+                $retour['name'] = $entity->name;
+            //}
         }  
         catch (Exception $e){
-            return false;
+            $retour['success'] = false;
         }
-        // TODO appel WS
-        return redirect()->back();
         
+        return json_encode($retour);        
     }  
     
-    public function view($id) {      
-        $entity = new Entity("uRI","namebabar",'type','image');
-        $ret = Semantics::LoadEntityProperties($entity);
-        $LODs = array();
+    public function view($uri) {
+        $retours = Semantics::GetAllPropertiesAdmin(new Entity($uri,"namebabar",'type','image'));
+        var_dump($retours);
         
-        foreach($ret as $re){
-            if($re->type == 'sameas')
-                $LODs[$re->name] = $re;
-        }
-        var_dump($LODs);
-        $entity = array(array('Artiste', 'Jacques louis david', true), 
-            array('Période', 'Néo-Classicisme', false),
-            array('Date', '', false),
-            array('Personne', '', false),
-            array('Droit', '', false),
-            array('Support', 'Peinture à l\'huile', true),
-            array('Lieu', 'Musée du Louvre', false)); 
-        
-        $itemName = 'Le sacre de Napoléon';
-        
-        $LODs = array(array('DBPedia', 1, array('Jacques Louis David', '1750-1830', '', '', '', '', ''), array(false, true, false, false, false, false, false)), 
-            array('Freebase', 2, array('Jacques-Louis David', '', '', '', '', '', 'Musée du Louvre'), array(false, false, false, false, false, false, true)));
+        Blade::extend(function($value)
+        {
+            return preg_replace('/(\s*)@break(\s*)/', '$1<?php break; ?>$2', $value);
+        });
         
         $data = array(
-            'retours' => $ret,
-            'entity'  => $entity,
-            'itemName' => $itemName,
-            'LODs' => $LODs,
-            'EntityID' => 4
+            'retours' => $retours
         );
 	return view('admin/entityView')->with($data);
     }  
@@ -96,6 +79,16 @@ class AdminController extends Controller
         return 'reponse id : ' . $id . 'reponse value : ' . $value;
         
         //TODO: update
+    } 
+    
+    public function updateEntityProperty($uri, $property, $value) {
+        $retours = Semantics::SetEntityProperty(new Entity($uri,"namebabar",'type','image'), new Property(),
+                new Entity($uri,"namebabar",'type','image'));
+        if($retours)
+            return json_encode (['success' => true]);
+        else
+            return json_encode (['success' => false]);
+        
     } 
     
     public function deleteLOD($EntityID, $LODID) {  

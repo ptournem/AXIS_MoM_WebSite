@@ -6,7 +6,7 @@
     <script type='text/javascript'>
         $(document).ready(function(){
             $('#button-filter-show-all').click(function(){
-                $('#entities tbody tr').show();;
+                $('#entities tbody tr').show();
             });
             
             $('.button-filter-type').click(function(){
@@ -14,7 +14,33 @@
                 $('#entities tbody tr').show();
                 $('#entities tbody tr:not(.type-'+c+')').hide();
             }); 
+            
+            $('.btn-add-entity').on('click', function(){
+                $.getJSON('admin/addEntity/' + $('.entity-type').val() + '/' + $('.entity-name').val() + '/' + $('.entity-description').val() + '/' + $('.entity-image').val(), null )
+                        .done(function( json ) {
+                            if(json.success === true){
+                                $('.alert-success-new-entity').show();
+                                $('.btn-close-add-entity').trigger('click');
+                                $('.tbody-entities').append("<tr class='type-" + json.type + "'><td><a href='" + top.location + "/view/" + json.URI + "' style='display: block;width: 100%; height: 100%;'>" + json.name + "</a></td><td>" + json.type + "</td></tr>");
+                                $('.entity-name').val(null);
+                                $('.entity-description').val(null);
+                                $('.entity-image').val(null);
+                            }
+                            else{
+                                console.log( "fail" );
+                            }
+                        })
+                        .fail(function( jqxhr, textStatus, error ) {
+                            var err = textStatus + ", " + error;
+                            console.log( "Request Failed: " + err );
+                        });
+            });
+            
+            $('.btn-form-entity-show').on('click', function(){
+                $('.alert-success-new-entity').hide();
+            });
         });
+        
     </script>
 @stop
 
@@ -23,7 +49,6 @@
 @stop
 
 @section('contenu')
-Bienvenue sur la page d'administration
 
 <ul class="nav nav-tabs">
     <li class="active"><a data-toggle="tab" href="#membres">Gestion des membres</a></li>
@@ -81,17 +106,21 @@ Bienvenue sur la page d'administration
         
     </div>
     <div id="entites" class="tab-pane fade">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ajouterEntite">
+        <button type="button" class="btn btn-primary btn-form-entity-show" data-toggle="modal" data-target="#ajouterEntite">
           Ajouter une entité
         </button>
         <a id="button-filter-show-all">Tout</a> | 
-        <a data-class='Event' class='button-filter-type'>Event</a> | 
+        <a data-class='Event' class='button-filter-type'>Evénement</a> | 
         <a data-class='Lieu' class='button-filter-type'>Lieu</a> | 
         <a data-class='Objet' class='button-filter-type' >Objet</a> | 
         <a data-class='Personne' class='button-filter-type'>Personne</a> | 
         <a data-class='Activite' class='button-filter-type'>Activité</a> | 
         <a data-class='Organisation' class='button-filter-type'>Organisation</a>
         <br /><br />
+        <br />
+        <div id='successMsg-update' class="alert alert-success alert-success-new-entity" style="display: none">
+            Entité ajouté.
+        </div>
             <table id="entities" class="table table-striped table-bordered" cellspacing="0" width="100%">
             <thead>
                 <tr>
@@ -99,11 +128,11 @@ Bienvenue sur la page d'administration
                     <th>Type</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="tbody-entities">
                 @foreach ($entities as $entity)
-                <tr class="type-{{ $entity['type']}}">
-                    <td><a href="{{ URL::to('admin/view/' . $entity['id']) }}" style="display: block;width: 100%; height: 100%;">{{ $entity['name']}}</a></td>
-                    <td>{{ $entity['type']}}</td>
+                <tr class="type-{{ $entity->type }}">
+                    <td><a href="{{ URL::to('admin/view/' . $entity->URI) }}" style="display: block;width: 100%; height: 100%;">{{ $entity->name }}</a></td>
+                    <td>{{ $entity->type }}</td>
                 </tr>
                 @endforeach
             </tbody>
@@ -226,14 +255,12 @@ Bienvenue sur la page d'administration
 <div class="modal fade" id="ajouterEntite" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-        <form action="{{url('admin/addEntity')}}" method="POST">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
               <h4 class="modal-title" id="myModalLabel">Création entitées</h4>
             </div>
             <div class="modal-body">
-                  {!! csrf_field() !!}
-                  <select id="entity-type" name="entity-type" size="1">
+                <select id="entity-type" class="entity-type" name="entity-type" size="1">
                       <option value="Activite">Activité</option>
                       <option value="Event">Evénement</option>
                       <option value="Lieu">Lieu</option>
@@ -241,22 +268,17 @@ Bienvenue sur la page d'administration
                       <option value="Objet">Objet</option>
                       <option value="Personne">Personne</option>
                   </select>
-                  {!! $errors->first('entity-type', '<small class="help-block">:message</small>') !!}<br/>
                   <label for="entity-name">Nom</label> : 
-                  <input type="text" id="entity-name" name="entity-name" required="true"/>
-                  {!! $errors->first('entity-name', '<small class="help-block">:message</small>') !!}<br/>
+                  <input type="text" class="entity-name" id="entity-name" name="entity-name" required="true"/>
                   <label for="entity-description">Description</label> : 
-                  <input type="text" id="entity-description" name="entity-description" required="true"/>
-                  {!! $errors->first('entity-description', '<small class="help-block">:message</small>') !!}<br/>
+                  <input type="text" class="entity-description" id="entity-description" name="entity-description" required="true"/>
                   <label for="entity-image">Lien vers images</label> : 
-                  <input type="text" id="entity-image" name="entity-image"/>
-                  {!! $errors->first('entity-image', '<small class="help-block">:message</small>') !!}
+                  <input type="text" class="entity-image" id="entity-image" name="entity-image"/>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-primary">Créer</button>
+              <button type="button" class="btn btn-default btn-close-add-entity" data-dismiss="modal">Fermer</button>
+              <button type="submit" class="btn btn-primary btn-add-entity">Créer</button>
             </div>
-        </form>
     </div>
   </div>
 </div>

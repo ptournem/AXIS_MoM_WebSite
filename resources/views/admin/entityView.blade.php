@@ -32,6 +32,33 @@
                 tempValue = $(this).text();
                 $('.alert-success').hide();
             });
+            $(document).on('blur', '.locale-value', function(){
+                if(tempValue != $(this).text()){
+                    var value = $(this).text();
+                    var entityName = $('.Entity-name').attr('id');
+                    $.getJSON(top.location + '/' + $(this).attr('name') + '/' + value, null)
+                        .done(function( json ) {
+                            console.log('json : ' + json);
+                            if(json.success == true){
+                                console.log( "OK" );
+                                $('.alert-success-update').show();
+                            }
+                            else{
+                                console.log( "fail" );
+                            }
+                        })
+                        .fail(function( jqxhr, textStatus, error ) {
+                            var err = textStatus + ", " + error;
+                            console.log( "Request Failed: " + err );
+                        });
+                }
+                else
+                    console.log('pas changé');
+            });
+            $(document).on('focus', '.locale-value', function(){
+                tempValue = $(this).text();
+                $('.alert-success').hide();
+            });            
             $(document).on('click', '.btn-delete', function(){
                 $('.alert-success').hide();
                 if(confirm('Vraiment supprimer ce lien LOD ?')){
@@ -81,7 +108,7 @@
 @stop
 
 @section('contenu')
-<h2 class="Entity-name" id="{{ $EntityID }}">{{ $itemName }}</h2>
+<h2 class="Entity-name" id="7">name</h2>
 <ul class="nav nav-tabs">
     <li class="active"><a data-toggle="tab" href="#informations">Informations</a></li>
     <li><a data-toggle="tab" href="#LODLink">Liens LoD</a></li>
@@ -95,35 +122,30 @@
                 <tr>
                     <th>Informations</th>
                     <th>Local</th>
-                    @foreach ($LODs as $LOD)
-                        <th>{{ $LOD[0] }}</th>
+                    @foreach($retours as $retour)
+                        @if($retour->value_dbpedia != null || $retour->entity_dbpedia != null)
+                            <th>DBPedia</th>
+                             @break; 
+                        @endif
                     @endforeach
-                </tr>
-            </thead>
-            <tbody>
-                @for ($i = 0 ; $i < count($entity) ; $i++)
-                    <tr>
-                        <td class="information-{{$i}}">{{ $entity[$i][0] }}</td>
-                        <td @if($entity[$i][2])class="selected information-{{$i}}" @else class="information-{{$i}}" @endif >{{ $entity[$i][1] }}</td>
-                        @foreach ($LODs as $LOD)
-                            <td @if($LOD[3][$i])class="selected information-{{$i}}" @else class="information-{{$i}}" @endif >{{ $LOD[2][$i] }}</td>
-                        @endforeach
-                    </tr>
-                @endfor
-            </tbody>
-        </table>
-        <table id="entity-information" class="table table-striped table-bordered" cellspacing="0" width="100%">
-            <thead>
-                <tr>
-                    <th>Informations</th>
-                    <th>Local</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach($retours as $retour)
                     <tr>
-                        <td class="information-{{ $retour->name }}">@if($retour->type == 'uri'){{ $retour->ent->name }} @else {{ $retour->name }} @endif</td>
-                        <td class="information-{{ $retour->name }}">{{ $retour->value }}</td>
+                        <td class="information-{{ $retour->name }}">{{ $retour->name }}  </td>
+                        @if($retour->type == 'URI')
+                            <td contenteditable="true" name="{{ $retour->name }}" class="information-{{ $retour->name }} locale-value">{{ $retour->entity_locale->name }}</td>
+                            @if($retour->entity_dbpedia != null)
+                                <td class="information-{{ $retour->name }}">{{ $retour->entity_dbpedia->name }}</td>
+                            @endif
+                        @else
+                            <td contenteditable="true" name="{{ $retour->name }}" class="information-{{ $retour->name }} locale-value">{{ $retour->value_locale }}</td>
+                            @if($retour->value_dbpedia != null)
+                                <td class="information-{{ $retour->name }}">{{ $retour->value_dbpedia }}</td>
+                            @endif
+                        @endif
+                        
                     </tr>
                 @endforeach
             </tbody>
@@ -132,10 +154,10 @@
     <div id="LODLink" class="tab-pane fade">
         <br />
         <div id='successMsg-update' class="alert alert-success alert-success-update" style="display: none">
-            Mise Ã  jour du champ effectuÃ©.
+            Mise à  jour du champ effectué.
         </div>
         <div id='successMsg-delete' class="alert alert-success alert-success-delete" style="display: none">
-            LOD supprimÃ©.
+            LOD supprimé.
         </div>
         <table id="LOD" class="table table-striped table-bordered" cellspacing="0" width="100%">
             <thead>
@@ -145,16 +167,14 @@
                 </tr>
             </thead>
             <tbody class="table-LOD">
-                @foreach ($LODs as $LOD)
                 <tr>
-                    <td><label class="editableProp" uid="{{$LOD[1]}}" style="display: block; width: 100%; height: 100%; background-color: rgb(235,235,235);"  contenteditable="true">{{ $LOD[0] }}</label></td>
+                    <td><label class="editableProp" uid="3" style="display: block; width: 100%; height: 100%; background-color: rgb(180,180,180);"  contenteditable="true">DBPedia</label></td>
                     <td>
-                        <button class='btn btn-danger btn-block btn-delete' uid="{{$LOD[1]}}">
+                        <button class='btn btn-danger btn-block btn-delete' uid="3">
                             Supprimer
                         </button>
                     </td>
                 </tr>
-                @endforeach
                 <tr>
                     <td class="new-LOD"></td>
                     <td><button class="btn btn-primary btn-addLOD">Ajouter un lien LOD</button></td>
@@ -172,12 +192,10 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($entity as $entityItem)
                 <tr>
-                    <td>{{ $entityItem[0] }}</td>
-                    <td>{{ $entityItem[1] }}</td>
+                    <td>lala</td>
+                    <td>blabla</td>
                 </tr>
-                @endforeach
             </tbody>
         </table>
     </div>
