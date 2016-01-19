@@ -40,7 +40,6 @@ class PublicController extends Controller {
 //	$ret = Comments::GrantComment($comment);
 //	$ret = Comments::RemoveComment($comment);
 //	$ret = Comments::LoadComment($entity);
-	
 //	var_dump($ret);
 	return view('welcome');
     }
@@ -51,22 +50,15 @@ class PublicController extends Controller {
      * @return type
      */
     public function anyEntity($uid) {
-	$comments = array(array('Robin', 'très belle oeuvre'),
-	    array('Riad', 'wallah elle chill cette tablette'),
-	    array('Corentin', 'moi aime pas trop'),
-	    array("$uid", "uid de la page"));
+	$e = Semantics::GetEntity(new Entity($uid));
+	$comments = Comments::LoadComment($e);
+	$infos = Semantics::LoadEntityProperties($e);
 
-	$infos = array(array('Artiste', 'Jacques Louis David'),
-	    array('Période', 'Néo-Classicisme'),
-	    array('Support', 'Peinture à l\'huile'),
-	    array('Lieu', 'Musée du Louvre'));
-
-	$itemName = 'Le sacre de Napoléon';
 
 	$data = array(
 	    'comments' => $comments,
 	    'infos' => $infos,
-	    'itemName' => $itemName
+	    'entity' => $e
 	);
 	return view('informations')->with($data);
     }
@@ -80,7 +72,7 @@ class PublicController extends Controller {
 	if (!$request->has("needle")) {
 	    return response()->json([]);
 	}
-	
+
 	return response()->json(Semantics::SearchAllEntitiesFromText($request->input("needle")));
     }
 

@@ -51,7 +51,7 @@ AXIS-MOM
 	if (!$isMobile) {
 	    ?>    
 
-    	<div><h3>{{ $itemName }}</h3></div>
+    	<div><h3>{{ $entity->name }}</h3></div>
     	<div class="hidden-phone" id="graphe">
 
     	    <label class="checkbox-inline"><input type="checkbox" value="" checked>Event</label>
@@ -61,7 +61,7 @@ AXIS-MOM
     	    <label class="checkbox-inline"><input type="checkbox" value="" checked>Activité</label>
     	    <label class="checkbox-inline"><input type="checkbox" value="" checked>Organisation</label>
 
-    	    <p><img src="{{ URL::asset('img/graph.gif') }}" width="400px"></img></p>
+    	    <div id="graph"></div>
     	</div>   
 	    <?php
 	}
@@ -70,13 +70,13 @@ AXIS-MOM
 	<div id="reseauxSociaux">
 	    <ul class="list-inline">
 		<li>
-		    <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-facebook"></i></a>
+		    <a href="https://www.facebook.com/sharer/sharer.php?u={{rawurlencode(Request::url())}}" target="_blank" class="btn-social btn-outline"><i class="fa fa-fw fa-facebook"></i></a>
 		</li>
 		<li>
-		    <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-google-plus"></i></a>
+		    <a href="https://plus.google.com/share?url={{rawurlencode(Request::url())}}" class="btn-social btn-outline" target="_blank"><i class="fa fa-fw fa-google-plus"></i></a>
 		</li>
 		<li>
-		    <a href="https://twitter.com/intent/tweet?text=Partagez%20vos%20emotions%20&button_hashtag=MuseeDuLouvre" target="_blank" class="btn-social btn-outline" ><i class="fa fa-fw fa-twitter"></i></a>
+		    <a href="https://twitter.com/intent/tweet?text=Partagez%20vos%20emotions%20&button_hashtag={{$entity->type}}&url={{rawurlencode(Request::url())}}" target="_blank" class="btn-social btn-outline" ><i class="fa fa-fw fa-twitter"></i></a>
 		</li>
 	    </ul>
 
@@ -88,7 +88,11 @@ AXIS-MOM
 	<h2>Informations</h2>
 	<p>
 	    @foreach($infos as $info)
-	    <b>{{ $info[0] }}</b> : {{ $info[1] }}<br />
+	    @if($info->type=="URI")
+	    <b>{{ $info->name }}</b> : <a href="{{ route('public.show', ['uid'=>$info->ent->URI]) }}">{{$info->ent->name}}</a><br />
+	    @else
+	    <b>{{ $info->name }}</b> : {{ $info->value }}<br />
+	    @endif
 	    @endforeach            
 	</p>
     </div>
@@ -97,7 +101,7 @@ AXIS-MOM
 	<div class="col-md-4">
 	    <h2>Partagez vos émotions</h2>
 	    @foreach($comments as $comment)
-	    <p><span class="glyphicon glyphicon-comment" aria-hidden="true"></span> <b>{{ $comment[0] }}</b> : {{ $comment[1] }}</p>
+	    <p><span class="glyphicon glyphicon-comment" aria-hidden="true"></span> <b>{{ $comment->authorName }}</b> : {{ $comment->comment }}</p>
 	    <hr>
 	    @endforeach
 
