@@ -52,7 +52,7 @@ class PublicController extends Controller {
     public function anyEntity($uid) {
 	$e = Semantics::GetEntity(new Entity($uid));
 	$comments = Comments::LoadComment($e);
-	$infos = Semantics::LoadEntityProperties($e);
+	$infos = $this->sortProperties(Semantics::LoadEntityProperties($e));
 
 
 	$data = array(
@@ -74,6 +74,26 @@ class PublicController extends Controller {
 	}
 
 	return response()->json(Semantics::SearchAllEntitiesFromText($request->input("needle")));
+    }
+
+    /**
+     * Trie les propriété et renvoie un object avec un tableau de propriété literal (literal) et un tableau de propriété d'entite (object)
+     * @param App\Classes\Dialog\Property $properties
+     * @return \stdClass
+     */
+    private function sortProperties($properties) {
+	$ret = new \stdClass();
+	$ret->literal = [];
+	$ret->object = [];
+	foreach ($properties as $prop) {
+	    if ($prop->type !== 'URI') {
+		$ret->literal[] = $prop;
+	    } else {
+		$ret->object[] = $prop;
+	    }
+	}
+
+	return $ret;
     }
 
 }

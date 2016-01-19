@@ -3,6 +3,35 @@
 @section('header')
 
 <link rel="stylesheet" type="text/css" href="{{ URL::asset('css/style2.css') }}">
+<script type="text/javascript" src="{{ URL::asset('js/raphael.js') }}"></script>
+<script type="text/javascript" src="{{ URL::asset('js/raphael-svg-filter-min.js') }}"></script>
+<script type="text/javascript" src="{{ URL::asset('js/semanticGraphael.js') }}"></script>
+<script type="text/javascript" >
+$(document).ready(function () {
+    $.fn.semanticGraphael.default.ItemOptions.horizontalMargin = 0;
+    $.fn.semanticGraphael.default.ItemOptions.verticalMargin = 0;
+    $('#graph').semanticGraphael({
+	centralItem: {!!json_encode($entity)!!},
+	connections: {!! json_encode($infos->object) !!},
+	onClickItem: function (item) {
+	    // on navigue vers l'url de l'item 
+	    window.location = ("{{route('public.show')}}/" + item.URI);
+	},
+	beforeAddItem: function () {
+	    //on récupère les infos qui nous intéressent 
+	    this.label = this.name;
+	    this.imgUrl = this.image;
+	    return this;
+	},
+	beforeAddConnection: function () {
+	    // on set le connectlabel
+	    this.ent.connectLabel = this.name;
+	    // et on renvoie l'entité et pas la propriété
+	    return this.ent;
+	}
+    });
+});
+</script>
 <title>AXIS-MOM</title>
 
 
@@ -61,7 +90,7 @@ AXIS-MOM
     	    <label class="checkbox-inline"><input type="checkbox" value="" checked>Activité</label>
     	    <label class="checkbox-inline"><input type="checkbox" value="" checked>Organisation</label>
 
-    	    <div id="graph"></div>
+    	    <div id="graph" style="height:500px; width :100%"></div>
     	</div>   
 	    <?php
 	}
@@ -87,13 +116,14 @@ AXIS-MOM
     <div class="col-md-4">
 	<h2>Informations</h2>
 	<p>
-	    @foreach($infos as $info)
-	    @if($info->type=="URI")
-	    <b>{{ $info->name }}</b> : <a href="{{ route('public.show', ['uid'=>$info->ent->URI]) }}">{{$info->ent->name}}</a><br />
-	    @else
+	    @foreach($infos->literal as $info)
 	    <b>{{ $info->name }}</b> : {{ $info->value }}<br />
-	    @endif
-	    @endforeach            
+	    @endforeach       
+	</p>
+	<p>
+	    @foreach($infos->object as $info)
+	    <b>{{ $info->name }}</b> : <a href="{{ route('public.show', ['uid'=>$info->ent->URI]) }}">{{$info->ent->name}}</a><br />
+	    @endforeach
 	</p>
     </div>
 
