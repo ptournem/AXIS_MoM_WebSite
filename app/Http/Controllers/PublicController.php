@@ -73,7 +73,7 @@ class PublicController extends Controller {
 	    return response()->json([]);
 	}
 
-	return response()->json(Semantics::SearchAllEntitiesFromText($request->input("needle")));
+	return response()->json(Semantics::SearchOurEntitiesFromText($request->input("needle")));
     }
 
     /**

@@ -1,8 +1,11 @@
 @extends('template')
 
+@section('body')
+    id="info"
+@stop
+
 @section('header')
 
-<link rel="stylesheet" type="text/css" href="{{ URL::asset('css/style2.css') }}">
 <script type="text/javascript" src="{{ URL::asset('js/raphael.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('js/raphael-svg-filter-min.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('js/semanticGraphael.js') }}"></script>
@@ -73,7 +76,7 @@ AXIS-MOM
             <div class="col-xs-8">
                 <div id="navbar" class="navbar-collapse collapse"> 
                     <div class="input-group stylish-input-group">
-                        <input type="text" class="form-control" id="autocomplete" placeholder="Rechercher une oeuvre ou un artiste" >
+                        <input type="text" class="form-control" id="searchEntity" placeholder="Rechercher une oeuvre ou un artiste" >
                         <span class="input-group-addon">
                             <button type="submit">
                                 <span class="glyphicon glyphicon-search"></span>
