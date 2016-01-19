@@ -27,7 +27,7 @@ class Semantics {
 	return $this->service->RemoveEntity($request);
     }
 
-    public function SetEntityProperty(Entity $e, Property $p,Entity $valueEntity) {
+    public function SetEntityProperty(Entity $e, Property $p, Entity $valueEntity) {
 	$request = new \stdClass();
 	$request->e = $e;
 	$request->p = $p;
@@ -35,9 +35,7 @@ class Semantics {
 	return $this->service->SetEntityProperty($request);
     }
 
-  
-
-    public function RemoveEntityObjectProperty(Entity $e, Property $p,Entity $valueEntity) {
+    public function RemoveEntityObjectProperty(Entity $e, Property $p, Entity $valueEntity) {
 	$request = new \stdClass();
 	$request->e = $e;
 	$request->p = $p;
@@ -45,7 +43,7 @@ class Semantics {
 	return $this->service->RemoveEntityObjectProperty($request);
     }
 
-    public function RemoveEntityObjectPropertyWithObject(Entity $e, Property $p,Entity $valueEntity) {
+    public function RemoveEntityObjectPropertyWithObject(Entity $e, Property $p, Entity $valueEntity) {
 	$request = new \stdClass();
 	$request->e = $e;
 	$request->p = $p;
@@ -70,7 +68,22 @@ class Semantics {
 	$request->needle = $needle;
 	return $this->service->SearchAllEntitiesFromText($request, 'App\Classes\Dialog\Entity[]');
     }
+
+    public function GetAllEntities() {
+	$request = new \stdClass();
+	return $this->service->GetAllEntities($request, 'App\Classes\Dialog\Entity[]');
+    }
+
+    public function GetAllPropertiesAdmin(Entity $e) {
+	$request = new \stdClass();
+	$request->e = $e;
+	return $this->service->GetallPropertiesAdmin($request, 'App\Classes\Dialog\PropertyAdmin[]');
+    }
     
-  
+    public function GetEntity(Entity $e){
+	$request = new \stdClass();
+	$request->e = $e;
+	return $this->service->GetEntity($request);
+    }
 
 }

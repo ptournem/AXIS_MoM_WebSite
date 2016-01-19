@@ -23,7 +23,7 @@ class PublicController extends Controller {
     public function anyIndex() {
 //	$entity = new Entity("uRI","namebabar",'type','image');
 //	$valueEntity = new Entity("1234","bibi",'Kind','png');
-//	$property = new Property("uri", "is child of","babybel","oeuvre",$entity);
+//	$property = new Property("is child of","babybel","oeuvre",$entity);
 //	$comment = new Comment("babibel", "babibel@yopmail.com", "I enjoyed it !!!");
 //	$ret = Semantics::AddEntity($entity);
 //	$ret = Semantics::RemoveEntity($entity);
@@ -33,6 +33,9 @@ class PublicController extends Controller {
 //	$ret = Semantics::LoadEntityProperties($entity);
 //	$ret = Semantics::SearchOurEntitiesFromText("our");
 //	$ret = Semantics::SearchAllEntitiesFromText("all");
+//	$ret = Semantics::GetAllEntities();
+//	$ret = Semantics::GetAllPropertiesAdmin($entity);
+//	$ret = Semantics::GetEntity($entity);
 //	$ret = Comments::AddComment($comment);
 //	$ret = Comments::GrantComment($comment);
 //	$ret = Comments::RemoveComment($comment);
@@ -77,23 +80,8 @@ class PublicController extends Controller {
 	if (!$request->has("needle")) {
 	    return response()->json([]);
 	}
-	return response()->json(array(
-		    array("label" => "Leonard De Vinci", "category" => "Activite", "id" => "1"),
-		    array("label" => "Leonard De Vinci", "category" => "Activite", "id" => "1"),
-		    array("label" => "Leonard De Vinci", "category" => "Activite", "id" => "1"),
-		    array("label" => "David Bowie", "category" => "Evènement", "id" => "2"),
-		    array("label" => "David Bowie", "category" => "Evènement", "id" => "2"),
-		    array("label" => "David Bowie", "category" => "Lieu", "id" => "2"),
-		    array("label" => "David Bowie", "category" => "Lieu", "id" => "2"),
-		    array("label" => "La Joconde", "category" => "Organisation", "id" => "3"),
-		    array("label" => "La Joconde", "category" => "Organisation", "id" => "3"),
-		    array("label" => "La Joconde", "category" => "Objet", "id" => "3"),
-		    array("label" => "La Joconde", "category" => "Objet", "id" => "3"),
-		    array("label" => "La Joconde", "category" => "Personne", "id" => "3"),
-		    array("label" => "La Joconde", "category" => "Personne", "id" => "3"),
-		    array("label" => "La Joconde", "category" => "Oeuvre", "id" => "3"),
-		    array("label" => "La Joconde", "category" => "Oeuvre", "id" => "3"),
-	));
+	
+	return response()->json(Semantics::SearchAllEntitiesFromText($request->input("needle")));
     }
 
 }

@@ -4,7 +4,6 @@ namespace App\Classes\Dialog;
 
 class Property {
 
-
     /**
      *
      * @var string 
@@ -27,24 +26,21 @@ class Property {
      *
      * @var App\Classes\Dialog\Property 
      */
-    public $e;
+    public $ent;
 
     /**
      * 
-     * @param string $URI
      * @param string $name
      * @param string $value
      * @param string $type
      * @param \App\Classes\Dialog\App\Classes\Dialog\Property $e
      */
-    public function __construct($URI = null, $name = null, $value = null, $type = null, Entity $e = null) {
-	$this->URI = $URI;
+    public function __construct($name = null, $value = null, $type = null, Entity $ent = null) {
 	$this->name = $name;
 	$this->value = $value;
 	$this->type = $type;
-	$this->e = $e;
+	$this->ent = $ent;
     }
-
 
     /**
      * 
@@ -74,10 +70,9 @@ class Property {
      * 
      * @return string
      */
-    public function getE() {
-	return $this->e;
+    public function getEnt() {
+	return $this->ent;
     }
-
 
     /**
      * 
@@ -107,8 +102,8 @@ class Property {
      * 
      * @param \App\Classes\Dialog\App\Classes\Dialog\Property $e
      */
-    public function setE(App\Classes\Dialog\Property $e) {
-	$this->e = $e;
+    public function setEnt(App\Classes\Dialog\Property $ent) {
+	$this->ent = $ent;
     }
 
 }
