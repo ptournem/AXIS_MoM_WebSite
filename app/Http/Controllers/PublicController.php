@@ -40,7 +40,7 @@ class PublicController extends Controller {
 //	$ret = Comments::RemoveComment($comment);
 //	$ret = Comments::LoadComment($entity);
 	
-	var_dump($ret);
+//	var_dump($ret);
 	return view('welcome');
     }
 
