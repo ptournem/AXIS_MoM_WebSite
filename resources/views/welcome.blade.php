@@ -53,7 +53,7 @@
 		    ul.append("<li class='list-group-item ui-autocomplete-category'><span class='glyphicon glyphicon-" + cat.class + "'></span> " + cat.text + "</li>");
 		    currentCategory = item.type;
 		}
-		var li = that._renderItemData(ul, $.extend({},item,{label : item.name, id:item.URI}));
+		var li = that._renderItemData(ul, $.extend({}, item, {label: item.name, value: item.name}));
 		li.addClass('list-group-item');
 
 	    });
@@ -70,10 +70,9 @@
 	    source: function (request, response) {
 		$.getJSON("{{route('public.search')}}", {needle: request.term}, response);
 	    },
-	    messages: {
-		noResults: '',
-		results: function () {
-		}
+	    select: function (event, ui) {
+		// on redirect vers la bonne page
+		window.location = ("{{route('public.show')}}/" + ui.item.URI);
 	    },
 	    delay: 600
 	});
