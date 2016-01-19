@@ -28,8 +28,28 @@ $(document).ready(function () {
 	    this.ent.connectLabel = this.name;
 	    // et on renvoie l'entité et pas la propriété
 	    return this.ent;
+	},
+	afterAddConnection: function (conn) {
+		var item = this
+		conn.item.forEach(function (elt) {
+		    elt[0].classList.add(item.type);
+		});
+		$(conn.connection.text[0]).attr('class', this.type);
+		$(conn.connection.line[0]).attr('class', this.type);
+	    
 	}
     });
+    
+    
+    $('.cbfilter').click(function(){
+	var selector = ('#graph .'+$(this).val());
+	var elts = $(selector);
+	if($(this).prop('checked')){
+	    elts.show();
+	}else {
+	    elts.hide();
+	}
+    }).prop('checked',true);
 });
 </script>
 <title>AXIS-MOM</title>
@@ -83,12 +103,12 @@ AXIS-MOM
     	<div><h3>{{ $entity->name }}</h3></div>
     	<div class="hidden-phone" id="graphe">
 
-    	    <label class="checkbox-inline"><input type="checkbox" value="" checked>Event</label>
-    	    <label class="checkbox-inline"><input type="checkbox" value="" checked>Lieu</label>
-    	    <label class="checkbox-inline"><input type="checkbox" value="" checked>Objet</label>
-    	    <label class="checkbox-inline"><input type="checkbox" value="" checked>Personne</label>
-    	    <label class="checkbox-inline"><input type="checkbox" value="" checked>Activité</label>
-    	    <label class="checkbox-inline"><input type="checkbox" value="" checked>Organisation</label>
+    	    <label class="checkbox-inline"><input class="cbfilter" type="checkbox" value="event" checked>Event</label>
+    	    <label class="checkbox-inline"><input class="cbfilter" type="checkbox" value="location" checked>Lieu</label>
+    	    <label class="checkbox-inline"><input class="cbfilter" type="checkbox" value="object" checked>Objet</label>
+    	    <label class="checkbox-inline"><input class="cbfilter" type="checkbox" value="person" checked>Personne</label>
+    	    <label class="checkbox-inline"><input class="cbfilter" type="checkbox" value="activity" checked>Activité</label>
+    	    <label class="checkbox-inline"><input class="cbfilter" type="checkbox" value="organisation" checked>Organisation</label>
 
     	    <div id="graph" style="height:500px; width :100%"></div>
     	</div>   
