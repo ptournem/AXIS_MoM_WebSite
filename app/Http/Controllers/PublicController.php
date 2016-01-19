@@ -35,6 +35,7 @@ class PublicController extends Controller {
 //	$ret = Semantics::SearchAllEntitiesFromText("all");
 //	$ret = Semantics::GetAllEntities();
 //	$ret = Semantics::GetAllPropertiesAdmin($entity);
+//	$ret = Semantics::GetEntity($entity);
 //	$ret = Comments::AddComment($comment);
 //	$ret = Comments::GrantComment($comment);
 //	$ret = Comments::RemoveComment($comment);

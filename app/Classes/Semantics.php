@@ -79,5 +79,11 @@ class Semantics {
 	$request->e = $e;
 	return $this->service->GetallPropertiesAdmin($request, 'App\Classes\Dialog\PropertyAdmin[]');
     }
+    
+    public function GetEntity(Entity $e){
+	$request = new \stdClass();
+	$request->e = $e;
+	return $this->service->GetEntity($request);
+    }
 
 }
