@@ -117,21 +117,23 @@
             </thead>
             <tbody>
                 @foreach($retours as $retour)
-                    <tr>
-                        <td class="information-{{ $retour->name }}">{{ $retour->name }}  </td>
-                        @if($retour->type == 'uri')
-                        <td contenteditable="true" style="background-color: rgb(103, 145, 252)" name="{{ $retour->name }}" class="information-{{ $retour->name }} locale-value">{{ $retour->entity_locale->name }}</td>
-                            @if($retour->entity_dbpedia != null)
-                                <td class="information-{{ $retour->name }}">{{ $retour->entity_dbpedia->name }}</td>
+                    @if($retour->name != 'sameas')
+                        <tr>
+                            <td class="information-{{ $retour->name }}">{{ $retour->name }}  </td>
+                            @if($retour->type == 'uri')
+                            <td contenteditable="true" style="background-color: rgb(103, 145, 252)" name="{{ $retour->name }}" class="information-{{ $retour->name }} locale-value">{{ $retour->entity_locale->name }}</td>
+                                @if($retour->entity_dbpedia != null)
+                                    <td class="information-{{ $retour->name }}">{{ $retour->entity_dbpedia->name }}</td>
+                                @endif
+                            @else
+                                <td contenteditable="true" name="{{ $retour->name }}" class="information-{{ $retour->name }} locale-value">{{ $retour->value_locale }}</td>
+                                @if($retour->value_dbpedia != null)
+                                    <td class="information-{{ $retour->name }}">{{ $retour->value_dbpedia }}</td>
+                                @endif
                             @endif
-                        @else
-                            <td contenteditable="true" name="{{ $retour->name }}" class="information-{{ $retour->name }} locale-value">{{ $retour->value_locale }}</td>
-                            @if($retour->value_dbpedia != null)
-                                <td class="information-{{ $retour->name }}">{{ $retour->value_dbpedia }}</td>
-                            @endif
-                        @endif
-                        
-                    </tr>
+
+                        </tr>
+                    @endif
                 @endforeach
             </tbody>
         </table>
@@ -153,7 +155,11 @@
             </thead>
             <tbody class="table-LOD">
                 <tr>
-                    <td><label class="editableProp" uid="3" style="display: block; width: 100%; height: 100%; background-color: rgb(180,180,180);"  contenteditable="true">DBPedia</label></td>
+                    <td>
+                        @foreach($dbpedia as $retour)
+                            <label class="editableProp" uid="3" style="display: block; width: 100%; height: 100%; background-color: rgb(180,180,180);"  contenteditable="true">$retour-></label>
+                        @endforeach
+                    </td>
                     <td>
                         <button class='btn btn-danger btn-block btn-delete' uid="3">
                             Supprimer

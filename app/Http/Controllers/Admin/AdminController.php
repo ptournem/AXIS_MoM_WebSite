@@ -63,6 +63,12 @@ class AdminController extends Controller
         $entity = new Entity($uri,"",'','');
         $retours = Semantics::GetAllPropertiesAdmin($entity);
         var_dump($retours);
+        $dbpedia = array();
+        
+        foreach($retours as $retour){
+            if($retour->name == 'sameas')
+                $dbpedia[] = $retour;
+        }
         
         Blade::extend(function($value)
         {
@@ -71,6 +77,7 @@ class AdminController extends Controller
         
         $data = array(
             'retours' => $retours,
+            'dbpedia' => $dbpedia,
             'entity' => $entity
         );
 	return view('admin/entityView')->with($data);
