@@ -21,6 +21,7 @@ Route::controller('public', 'PublicController', [
 ]);
 
 Route::get('admin', 'Admin\AdminController@Index');
+Route::post('admin', 'Admin\AdminController@Index');
 Route::get('admin/view/{uri}', 'Admin\AdminController@view');
 Route::get('admin/view/{uri}/{name}/{value}/{type}/', 'Admin\AdminController@setEntityProperty');
 Route::get('admin/delete/LOD/{EntityID}/{LODID}', 'Admin\AdminController@deleteLOD');
@@ -29,7 +30,7 @@ Route::get('admin/addEntity/{type}/{name}/{description}/{image}', 'Admin\AdminCo
 
 // TODO
 Route::get('admin/users/{users}/editPW', array('as' => 'admin.users.editPW', 'uses' => 'UserController@editPW'));
-Route::post('admin/users/{users}', array('as' => 'admin.users.updatePW', 'uses' => 'UserController@updatePW'));
+Route::get('admin/users/{id}', array('as' => 'admin.users.updatePW', 'uses' => 'UserController@show'));
 
 // Authentication routes...
 Route::post('auth/connexion', 'Auth\AuthentificationController@postLogin');

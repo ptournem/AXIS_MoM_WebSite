@@ -90,7 +90,8 @@
 @stop
 
 @section('contenu')
-<h2 class="Entity-name" id="{{ $entity->URI }}">{{ $entity->name }}</h2>
+<h2 class="Entity-name" id="{{ $URIencode }}">{{ $entity->name }}</h2>
+{!! QrCode::size(100)->generate(URL::to('public/public/entity/' . $URIencode)); !!}
 <ul class="nav nav-tabs">
     <li class="active"><a data-toggle="tab" href="#informations">Informations</a></li>
     <li><a data-toggle="tab" href="#LODLink">Liens LoD</a></li>
@@ -107,12 +108,9 @@
                 <tr>
                     <th>Informations</th>
                     <th>Local</th>
-                    @foreach($retours as $retour)
-                        @if($retour->value_dbpedia != null || $retour->entity_dbpedia != null)
-                            <th>DBPedia</th>
-                             @break; 
-                        @endif
-                    @endforeach
+                    @if($dbpediaInfo)
+                        <th>DBPedia</th>
+                    @endif
                 </tr>
             </thead>
             <tbody>
@@ -121,17 +119,24 @@
                         <tr>
                             <td class="information-{{ $retour->name }}">{{ $retour->name }}  </td>
                             @if($retour->type == 'uri')
-                            <td contenteditable="true" style="background-color: rgb(103, 145, 252)" name="{{ $retour->name }}" class="information-{{ $retour->name }} locale-value">{{ $retour->entity_locale->name }}</td>
-                                @if($retour->entity_dbpedia != null)
-                                    <td class="information-{{ $retour->name }}">{{ $retour->entity_dbpedia->name }}</td>
-                                @endif
+                                <td contenteditable="true" style="background-color: rgb(103, 145, 252)" name="{{ $retour->name }}" class="information-{{ $retour->name }} locale-value">{{ $retour->entity_locale->name }}</td>
+                                @if($dbpediaInfo)
+                                    @if($retour->entity_dbpedia != null)
+                                        <td class="information-{{ $retour->name }}" style="background-color: rgb(103, 145, 252)">{{ $retour->entity_dbpedia->name }}</td>
+                                    @else
+                                        <td></td>
+                                    @endif
+                                @endif                                
                             @else
                                 <td contenteditable="true" name="{{ $retour->name }}" class="information-{{ $retour->name }} locale-value">{{ $retour->value_locale }}</td>
-                                @if($retour->value_dbpedia != null)
-                                    <td class="information-{{ $retour->name }}">{{ $retour->value_dbpedia }}</td>
+                                @if($dbpediaInfo)
+                                    @if($retour->value_dbpedia != null)
+                                        <td class="information-{{ $retour->name }}">{{ $retour->value_dbpedia }}</td>
+                                    @else
+                                        <td></td>
+                                    @endif
                                 @endif
                             @endif
-
                         </tr>
                     @endif
                 @endforeach

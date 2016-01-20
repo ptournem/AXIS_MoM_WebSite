@@ -34,6 +34,6 @@ class AuthentificationController extends Controller
     public function postLogout()
     {
         session(['isConnected' => 'false']);
-        return view('welcome');
+        return redirect()->to('');
     }
 }

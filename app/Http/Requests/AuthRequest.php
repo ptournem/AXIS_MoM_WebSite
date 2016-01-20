@@ -24,8 +24,8 @@ class AuthRequest extends Request
     public function rules()
     {
         return [
-                'name' => 'required|min:5|max:20|alpha',
-                'password' => 'required|min:5|max:20'
+                'name' => 'required|min:4|max:20|alpha',
+                'password' => 'required|min:4|max:20'
         ];
     }
 }

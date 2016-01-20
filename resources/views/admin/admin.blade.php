@@ -66,13 +66,7 @@
                                 <td>{{ $user->id }}</td>
                                 <td class="text-primary"><strong>{!! $user->name !!}</strong></td>
                                 <td>
-                                    <a href="{{ URL::to('admin/users') }}" class="btn btn-mini btn-primary">Voir</a>
-                                </td>
-                                <td>
-                                    <a href="{{ URL::to('admin/users') }}" class="btn btn-mini btn-primary">Modifier Mot de passe</a>
-                                </td>
-                                <td>
-                                    <a href="{{ URL::to('admin/users') }}" class="btn btn-mini btn-primary">Modifier</a>
+                                    <a href="{{ URL::to('admin/users/' . $user->id) }}" class="btn btn-mini btn-primary">Voir</a>
                                 </td>
                                 <td>
                                     <form action="{{ URL::to('admin/users') }}" method="POST">

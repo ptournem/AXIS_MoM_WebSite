@@ -57,17 +57,22 @@ class AdminController extends Controller
     }  
     
     public function view($uri) {
-        //$entity = Semantics::GetEntity(new Entity($uri,"",'',''));
+        $URIencode = $uri;
         $uri = str_replace('|', '/', $uri);
         //var_dump($uri);
         $entity = new Entity($uri,"",'','');
         $retours = Semantics::GetAllPropertiesAdmin($entity);
+        $entity = Semantics::GetEntity(new Entity($uri,"",'',''));
         var_dump($retours);
         $dbpedia = array();
+        $dbpediaInfo = false;
         
         foreach($retours as $retour){
             if($retour->name == 'sameas')
                 $dbpedia[] = $retour;
+            if($retour->value_dbpedia != null
+                || $retour->entity_dbpedia != null)
+                $dbpediaInfo = true;
         }
         
         Blade::extend(function($value)
@@ -78,7 +83,9 @@ class AdminController extends Controller
         $data = array(
             'retours' => $retours,
             'dbpedia' => $dbpedia,
-            'entity' => $entity
+            'entity' => $entity,
+            'URIencode' => $URIencode,
+            'dbpediaInfo' => $dbpediaInfo
         );
 	return view('admin/entityView')->with($data);
     }  
