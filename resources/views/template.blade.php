@@ -39,7 +39,7 @@
     
     <body @yield('body')>
 	@section('connection')
-	    @if(!Session::get('isConnected') != 'true')
+	    @if(Session::get('isConnected') != 'true')
 		<div id="connexion">
 		    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modalConnexion">
 			<span class="fa fa-user" aria-hidden="true"></span>
