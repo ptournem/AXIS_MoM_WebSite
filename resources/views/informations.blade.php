@@ -1,8 +1,60 @@
 @extends('template')
 
+@section('body')
+    id="info"
+@stop
+
 @section('header')
 
-<link rel="stylesheet" type="text/css" href="{{ URL::asset('css/style2.css') }}">
+<script type="text/javascript" src="{{ URL::asset('js/raphael.js') }}"></script>
+<script type="text/javascript" src="{{ URL::asset('js/raphael-svg-filter-min.js') }}"></script>
+<script type="text/javascript" src="{{ URL::asset('js/semanticGraphael.js') }}"></script>
+<script type="text/javascript" >
+$(document).ready(function () {
+    $.fn.semanticGraphael.default.ItemOptions.horizontalMargin = 0;
+    $.fn.semanticGraphael.default.ItemOptions.verticalMargin = 0;
+    $('#graph').semanticGraphael({
+	centralItem: {!!json_encode($entity)!!},
+	connections: {!! json_encode($infos->object) !!},
+	onClickItem: function (item) {
+	    // on navigue vers l'url de l'item 
+	    window.location = ("{{route('public.show')}}/" + item.URI);
+	},
+	beforeAddItem: function () {
+	    //on récupère les infos qui nous intéressent 
+	    this.label = this.name;
+	    this.imgUrl = this.image;
+	    return this;
+	},
+	beforeAddConnection: function () {
+	    // on set le connectlabel
+	    this.ent.connectLabel = this.name;
+	    // et on renvoie l'entité et pas la propriété
+	    return this.ent;
+	},
+	afterAddConnection: function (conn) {
+		var item = this
+		conn.item.forEach(function (elt) {
+		    elt[0].classList.add(item.type);
+		});
+		$(conn.connection.text[0]).attr('class', this.type);
+		$(conn.connection.line[0]).attr('class', this.type);
+	    
+	}
+    });
+    
+    
+    $('.cbfilter').click(function(){
+	var selector = ('#graph .'+$(this).val());
+	var elts = $(selector);
+	if($(this).prop('checked')){
+	    elts.show();
+	}else {
+	    elts.hide();
+	}
+    }).prop('checked',true);
+});
+</script>
 <title>AXIS-MOM</title>
 
 
@@ -24,7 +76,7 @@ AXIS-MOM
             <div class="col-xs-8">
                 <div id="navbar" class="navbar-collapse collapse"> 
                     <div class="input-group stylish-input-group">
-                        <input type="text" class="form-control" id="autocomplete" placeholder="Rechercher une oeuvre ou un artiste" >
+                        <input type="text" class="form-control" id="searchEntity" placeholder="Rechercher une oeuvre ou un artiste" >
                         <span class="input-group-addon">
                             <button type="submit">
                                 <span class="glyphicon glyphicon-search"></span>
@@ -51,17 +103,17 @@ AXIS-MOM
 	if (!$isMobile) {
 	    ?>    
 
-    	<div><h3>{{ $itemName }}</h3></div>
+    	<div><h3>{{ $entity->name }}</h3></div>
     	<div class="hidden-phone" id="graphe">
 
-    	    <label class="checkbox-inline"><input type="checkbox" value="" checked>Event</label>
-    	    <label class="checkbox-inline"><input type="checkbox" value="" checked>Lieu</label>
-    	    <label class="checkbox-inline"><input type="checkbox" value="" checked>Objet</label>
-    	    <label class="checkbox-inline"><input type="checkbox" value="" checked>Personne</label>
-    	    <label class="checkbox-inline"><input type="checkbox" value="" checked>Activité</label>
-    	    <label class="checkbox-inline"><input type="checkbox" value="" checked>Organisation</label>
+    	    <label class="checkbox-inline"><input class="cbfilter" type="checkbox" value="event" checked>Event</label>
+    	    <label class="checkbox-inline"><input class="cbfilter" type="checkbox" value="location" checked>Lieu</label>
+    	    <label class="checkbox-inline"><input class="cbfilter" type="checkbox" value="object" checked>Objet</label>
+    	    <label class="checkbox-inline"><input class="cbfilter" type="checkbox" value="person" checked>Personne</label>
+    	    <label class="checkbox-inline"><input class="cbfilter" type="checkbox" value="activity" checked>Activité</label>
+    	    <label class="checkbox-inline"><input class="cbfilter" type="checkbox" value="organisation" checked>Organisation</label>
 
-    	    <p><img src="{{ URL::asset('img/graph.gif') }}" width="400px"></img></p>
+    	    <div id="graph" style="height:500px; width :100%"></div>
     	</div>   
 	    <?php
 	}
@@ -70,13 +122,13 @@ AXIS-MOM
 	<div id="reseauxSociaux">
 	    <ul class="list-inline">
 		<li>
-		    <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-facebook"></i></a>
+		    <a href="https://www.facebook.com/sharer/sharer.php?u={{rawurlencode(Request::url())}}" target="_blank" class="btn-social btn-outline"><i class="fa fa-fw fa-facebook"></i></a>
 		</li>
 		<li>
-		    <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-google-plus"></i></a>
+		    <a href="https://plus.google.com/share?url={{rawurlencode(Request::url())}}" class="btn-social btn-outline" target="_blank"><i class="fa fa-fw fa-google-plus"></i></a>
 		</li>
 		<li>
-		    <a href="https://twitter.com/intent/tweet?text=Partagez%20vos%20emotions%20&button_hashtag=MuseeDuLouvre" target="_blank" class="btn-social btn-outline" ><i class="fa fa-fw fa-twitter"></i></a>
+		    <a href="https://twitter.com/intent/tweet?text=Partagez%20vos%20emotions%20&button_hashtag={{$entity->type}}&url={{rawurlencode(Request::url())}}" target="_blank" class="btn-social btn-outline" ><i class="fa fa-fw fa-twitter"></i></a>
 		</li>
 	    </ul>
 
@@ -87,9 +139,14 @@ AXIS-MOM
     <div class="col-md-4">
 	<h2>Informations</h2>
 	<p>
-	    @foreach($infos as $info)
-	    <b>{{ $info[0] }}</b> : {{ $info[1] }}<br />
-	    @endforeach            
+	    @foreach($infos->literal as $info)
+	    <b>{{ $info->name }}</b> : {{ $info->value }}<br />
+	    @endforeach       
+	</p>
+	<p>
+	    @foreach($infos->object as $info)
+	    <b>{{ $info->name }}</b> : <a href="{{ route('public.show', ['uid'=>$info->ent->URI]) }}">{{$info->ent->name}}</a><br />
+	    @endforeach
 	</p>
     </div>
 
@@ -97,7 +154,7 @@ AXIS-MOM
 	<div class="col-md-4">
 	    <h2>Partagez vos émotions</h2>
 	    @foreach($comments as $comment)
-	    <p><span class="glyphicon glyphicon-comment" aria-hidden="true"></span> <b>{{ $comment[0] }}</b> : {{ $comment[1] }}</p>
+	    <p><span class="glyphicon glyphicon-comment" aria-hidden="true"></span> <b>{{ $comment->authorName }}</b> : {{ $comment->comment }}</p>
 	    <hr>
 	    @endforeach
 

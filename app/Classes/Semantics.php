@@ -83,7 +83,7 @@ class Semantics {
     public function GetEntity(Entity $e){
 	$request = new \stdClass();
 	$request->e = $e;
-	return $this->service->GetEntity($request);
+	return $this->service->GetEntity($request,'App\Classes\Dialog\Entity');
     }
 
 }

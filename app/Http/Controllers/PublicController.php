@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Semantics;
 use Comments;
+use Utils;
 use App\Classes\Dialog\Entity;
 use App\Classes\Dialog\Property;
 use App\Classes\Dialog\Comment;
@@ -40,7 +41,6 @@ class PublicController extends Controller {
 //	$ret = Comments::GrantComment($comment);
 //	$ret = Comments::RemoveComment($comment);
 //	$ret = Comments::LoadComment($entity);
-	
 //	var_dump($ret);
 	return view('welcome');
     }
@@ -51,22 +51,16 @@ class PublicController extends Controller {
      * @return type
      */
     public function anyEntity($uid) {
-	$comments = array(array('Robin', 'très belle oeuvre'),
-	    array('Riad', 'wallah elle chill cette tablette'),
-	    array('Corentin', 'moi aime pas trop'),
-	    array("$uid", "uid de la page"));
+	$uri  = Utils::unformatURI($uid);
+	$e = Semantics::GetEntity(new Entity($uri));
+	$comments = Comments::LoadComment($e);
+	$infos = $this->sortProperties(Semantics::LoadEntityProperties($e));
 
-	$infos = array(array('Artiste', 'Jacques Louis David'),
-	    array('Période', 'Néo-Classicisme'),
-	    array('Support', 'Peinture à l\'huile'),
-	    array('Lieu', 'Musée du Louvre'));
-
-	$itemName = 'Le sacre de Napoléon';
 
 	$data = array(
 	    'comments' => $comments,
 	    'infos' => $infos,
-	    'itemName' => $itemName
+	    'entity' => $e
 	);
 	return view('informations')->with($data);
     }
@@ -80,8 +74,28 @@ class PublicController extends Controller {
 	if (!$request->has("needle")) {
 	    return response()->json([]);
 	}
-	
-	return response()->json(Semantics::SearchAllEntitiesFromText($request->input("needle")));
+
+	return response()->json(Semantics::SearchOurEntitiesFromText($request->input("needle")));
+    }
+
+    /**
+     * Trie les propriété et renvoie un object avec un tableau de propriété literal (literal) et un tableau de propriété d'entite (object)
+     * @param App\Classes\Dialog\Property $properties
+     * @return \stdClass
+     */
+    private function sortProperties($properties) {
+	$ret = new \stdClass();
+	$ret->literal = [];
+	$ret->object = [];
+	foreach ($properties as $prop) {
+	    if ($prop->type !== 'URI') {
+		$ret->literal[] = $prop;
+	    } else {
+		$ret->object[] = $prop;
+	    }
+	}
+
+	return $ret;
     }
 
 }

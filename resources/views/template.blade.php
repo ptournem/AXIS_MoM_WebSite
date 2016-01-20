@@ -4,6 +4,12 @@
         <title>@yield('title')</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+	<script type="text/javascript">
+	    var global = {
+		showUrl : "{{route('public.show') }}",
+		searchUrl : "{{route('public.search')}}"
+	    };
+	</script>
 
         <script src="{{ URL::asset('js/jquery-1.11.3.min.js') }}"></script>
         <!-- Latest compiled and minified CSS -->
@@ -15,15 +21,17 @@
         <link rel="icon" type="image/png" href="{{ URL::asset('img/favicon.png') }}" />
 
         <script type="text/javascript" src="{{ URL::asset('js/jquery.autocomplete.min.js') }}"></script>
+        <script type="text/javascript" src="{{ URL::asset('js/AXIS_MoM.js') }}"></script>
 
+	<link rel="stylesheet" type="text/css" href="{{ URL::asset('css/style.css') }}">
         @yield('header')
 
-
+	
         <link rel="stylesheet" type="text/css" href="{{ URL::asset('css/font-awesome.min.css') }}">
 
     </head>
 
-    <body>
+    <body @yield('body')>
         @if(Session::get('isConnected') != 'true')
 	<div id="connexion">
 	    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modalConnexion">
