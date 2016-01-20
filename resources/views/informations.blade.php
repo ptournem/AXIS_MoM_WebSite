@@ -96,9 +96,13 @@ AXIS-MOM
 <div class="row">
     <div class="col-md-8">
 	<?php
-	$isMobile = (bool) preg_match('#\b(ip(hone|od)|android\b.+\bmobile|opera m(ob|in)i|windows (phone|ce)|blackberry' .
-			'|s(ymbian|eries60|amsung)|p(alm|rofile/midp|laystation portable)|nokia|fennec|htc[\-_]' .
-			'|up\.browser|[1-4][0-9]{2}x[1-4][0-9]{2})\b#i', $_SERVER['HTTP_USER_AGENT']);
+	if (isset($_SERVER) && isset($_SERVER['HTTP_USER_AGENT'])) {
+	    $isMobile = (bool) preg_match('#\b(ip(hone|od)|android\b.+\bmobile|opera m(ob|in)i|windows (phone|ce)|blackberry' .
+			    '|s(ymbian|eries60|amsung)|p(alm|rofile/midp|laystation portable)|nokia|fennec|htc[\-_]' .
+			    '|up\.browser|[1-4][0-9]{2}x[1-4][0-9]{2})\b#i', $_SERVER['HTTP_USER_AGENT']);
+	} else {
+	    $isMobile = true;
+	}
 
 	if (!$isMobile) {
 	    ?>    

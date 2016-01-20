@@ -51,17 +51,27 @@ class PublicController extends Controller {
      * @return type
      */
     public function anyEntity($uid) {
-	$uri  = Utils::unformatURI($uid);
+	$uri = Utils::unformatURI($uid);
 	$e = Semantics::GetEntity(new Entity($uri));
+
+	// si l'entité est null, on redirect vers l'index
+	if ($e == null) {
+	    return redirect()->action('PublicController@anyIndex');
+	}
+
+	// on charge les commentaires et les properties
 	$comments = Comments::LoadComment($e);
 	$infos = $this->sortProperties(Semantics::LoadEntityProperties($e));
 
 
+	// on les ajoute aux data
 	$data = array(
 	    'comments' => $comments,
 	    'infos' => $infos,
 	    'entity' => $e
 	);
+
+	// on renvoie la vue
 	return view('informations')->with($data);
     }
 
@@ -71,10 +81,12 @@ class PublicController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function anySearchEntity(Request $request) {
-	if (!$request->has("needle")) {
+	// on test que l'on a bien le needle sinon on renvoie un tableau vide
+	if (!$request->has("needle") || $request->input("needle") == "") {
 	    return response()->json([]);
 	}
 
+	// on renvoie ce que l'on obtient du web service 
 	return response()->json(Semantics::SearchOurEntitiesFromText($request->input("needle")));
     }
 
