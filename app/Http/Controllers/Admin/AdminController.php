@@ -38,8 +38,9 @@ class AdminController extends Controller
     }  
     
     public function addEntity($type, $name, $description, $image) {
+        return 'OK';
         try{
-            $entity = Semantics::AddEntity(new Entity("uRI",$name,$type,$image));
+            $entity = Semantics::AddEntity(new Entity("uRI",$name,$image,$type));
             
             //if($entity === Entity::class){
                 $retour['success'] = true;
@@ -52,11 +53,15 @@ class AdminController extends Controller
             $retour['success'] = false;
         }
         
-        return json_encode($retour);        
+        return var_dump($retour);        
     }  
     
     public function view($uri) {
-        $retours = Semantics::GetAllPropertiesAdmin(new Entity($uri,"namebabar",'type','image'));
+        //$entity = Semantics::GetEntity(new Entity($uri,"",'',''));
+        $uri = str_replace('|', '/', $uri);
+        //var_dump($uri);
+        $entity = new Entity($uri,"",'','');
+        $retours = Semantics::GetAllPropertiesAdmin($entity);
         var_dump($retours);
         
         Blade::extend(function($value)
@@ -65,7 +70,8 @@ class AdminController extends Controller
         });
         
         $data = array(
-            'retours' => $retours
+            'retours' => $retours,
+            'entity' => $entity
         );
 	return view('admin/entityView')->with($data);
     }  
@@ -81,9 +87,11 @@ class AdminController extends Controller
         //TODO: update
     } 
     
-    public function updateEntityProperty($uri, $property, $value) {
-        $retours = Semantics::SetEntityProperty(new Entity($uri,"namebabar",'type','image'), new Property(),
-                new Entity($uri,"namebabar",'type','image'));
+    public function updateEntityProperty($uri, $name, $value, $type) {
+        $property = new Property($name, $value, $type, null); 
+        $retours = Semantics::SetEntityProperty(new Entity(str_replace('|', '/', $uri),"",'',''), $property,
+                new Entity());
+        return json_encode (['success' => true]);
         if($retours)
             return json_encode (['success' => true]);
         else

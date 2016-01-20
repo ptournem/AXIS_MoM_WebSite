@@ -16,12 +16,12 @@
             }); 
             
             $('.btn-add-entity').on('click', function(){
-                $.getJSON('admin/addEntity/' + $('.entity-type').val() + '/' + $('.entity-name').val() + '/' + $('.entity-description').val() + '/' + $('.entity-image').val(), null )
+                $.getJSON('admin/addEntity/' + $('.entity-type').val() + '/' + $('.entity-name').val() + '/' + $('.entity-description').val() + '/' + encodeURIComponent($('.entity-image').val().toString().replaceAll('/', '|')), null )
                         .done(function( json ) {
                             if(json.success === true){
                                 $('.alert-success-new-entity').show();
                                 $('.btn-close-add-entity').trigger('click');
-                                $('.tbody-entities').append("<tr class='type-" + json.type + "'><td><a href='" + top.location + "/view/" + json.URI + "' style='display: block;width: 100%; height: 100%;'>" + json.name + "</a></td><td>" + json.type + "</td></tr>");
+                                $('.tbody-entities').append("<tr class='type-" + json.type + "'><td><a href='" + top.location + "/view/" + rawurlencode(json.URI) + "' style='display: block;width: 100%; height: 100%;'>" + json.name + "</a></td><td>" + json.type + "</td></tr>");
                                 $('.entity-name').val(null);
                                 $('.entity-description').val(null);
                                 $('.entity-image').val(null);
@@ -110,16 +110,15 @@
           Ajouter une entité
         </button>
         <a id="button-filter-show-all">Tout</a> | 
-        <a data-class='Event' class='button-filter-type'>Evénement</a> | 
-        <a data-class='Lieu' class='button-filter-type'>Lieu</a> | 
-        <a data-class='Objet' class='button-filter-type' >Objet</a> | 
-        <a data-class='Personne' class='button-filter-type'>Personne</a> | 
-        <a data-class='Activite' class='button-filter-type'>Activité</a> | 
-        <a data-class='Organisation' class='button-filter-type'>Organisation</a>
+        <a data-class='event' class='button-filter-type'>Evénement</a> | 
+        <a data-class='location' class='button-filter-type'>Lieu</a> | 
+        <a data-class='object' class='button-filter-type' >Objet</a> | 
+        <a data-class='person' class='button-filter-type'>Personne</a> | 
+        <a data-class='organisation' class='button-filter-type'>Organisation</a>
         <br /><br />
         <br />
         <div id='successMsg-update' class="alert alert-success alert-success-new-entity" style="display: none">
-            Entité ajouté.
+            Entité ajoutée.
         </div>
             <table id="entities" class="table table-striped table-bordered" cellspacing="0" width="100%">
             <thead>
@@ -130,8 +129,9 @@
             </thead>
             <tbody class="tbody-entities">
                 @foreach ($entities as $entity)
+                {!! $uri = str_replace('/', '|', $entity->URI) !!}
                 <tr class="type-{{ $entity->type }}">
-                    <td><a href="{{ URL::to('admin/view/' . $entity->URI) }}" style="display: block;width: 100%; height: 100%;">{{ $entity->name }}</a></td>
+                    <td><a href="{{URL::to('admin/view/' . rawurlencode($uri)) }}" style="display: block;width: 100%; height: 100%;">{{ $entity->name }}</a></td>
                     <td>{{ $entity->type }}</td>
                 </tr>
                 @endforeach
@@ -261,12 +261,11 @@
             </div>
             <div class="modal-body">
                 <select id="entity-type" class="entity-type" name="entity-type" size="1">
-                      <option value="Activite">Activité</option>
-                      <option value="Event">Evénement</option>
-                      <option value="Lieu">Lieu</option>
-                      <option value="Organisation">Organisation</option>
-                      <option value="Objet">Objet</option>
-                      <option value="Personne">Personne</option>
+                      <option value="event">Evénement</option>
+                      <option value="location">Lieu</option>
+                      <option value="organisation">Organisation</option>
+                      <option value="object">Objet</option>
+                      <option value="person">Personne</option>
                   </select>
                   <label for="entity-name">Nom</label> : 
                   <input type="text" class="entity-name" id="entity-name" name="entity-name" required="true"/>

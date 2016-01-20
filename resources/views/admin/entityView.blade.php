@@ -35,8 +35,14 @@
             $(document).on('blur', '.locale-value', function(){
                 if(tempValue != $(this).text()){
                     var value = $(this).text();
-                    var entityName = $('.Entity-name').attr('id');
-                    $.getJSON(top.location + '/' + $(this).attr('name') + '/' + value, null)
+                    if(value.substring(0, 7) == 'http://'){
+                        var type = 'uri';
+                        value = encodeURIComponent(value.('/', '|'));
+                        console.log('value : ' + value);
+                    }
+                    else
+                        var type = 'fr';
+                    $.getJSON(top.location + '/' + $(this).attr('name') + '/' + value + '/' + type, null)
                         .done(function( json ) {
                             console.log('json : ' + json);
                             if(json.success == true){
@@ -108,7 +114,7 @@
 @stop
 
 @section('contenu')
-<h2 class="Entity-name" id="7">name</h2>
+<h2 class="Entity-name" id="{{ $entity->URI }}">{{ $entity->name }}</h2>
 <ul class="nav nav-tabs">
     <li class="active"><a data-toggle="tab" href="#informations">Informations</a></li>
     <li><a data-toggle="tab" href="#LODLink">Liens LoD</a></li>
