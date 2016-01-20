@@ -18,7 +18,7 @@ $(document).ready(function () {
 	connections: {!! json_encode($infos->object) !!},
 	onClickItem: function (item) {
 	    // on navigue vers l'url de l'item 
-	    window.location = ("{{route('public.show')}}/" + item.URI);
+	    window.location = ("{{route('public.show')}}/" + formatURI(item.URI));
 	},
 	beforeAddItem: function () {
 	    //on récupère les infos qui nous intéressent 
@@ -157,7 +157,7 @@ AXIS-MOM
 	</p>
 	<p>
 	    @foreach($infos->object as $info)
-	    <b>{{ $info->name }}</b> : <a href="{{ route('public.show', ['uid'=>$info->ent->URI]) }}">{{$info->ent->name}}</a><br />
+	    <b>{{ $info->name }}</b> : <a href="{{ route('public.show', ['uid'=>Utils::formatURI($info->ent->URI)]) }}">{{$info->ent->name}}</a><br />
 	    @endforeach
 	</p>
     </div>

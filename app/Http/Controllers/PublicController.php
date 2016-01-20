@@ -100,7 +100,7 @@ class PublicController extends Controller {
 	$ret->literal = [];
 	$ret->object = [];
 	foreach ($properties as $prop) {
-	    if ($prop->type !== 'URI') {
+	    if ($prop->type !== 'uri') {
 		$ret->literal[] = $prop;
 	    } else {
 		$ret->object[] = $prop;
