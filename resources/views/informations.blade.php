@@ -95,19 +95,11 @@ AXIS-MOM
 <!-- Example row of columns -->
 <div class="row">
     <div class="col-md-8">
-	<?php
-	if (isset($_SERVER) && isset($_SERVER['HTTP_USER_AGENT'])) {
-	    $isMobile = (bool) preg_match('#\b(ip(hone|od)|android\b.+\bmobile|opera m(ob|in)i|windows (phone|ce)|blackberry' .
-			    '|s(ymbian|eries60|amsung)|p(alm|rofile/midp|laystation portable)|nokia|fennec|htc[\-_]' .
-			    '|up\.browser|[1-4][0-9]{2}x[1-4][0-9]{2})\b#i', $_SERVER['HTTP_USER_AGENT']);
-	} else {
-	    $isMobile = true;
-	}
-
-	if (!$isMobile) {
-	    ?>    
+	
 
     	<div><h3>{{ $entity->name }}</h3></div>
+	
+	@if(!BrowserDetect::isMobile())
     	<div class="hidden-phone" id="graphe">
 
     	    <label class="checkbox-inline"><input class="cbfilter" type="checkbox" value="event" checked>Event</label>
@@ -118,11 +110,13 @@ AXIS-MOM
     	    <label class="checkbox-inline"><input class="cbfilter" type="checkbox" value="organisation" checked>Organisation</label>
 
     	    <div id="graph" style="height:500px; width :100%"></div>
-    	</div>   
-	    <?php
-	}
-	?>
-
+    	</div>
+	@else
+	    <div>
+		<img src="{{$entity->image}}" style="width:100%;" />
+	    </div>
+	@endif
+	
 	<div id="reseauxSociaux">
 	    <ul class="list-inline">
 		<li>
