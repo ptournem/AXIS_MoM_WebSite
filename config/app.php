@@ -162,6 +162,7 @@ return [
 	App\Providers\CommentsServiceProvider::class,
 	App\Providers\LogsServiceProvider::class,
 	App\Providers\SemanticsServiceProvider::class,
+	App\Providers\UtilsServiceProvider::class,
 
     ],
 
@@ -231,6 +232,7 @@ return [
 	'Comments' => App\Facades\CommentsFacade::class,
 	'Logs' => App\Facades\LogsFacade::class,
 	'Semantics' => App\Facades\SemanticsFacade::class,
+	'Utils' => App\Facades\UtilsFacade::class,
     ],
 
 ];

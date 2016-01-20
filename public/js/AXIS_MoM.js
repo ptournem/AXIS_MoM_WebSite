@@ -66,8 +66,16 @@ $(document).ready(function () {
 	},
 	select: function (event, ui) {
 	    // on redirect vers la bonne page
-	    window.location = (global.showUrl + "/" + ui.item.URI);
+	    window.location = (global.showUrl + "/" + formatURI(ui.item.URI));
 	},
 	delay: 600
     });
 });
+
+function formatURI(url) {
+    return url.replace(/\//gi, '|');
+}
+
+function unformatURI(url) {
+    return url.replace(/\|/gi, '/');
+}

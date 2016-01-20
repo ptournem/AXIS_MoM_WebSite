@@ -39,16 +39,22 @@ class AxisCsrmWebService extends SoapService {
 	if ($this->endsWith($className, "[]")) {
 	    $class = substr($className, 0, -2);
 	    $ret = array();
-	    if (!is_array($instance)) {
+	    
+	    // doit être un tableau ou au moins un objet
+	    if (!is_array($instance) && !is_object($instance)) {
 		return null;
 	    }
 	    if (!class_exists($class)) {
 		return null;
 	    }
 
-
-	    foreach ($instance as $obj) {
-		$ret[] = $this->_cast($obj, $class);
+	    // si c'est un tableau , on les ajoute tous
+	    if (is_array($instance)) {
+		foreach ($instance as $obj) {
+		    $ret[] = $this->_cast($obj, $class);
+		}
+	    } else if (is_object($instance)) {// sinon, on en ajoute qu'une 
+		$ret[] = $this->_cast($instance, $class);
 	    }
 	} else {
 	    $ret = null;
