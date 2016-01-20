@@ -46,12 +46,9 @@
 		    <span aria-hidden="true"> déconnexion</span>
 		</button>
 	    </form>
-	    <form action="{{url('admin/users')}}" method="POST" class="form-inline">
-		{!! csrf_field() !!}
-		<button type="submit" class="btn btn-default">
+            <button type="submit" onclick="window.location.replace(top.location + 'admin');" class="btn btn-default btn-admin">
 		    <span aria-hidden="true">Admin</span>
 		</button>
-	    </form>
 	</div>
         @endif
 

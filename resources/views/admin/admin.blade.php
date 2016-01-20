@@ -1,8 +1,8 @@
 @extends('admin/template')
 
 @section('header')
-    <link rel="stylesheet" type="text/css" href="{{ URL::asset('css/style2.css') }}">
-    <script type="text/javascript" src="{{ URL::asset('js/Admin/Admin.js') }}"></script>
+    <link rel="stylesheet" type="text/css" href="{{ URL::asset('css/style.css') }}">
+    <script type="text/javascript" src="{{ URL::asset('js/AXIS_MOM.js') }}"></script>
     <script type='text/javascript'>
         $(document).ready(function(){
             $('#button-filter-show-all').click(function(){
@@ -16,24 +16,7 @@
             }); 
             
             $('.btn-add-entity').on('click', function(){
-                $.getJSON('admin/addEntity/' + $('.entity-type').val() + '/' + $('.entity-name').val() + '/' + $('.entity-description').val() + '/' + encodeURIComponent($('.entity-image').val().toString().replaceAll('/', '|')), null )
-                        .done(function( json ) {
-                            if(json.success === true){
-                                $('.alert-success-new-entity').show();
-                                $('.btn-close-add-entity').trigger('click');
-                                $('.tbody-entities').append("<tr class='type-" + json.type + "'><td><a href='" + top.location + "/view/" + rawurlencode(json.URI) + "' style='display: block;width: 100%; height: 100%;'>" + json.name + "</a></td><td>" + json.type + "</td></tr>");
-                                $('.entity-name').val(null);
-                                $('.entity-description').val(null);
-                                $('.entity-image').val(null);
-                            }
-                            else{
-                                console.log( "fail" );
-                            }
-                        })
-                        .fail(function( jqxhr, textStatus, error ) {
-                            var err = textStatus + ", " + error;
-                            console.log( "Request Failed: " + err );
-                        });
+                addEntity($('.entity-type').val(), $('.entity-name').val(), $('.entity-description').val(), $('.entity-image').val());
             });
             
             $('.btn-form-entity-show').on('click', function(){
@@ -51,14 +34,14 @@
 @section('contenu')
 
 <ul class="nav nav-tabs">
-    <li class="active"><a data-toggle="tab" href="#membres">Gestion des membres</a></li>
-    <li><a data-toggle="tab" href="#entites">Gestion des entités</a></li>
+    <li><a data-toggle="tab" href="#membres">Gestion des membres</a></li>
+    <li class="active"><a data-toggle="tab" href="#entites">Gestion des entités</a></li>
     <li><a data-toggle="tab" href="#commentaires">Gestion des commentaires</a></li>
     <li><a data-toggle="tab" href="#logs">Logs</a></li>
 </ul>
 <br />
 <div class="tab-content">
-    <div id="membres" class="tab-pane fade in active">
+    <div id="membres" class="tab-pane fade">
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ajouterMembre">
           Ajouter un membre
         </button>
@@ -105,7 +88,7 @@
             </div>
         
     </div>
-    <div id="entites" class="tab-pane fade">
+    <div id="entites" class="tab-pane fade in active">
         <button type="button" class="btn btn-primary btn-form-entity-show" data-toggle="modal" data-target="#ajouterEntite">
           Ajouter une entité
         </button>
@@ -129,7 +112,9 @@
             </thead>
             <tbody class="tbody-entities">
                 @foreach ($entities as $entity)
-                {!! $uri = str_replace('/', '|', $entity->URI) !!}
+                <div style="display: none">
+                    {!! $uri = str_replace('/', '|', $entity->URI) !!}
+                </div>
                 <tr class="type-{{ $entity->type }}">
                     <td><a href="{{URL::to('admin/view/' . rawurlencode($uri)) }}" style="display: block;width: 100%; height: 100%;">{{ $entity->name }}</a></td>
                     <td>{{ $entity->type }}</td>
@@ -260,19 +245,38 @@
               <h4 class="modal-title" id="myModalLabel">Création entitées</h4>
             </div>
             <div class="modal-body">
-                <select id="entity-type" class="entity-type" name="entity-type" size="1">
-                      <option value="event">Evénement</option>
-                      <option value="location">Lieu</option>
-                      <option value="organisation">Organisation</option>
-                      <option value="object">Objet</option>
-                      <option value="person">Personne</option>
-                  </select>
-                  <label for="entity-name">Nom</label> : 
-                  <input type="text" class="entity-name" id="entity-name" name="entity-name" required="true"/>
-                  <label for="entity-description">Description</label> : 
-                  <input type="text" class="entity-description" id="entity-description" name="entity-description" required="true"/>
-                  <label for="entity-image">Lien vers images</label> : 
-                  <input type="text" class="entity-image" id="entity-image" name="entity-image"/>
+                <table>
+                    <tr>
+                        <td><label for="entity-type">Type :</label></td>
+                        <td>
+                            <select id="entity-type" class="entity-type" name="entity-type" size="1">
+                                <option value="event">Evénement</option>
+                                <option value="location">Lieu</option>
+                                <option value="organisation">Organisation</option>
+                                <option value="object">Objet</option>
+                                <option value="person">Personne</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="entity-name">Nom : </label></td>
+                        <td>
+                            <input type="text" class="entity-name" id="entity-name" name="entity-name" required="true"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="entity-description">Description : </label></td>
+                        <td>
+                            <input type="text" class="entity-description" id="entity-description" name="entity-description" required="true"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="entity-image">Lien vers images : </label></td>
+                        <td>
+                            <input type="text" class="entity-image" id="entity-image" name="entity-image"/>
+                        </td>
+                    </tr>
+                  </table>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default btn-close-add-entity" data-dismiss="modal">Fermer</button>

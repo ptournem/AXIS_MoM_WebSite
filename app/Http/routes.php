@@ -22,7 +22,7 @@ Route::controller('public', 'PublicController', [
 
 Route::get('admin', 'Admin\AdminController@Index');
 Route::get('admin/view/{uri}', 'Admin\AdminController@view');
-Route::get('admin/view/{uri}/{name}/{value}/{type}/', 'Admin\AdminController@updateEntityProperty');
+Route::get('admin/view/{uri}/{name}/{value}/{type}/', 'Admin\AdminController@setEntityProperty');
 Route::get('admin/delete/LOD/{EntityID}/{LODID}', 'Admin\AdminController@deleteLOD');
 Route::get('admin/update/LOD/{EntityID}/{LODID}/{value}', 'Admin\AdminController@updateLOD');
 Route::get('admin/addEntity/{type}/{name}/{description}/{image}', 'Admin\AdminController@addEntity');

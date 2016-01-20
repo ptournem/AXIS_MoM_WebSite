@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\AuthRequest;
 use App\Http\Controllers\Controller;
 use App\User;
+use App\Http\Controllers\PublicController;
 
 class AuthentificationController extends Controller
 {
@@ -33,6 +34,6 @@ class AuthentificationController extends Controller
     public function postLogout()
     {
         session(['isConnected' => 'false']);
-        return redirect()->back();
+        return view('welcome');
     }
 }

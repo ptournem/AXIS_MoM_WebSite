@@ -79,3 +79,42 @@ function formatURI(url) {
 function unformatURI(url) {
     return url.replace(/\|/gi, '/');
 }
+
+function setProperty(name, value, type){
+    $.getJSON(top.location + '/' + name + '/' + value + '/' + type, null)
+        .done(function( json ) {
+            console.log(json);
+            if(json.success == true){
+                console.log( "OK" );
+                $('.alert-success-update').show();
+            }
+            else{
+                console.log( "fail" );
+            }
+        })
+        .fail(function( jqxhr, textStatus, error ) {
+            var err = textStatus + ", " + error;
+            console.log( "Request Failed: " + err );
+        });
+}
+
+function addEntity(type, name, description, image) {
+    $.getJSON(top.location + '/addEntity/' + type + '/' + name + '/' + description + '/' + encodeURIComponent(formatURI(image)), null )
+        .done(function( json ) {
+            if(json.success === true){
+                $('.alert-success-new-entity').show();
+                $('.btn-close-add-entity').trigger('click');
+                $('.tbody-entities').append("<tr class='type-" + json.type + "'><td><a href='" + top.location + "/view/" + encodeURIComponent(formatURI(json.URI)) + "' style='display: block;width: 100%; height: 100%;'>" + json.name + "</a></td><td>" + json.type + "</td></tr>");
+                $('.entity-name').val(null);
+                $('.entity-description').val(null);
+                $('.entity-image').val(null);
+            }
+            else{
+                console.log( "fail" );
+            }
+        })
+        .fail(function( jqxhr, textStatus, error ) {
+            var err = textStatus + ", " + error;
+            console.log( "Request Failed: " + err );
+        });
+}

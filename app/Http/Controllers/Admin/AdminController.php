@@ -10,6 +10,7 @@ use App\Classes\Dialog\Property;
 use App\Http\Requests\Admin\AddEntityRequest;
 use App\Http\Controllers\Controller;
 use App\User;
+use Utils;
 use App\Repositories\UserRepository;
 use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\UserUpdateRequest;
@@ -38,9 +39,8 @@ class AdminController extends Controller
     }  
     
     public function addEntity($type, $name, $description, $image) {
-        return 'OK';
         try{
-            $entity = Semantics::AddEntity(new Entity("uRI",$name,$image,$type));
+            $entity = Semantics::AddEntity(new Entity("uRI",$name,Utils::unformatURI($image),$type));
             
             //if($entity === Entity::class){
                 $retour['success'] = true;
@@ -53,7 +53,7 @@ class AdminController extends Controller
             $retour['success'] = false;
         }
         
-        return var_dump($retour);        
+        return $retour;
     }  
     
     public function view($uri) {
@@ -87,10 +87,21 @@ class AdminController extends Controller
         //TODO: update
     } 
     
-    public function updateEntityProperty($uri, $name, $value, $type) {
-        $property = new Property($name, $value, $type, null); 
-        $retours = Semantics::SetEntityProperty(new Entity(str_replace('|', '/', $uri),"",'',''), $property,
-                new Entity());
+    public function setEntityProperty($uri, $name, $value, $type) {
+        $uri  = Utils::unformatURI($uri);
+        if($type != 'uri'){
+            $entityValue = new Entity();
+            $property = new Property($name, Utils::unformatURI($value), $type, null); 
+            $retours = Semantics::SetEntityProperty(new Entity($uri,"",'',''), 
+                $property, $entityValue);            
+        }
+        else{
+            $entityValue = new Entity(Utils::unformatURI($value), null, null, null);
+            $property = new Property($name, null, $type, null);
+            $retours = Semantics::SetEntityProperty(new Entity($uri,"",'',''), 
+                $property, $entityValue);
+        }
+            
         return json_encode (['success' => true]);
         if($retours)
             return json_encode (['success' => true]);

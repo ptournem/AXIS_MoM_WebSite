@@ -1,7 +1,8 @@
 @extends('admin/template')
 
 @section('header')
-    <link rel="stylesheet" type="text/css" href="{{ URL::asset('css/style2.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ URL::asset('css/style.css') }}">
+    <script type="text/javascript" src="{{ URL::asset('js/AXIS_MOM.js') }}"></script>
     <script type="text/javascript">
         $(document).ready(function(){
             var hasChanged = false;
@@ -10,23 +11,12 @@
                 if(tempValue != $(this).text()){
                     var uid = $(this).attr('uid');
                     var value = $(this).text();
+                    value = encodeURIComponent(formatURI(value));
                     var entityName = $('.Entity-name').attr('id');
-                    $.getJSON('../update/LOD/' + entityName + '/' + uid + '/' + value, null)
-                        .done(function( json ) {
-                            if(json[0] == true){
-                                $('.alert-success-update').show();
-                            }
-                            else{
-                                console.log( "fail" );
-                            }
-                        })
-                        .fail(function( jqxhr, textStatus, error ) {
-                            var err = textStatus + ", " + error;
-                            console.log( "Request Failed: " + err );
-                        });
+                    setProperty('sameas', value, 'uri');
                 }
                 else
-                    console.log('pas changÃ©');
+                    console.log('pas changé');
             });
             $(document).on('focus', '.editableProp', function(){
                 tempValue = $(this).text();
@@ -37,26 +27,12 @@
                     var value = $(this).text();
                     if(value.substring(0, 7) == 'http://'){
                         var type = 'uri';
-                        value = encodeURIComponent(value.('/', '|'));
                         console.log('value : ' + value);
                     }
                     else
                         var type = 'fr';
-                    $.getJSON(top.location + '/' + $(this).attr('name') + '/' + value + '/' + type, null)
-                        .done(function( json ) {
-                            console.log('json : ' + json);
-                            if(json.success == true){
-                                console.log( "OK" );
-                                $('.alert-success-update').show();
-                            }
-                            else{
-                                console.log( "fail" );
-                            }
-                        })
-                        .fail(function( jqxhr, textStatus, error ) {
-                            var err = textStatus + ", " + error;
-                            console.log( "Request Failed: " + err );
-                        });
+                    value = encodeURIComponent(formatURI(value));
+                    setProperty($(this).attr('name'), value, type);
                 }
                 else
                     console.log('pas changé');
@@ -123,6 +99,9 @@
 <div class="tab-content">
     <div id="informations" class="tab-pane fade in active">
         <br />
+        <div id='successMsg-update' class="alert alert-success alert-success-update" style="display: none">
+            Mise à  jour du champ effectué.
+        </div>
         <table id="entity-information" class="table table-striped table-bordered" cellspacing="0" width="100%">
             <thead>
                 <tr>
@@ -140,8 +119,8 @@
                 @foreach($retours as $retour)
                     <tr>
                         <td class="information-{{ $retour->name }}">{{ $retour->name }}  </td>
-                        @if($retour->type == 'URI')
-                            <td contenteditable="true" name="{{ $retour->name }}" class="information-{{ $retour->name }} locale-value">{{ $retour->entity_locale->name }}</td>
+                        @if($retour->type == 'uri')
+                        <td contenteditable="true" style="background-color: rgb(103, 145, 252)" name="{{ $retour->name }}" class="information-{{ $retour->name }} locale-value">{{ $retour->entity_locale->name }}</td>
                             @if($retour->entity_dbpedia != null)
                                 <td class="information-{{ $retour->name }}">{{ $retour->entity_dbpedia->name }}</td>
                             @endif
