@@ -18,7 +18,7 @@ $(document).ready(function () {
 	connections: {!! json_encode($infos->object) !!},
 	onClickItem: function (item) {
 	    // on navigue vers l'url de l'item 
-	    window.location = ("{{route('public.show')}}/" + item.URI);
+	    window.location = ("{{route('public.show')}}/" + formatURI(item.URI));
 	},
 	beforeAddItem: function () {
 	    //on récupère les infos qui nous intéressent 
@@ -64,46 +64,56 @@ $(document).ready(function () {
 AXIS-MOM
 @stop
 
-@section('top')
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-        <div class="col-xs-4">
-            <div class="navbar-header">
-		<a class="navbar-brand" href="{{ url('home') }}"><img src="{{ URL::asset('img/axismom.png') }}" width="120px" /></a>
-            </div>
-        </div>
-        <form action="{{url('infos')}}" method="GET">
-            <div class="col-xs-8">
-                <div id="navbar" class="navbar-collapse collapse"> 
-                    <div class="input-group stylish-input-group">
-                        <input type="text" class="form-control" id="searchEntity" placeholder="Rechercher une oeuvre ou un artiste" >
-                        <span class="input-group-addon">
-                            <button type="submit">
-                                <span class="glyphicon glyphicon-search"></span>
-                            </button>  
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </form>
+@section('connection')
+<nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="{{ url('home') }}"><img src="{{ URL::asset('img/axismom.png') }}" height="20px" /></a>
     </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	<form class="navbar-form navbar-left" role="search">
+	    <div class="form-group">
+		<div class="input-group stylish-input-group">
+		    <input type="text" class="form-control" id="searchEntity" placeholder="Rechercher une oeuvre ou un artiste" >
+		    <span class="input-group-addon">
+			<button type="submit">
+			    <span class="glyphicon glyphicon-search"></span>
+			</button>  
+		    </span>
+		</div>
+	    </div>
+	</form>
+      
+	<div class="nav navbar-nav navbar-right">
+	    @parent
+	</div>
+	
+	
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
 </nav>
-@stop
+
+@endSection
 
 
 @section('contenu')
 <!-- Example row of columns -->
 <div class="row">
     <div class="col-md-8">
-	<?php
-	$isMobile = (bool) preg_match('#\b(ip(hone|od)|android\b.+\bmobile|opera m(ob|in)i|windows (phone|ce)|blackberry' .
-			'|s(ymbian|eries60|amsung)|p(alm|rofile/midp|laystation portable)|nokia|fennec|htc[\-_]' .
-			'|up\.browser|[1-4][0-9]{2}x[1-4][0-9]{2})\b#i', $_SERVER['HTTP_USER_AGENT']);
-
-	if (!$isMobile) {
-	    ?>    
+	
 
     	<div><h3>{{ $entity->name }}</h3></div>
+	
+	@if(!BrowserDetect::isMobile())
     	<div class="hidden-phone" id="graphe">
 
     	    <label class="checkbox-inline"><input class="cbfilter" type="checkbox" value="event" checked>Event</label>
@@ -114,11 +124,13 @@ AXIS-MOM
     	    <label class="checkbox-inline"><input class="cbfilter" type="checkbox" value="organisation" checked>Organisation</label>
 
     	    <div id="graph" style="height:500px; width :100%"></div>
-    	</div>   
-	    <?php
-	}
-	?>
-
+    	</div>
+	@else
+	    <div>
+		<img src="{{$entity->image}}" style="width:100%;" class="img-thumbnail" />
+	    </div>
+	@endif
+	
 	<div id="reseauxSociaux">
 	    <ul class="list-inline">
 		<li>
@@ -145,7 +157,7 @@ AXIS-MOM
 	</p>
 	<p>
 	    @foreach($infos->object as $info)
-	    <b>{{ $info->name }}</b> : <a href="{{ route('public.show', ['uid'=>$info->ent->URI]) }}">{{$info->ent->name}}</a><br />
+	    <b>{{ $info->name }}</b> : <a href="{{ route('public.show', ['uid'=>Utils::formatURI($info->ent->URI)]) }}">{{$info->ent->name}}</a><br />
 	    @endforeach
 	</p>
     </div>

@@ -6,8 +6,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 	<script type="text/javascript">
 	    var global = {
-		showUrl : "{{route('public.show') }}",
-		searchUrl : "{{route('public.search')}}"
+		showUrl: "{{route('public.show') }}",
+		searchUrl: "{{route('public.search')}}"
 	    };
 	</script>
 
@@ -26,31 +26,43 @@
 	<link rel="stylesheet" type="text/css" href="{{ URL::asset('css/style.css') }}">
         @yield('header')
 
-	
+
         <link rel="stylesheet" type="text/css" href="{{ URL::asset('css/font-awesome.min.css') }}">
+	
+	<script type="text/javascript">
+	    $(document).ready(function () {
+		$('body').addClass('{{BrowserDetect::isMobile()== true ? "mobile":"desktop"}}');
+	    })
+	</script>
 
     </head>
-
+    
     <body @yield('body')>
-        @if(Session::get('isConnected') != 'true')
-	<div id="connexion">
-	    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modalConnexion">
-		<span class="fa fa-user" aria-hidden="true"></span>
-	    </button>
-	</div>
-        @else
-	<div id="connexion">
-	    <form action="{{url('auth/deconnexion')}}" method="POST" class="form-inline">
-		{!! csrf_field() !!}
-		<button type="submit" class="btn btn-default">
-		    <span aria-hidden="true"> déconnexion</span>
-		</button>
-	    </form>
-            <button type="submit" onclick="window.location.replace(top.location + 'admin');" class="btn btn-default btn-admin">
-		    <span aria-hidden="true">Admin</span>
-		</button>
-	</div>
-        @endif
+	@section('connection')
+	    @if(Session::get('isConnected') != 'true')
+		<div id="connexion">
+		    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modalConnexion">
+			<span class="fa fa-user" aria-hidden="true"></span>
+		    </button>
+		</div>
+	    @else
+	    <div id="connexion">
+		<form action="{{url('auth/deconnexion')}}" method="POST" class="form-inline pull-right">
+		    {!! csrf_field() !!}
+		    <button type="submit" class="btn btn-default">
+			<span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Déconnexion
+		    </button>
+		</form>
+		<form id='admin-bt' action="{{url('admin/users')}}" method="POST" class="form-inline pull-right">
+		    {!! csrf_field() !!}
+		    <button type="submit" class="btn btn-default">
+			<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Administration
+			
+		    </button>
+		</form>
+	    </div>
+	    @endif
+	@show
 
         @yield('top')
 

@@ -38,7 +38,9 @@ $.widget("custom.catcomplete", $.ui.autocomplete, {
 	this.widget().menu("option", "items", "> :not(.ui-autocomplete-category)");
     },
     _renderMenu: function (ul, items) {
+	ul.addClass('list-group col-md-3');
 	ul.addClass('list-group col-sm-3');
+	ul.addClass('list-group col-xs-10');
 	var that = this,
 		currentCategory = "";
 	$.each(items, function (index, item) {

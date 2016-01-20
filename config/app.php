@@ -163,6 +163,11 @@ return [
 	App\Providers\LogsServiceProvider::class,
 	App\Providers\SemanticsServiceProvider::class,
 	App\Providers\UtilsServiceProvider::class,
+	
+	/**
+	 * Mobile detect alias
+	 */
+	 hisorange\BrowserDetect\Provider\BrowserDetectService::class,
 
     ],
 
@@ -233,6 +238,12 @@ return [
 	'Logs' => App\Facades\LogsFacade::class,
 	'Semantics' => App\Facades\SemanticsFacade::class,
 	'Utils' => App\Facades\UtilsFacade::class,
+	
+	
+	/**
+	 * Mobile detect alias
+	 */
+	'BrowserDetect' => hisorange\BrowserDetect\Facade\Parser::class,
     ],
 
 ];
