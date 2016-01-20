@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Semantics;
 use Comments;
+use Utils;
 use App\Classes\Dialog\Entity;
 use App\Classes\Dialog\Property;
 use App\Classes\Dialog\Comment;
@@ -50,7 +51,8 @@ class PublicController extends Controller {
      * @return type
      */
     public function anyEntity($uid) {
-	$e = Semantics::GetEntity(new Entity($uid));
+	$uri  = Utils::unformatURI($uid);
+	$e = Semantics::GetEntity(new Entity($uri));
 	$comments = Comments::LoadComment($e);
 	$infos = $this->sortProperties(Semantics::LoadEntityProperties($e));
 
