@@ -1,7 +1,7 @@
 @extends('template/templateNavbar')
 
 @section('body')
-    id="info"
+id="info"
 @stop
 
 @section('header')
@@ -11,6 +11,8 @@
 <script type="text/javascript" src="{{ URL::asset('js/semanticGraphael.js') }}"></script>
 <script type="text/javascript" >
 $(document).ready(function () {
+    
+    // init du graphe 
     $.fn.semanticGraphael.default.ItemOptions.horizontalMargin = 0;
     $.fn.semanticGraphael.default.ItemOptions.verticalMargin = 0;
     $('#graph').semanticGraphael({
@@ -43,7 +45,7 @@ $(document).ready(function () {
 	}
     });
     
-    
+    // filtres
     $('.cbfilter').click(function(){
 	var selector = ('#graph .'+$(this).val());
 	var elts = $(selector);
@@ -53,6 +55,27 @@ $(document).ready(function () {
 	    elts.hide();
 	}
     }).prop('checked',true);
+    
+    // envoie du commentaire 
+    $('#addCommentModal #btnComment').click(function(){
+	var data = $('#addCommentModal form').serialize();
+	$.post("{{route('public.comment')}}",data,function(data){
+	    if(data.result){
+		$('#addCommentModal .alert').removeClass('alert-danger').addClass('alert-success').text('Commentaire ajouté ! Il sera affiché après modération.').show('fade').delay(1500).hide(function(){
+		    $('#addCommentModal').modal('hide')
+		});
+		
+	    }else {
+		$('#addCommentModal .alert').removeClass('alert-success').addClass('alert-danger').text(data.message).show('fade').delay(4000).hide('fade');
+	    }
+	});
+    })
+    
+    
+    // reset des champs lors de la fermeture de la modal 
+    $('#addCommentModal').on('hide.bs.modal', function (event) {
+	$('#addCommentModal form').get(0).reset()
+    });
 });
 </script>
 
@@ -65,28 +88,28 @@ $(document).ready(function () {
 <!-- Example row of columns -->
 <div class="row">
     <div class="col-md-8">
-	
 
-    	<div><h3>{{ $entity->name }}</h3></div>
-	
+
+	<div><h3>{{ $entity->name }}</h3></div>
+
 	@if(!BrowserDetect::isMobile())
-    	<div class="hidden-phone" id="graphe">
+	<div class="hidden-phone" id="graphe">
 
-    	    <label class="checkbox-inline"><input class="cbfilter" type="checkbox" value="event" checked>Event</label>
-    	    <label class="checkbox-inline"><input class="cbfilter" type="checkbox" value="location" checked>Lieu</label>
-    	    <label class="checkbox-inline"><input class="cbfilter" type="checkbox" value="object" checked>Objet</label>
-    	    <label class="checkbox-inline"><input class="cbfilter" type="checkbox" value="person" checked>Personne</label>
-    	    <label class="checkbox-inline"><input class="cbfilter" type="checkbox" value="activity" checked>Activité</label>
-    	    <label class="checkbox-inline"><input class="cbfilter" type="checkbox" value="organisation" checked>Organisation</label>
+	    <label class="checkbox-inline"><input class="cbfilter" type="checkbox" value="event" checked>Event</label>
+	    <label class="checkbox-inline"><input class="cbfilter" type="checkbox" value="location" checked>Lieu</label>
+	    <label class="checkbox-inline"><input class="cbfilter" type="checkbox" value="object" checked>Objet</label>
+	    <label class="checkbox-inline"><input class="cbfilter" type="checkbox" value="person" checked>Personne</label>
+	    <label class="checkbox-inline"><input class="cbfilter" type="checkbox" value="activity" checked>Activité</label>
+	    <label class="checkbox-inline"><input class="cbfilter" type="checkbox" value="organisation" checked>Organisation</label>
 
-    	    <div id="graph" style="height:500px; width :100%"></div>
-    	</div>
+	    <div id="graph" style="height:500px; width :100%"></div>
+	</div>
 	@else
-	    <div>
-		<img src="{{$entity->image}}" style="width:100%;" class="img-thumbnail" />
-	    </div>
+	<div>
+	    <img src="{{$entity->image}}" style="width:100%;" class="img-thumbnail" />
+	</div>
 	@endif
-	
+
 	<div id="reseauxSociaux">
 	    <ul class="list-inline">
 		<li>
@@ -101,45 +124,52 @@ $(document).ready(function () {
 	    </ul>
 
 	</div>
-    </div>
-
-
-    <div class="col-md-4">
-	<h2>Informations</h2>
-	<p>
-	    @foreach($infos->literal as $info)
-	    <b>{{ $info->name }}</b> : {{ $info->value }}<br />
-	    @endforeach       
-	</p>
-	<p>
-	    @foreach($infos->object as $info)
-	    <b>{{ $info->name }}</b> : <a href="{{ route('public.show', ['uid'=>Utils::formatURI($info->ent->URI)]) }}">{{$info->ent->name}}</a><br />
-	    @endforeach
-	</p>
-    </div>
-
-    <form action="{{url('add/comment')}}" method="POST" class="form-inline">
-	<div class="col-md-4">
-	    <h2>Partagez vos émotions</h2>
-	    @foreach($comments as $comment)
-	    <p><span class="glyphicon glyphicon-comment" aria-hidden="true"></span> <b>{{ $comment->authorName }}</b> : {{ $comment->comment }}</p>
-	    <hr>
-	    @endforeach
-
-	    {!! csrf_field() !!}
-	    <div class="form-group">
-		<input type="text" class="form-control" name='pseudo' id="usr" placeholder="Votre nom">
-		{!! $errors->first('pseudo', '<small class="help-block">:message</small>') !!}
+    </div>    
+    <div class="panel-group col-md-4 accordionInfo" id="accordion" role="tablist" aria-multiselectable="true">
+	<div class="panel panel-default">
+	    <div class="panel-heading" role="tab" id="headingOne">
+		<h4 class="panel-title">
+		    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+			Informations
+		    </a>
+		</h4>
 	    </div>
-	    <div class="form-group">
-		<textarea class="form-control" rows="4" name='comment' id="comment" placeholder="Votre commentaire"></textarea>
-		{!! $errors->first('comment', '<small class="help-block">:message</small>') !!}
-	    </div>
-	    <div class="form-group">
-		<button type="submit" class="btn btn-primary">Connexion</button>
+	    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+		<div class="panel-body">
+		    <p>
+			@foreach($infos->literal as $info)
+			<b>{{ $info->name }}</b> : {{ $info->value }}<br />
+			@endforeach       
+		    </p>
+		    <p>
+			@foreach($infos->object as $info)
+			<b>{{ $info->name }}</b> : <a href="{{ route('public.show', ['uid'=>Utils::formatURI($info->ent->URI)]) }}">{{$info->ent->name}}</a><br />
+			@endforeach
+		    </p>
+		</div>
 	    </div>
 	</div>
-    </form>
+	<div class="panel panel-default">
+	    <div class="panel-heading" role="tab" id="headingTwo">
+		<h4 class="panel-title pull-left headingButton">
+		   <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+			Commentaires
+		    </a>
+		</h4>
+
+		<button class="btn btn-default pull-right"  data-toggle="modal" data-target="#addCommentModal">Commenter</button>
+		<div class="clearfix"></div>
+	    </div>
+	    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+		 <ul class="list-group">
+		    @foreach($comments as $comment)
+		    <li class="list-group-item"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span> <b>{{ $comment->authorName }}</b> : {{ $comment->comment }}</li>
+		    @endforeach
+		  </ul>
+	    </div>
+	</div>
+    </div>
+
 </div>
 
 
@@ -148,4 +178,37 @@ $(document).ready(function () {
 <footer>
     <p>&copy; 2015 Company, AXIS-MOM - Titan, LookOut</p>
 </footer>
+
+<div class="modal fade" tabindex="-1" id="addCommentModal" role="dialog">
+    <div class="modal-dialog">
+	<div class="modal-content">
+	    <div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		<h4 class="modal-title">Commenter cette oeuvre</h4>
+	    </div>
+	    <div class="modal-body">
+		<div class="alert" role="alert" style="display:none;"></div>
+		<form>
+		    {!! csrf_field() !!}   
+		    <div class="form-group">
+			<label for="commentName">Nom et prénom :</label>
+			<input type="text" class="form-control" name="authorName" id="commentName" placeholder="Nom">
+		    </div>
+		    <div class="form-group">
+			<label for="commentEmail">Email :</label>
+			<input type="email" class="form-control" name="email" id="commentEmail" placeholder="Email">
+		    </div>
+		    <div class="form-group">
+			<label for="commentComment">Commentaire :</label>
+			<textarea class="form-control" name="comment" id="commentComment"></textarea>
+		    </div>
+		</form>
+	    </div>
+	    <div class="modal-footer">
+		<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+		<button type="button" class="btn btn-primary" id="btnComment">Commenter</button>
+	    </div>
+	</div>
+    </div>
+</div>
 @stop

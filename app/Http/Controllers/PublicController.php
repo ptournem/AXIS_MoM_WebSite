@@ -14,7 +14,7 @@ class PublicController extends Controller {
 
     public function __construct() {
 	// la méthode de recherche est uniquement disponible en ajax
-	$this->middleware('ajax', ['only' => ['anySearchEntity']]);
+	$this->middleware('ajax', ['only' => ['anySearchEntity', 'postComment']]);
     }
 
     /**
@@ -99,11 +99,11 @@ class PublicController extends Controller {
 	$ret = new \stdClass();
 	$ret->literal = [];
 	$ret->object = [];
-	
-	if(!is_array($properties)){
+
+	if (!is_array($properties)) {
 	    return $ret;
 	}
-	
+
 	foreach ($properties as $prop) {
 	    if ($prop->type !== 'uri') {
 		$ret->literal[] = $prop;
@@ -113,6 +113,13 @@ class PublicController extends Controller {
 	}
 
 	return $ret;
+    }
+
+    public function postComment(Request $request) {
+	if (!$request->has('authorName') || !$request->has('email') || !$request->has('comment')) {
+	    return response()->json(['result' => false, "message"=>"Veuillez renseigner tous les champs du formulaire"]);
+	}
+	return response()->json(['result' => is_object(Comments::AddComment(new Comment($request->get('authorName'), $request->get('email'), $request->get('comment'))))]);
     }
 
 }

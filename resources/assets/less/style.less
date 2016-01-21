@@ -181,3 +181,27 @@ body {
 #admin-bt{
     margin-right  : 10px;
 }
+
+#accordion.accordionInfo {
+    .panel {
+	margin-top: 20px;
+	.panel-body, ul {
+	    min-height: 500px;
+	    max-height : 500px;
+	    overflow-y: auto;
+	}
+    }
+
+    .panel-heading h4 {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	line-height: normal;
+	max-width: 75%;
+	padding-top: 8px;
+
+	&:not(.headingButton){
+	    padding-bottom : 8px
+	}
+    }
+}

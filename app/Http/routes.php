@@ -18,6 +18,7 @@ Route::get('/home', 'PublicController@anyIndex');
 Route::controller('public', 'PublicController', [
     "anySearchEntity" => "public.search",
     "anyEntity" => "public.show",
+    "postComment" => "public.comment",
 ]);
 
 Route::get('admin', 'Admin\AdminController@Index');
