@@ -54,11 +54,11 @@ return [
 
         'mysql' => [
             'driver'    => 'mysql',
-            'host'      => 'localhost',
-            'database'  => 'axismom',
-            'username'  => 'root',
-            'password'  => '',
-            'charset'   => 'utf8',
+            'host' => env('DB_HOST', 'localhost'),
+	    'database' => env('DB_DATABASE', 'AXIS_MoM'),
+	    'username' => env('DB_USERNAME', 'root'),
+	    'password' => env('DB_PASSWORD', 'root'),
+	    'charset'   => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix'    => '',
             'strict'    => false,
