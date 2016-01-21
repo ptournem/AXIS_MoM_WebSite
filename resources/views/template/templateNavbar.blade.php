@@ -5,7 +5,7 @@
 @stop
 
 @section('menu')
-<nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
+<nav class="navbar navbar-default navbar-fixed-top">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -17,9 +17,12 @@
       </button>
       <a class="navbar-brand" href="{{ url('home') }}"><img src="{{ URL::asset('img/axismom.png') }}" height="20px" /></a>
     </div>
-
+    
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+	@yield('menu-before')
+	 
 	<form class="navbar-form navbar-left" role="search">
 	    <div class="form-group">
 		<div class="input-group stylish-input-group">
@@ -32,6 +35,8 @@
 		</div>
 	    </div>
 	</form>
+	
+	@yield('menu-after')
       
 	<div class="nav navbar-nav navbar-right">
 	    @parent
