@@ -1,16 +1,4 @@
-@extends('template')
-
-@section('header')
-
-<title>AXIS-MOM</title>
-<script type="text/javascript">
-
-</script>
-@stop
-
-@section('title')
-AXIS-MOM
-@stop
+@extends('template/templateSimple')
 
 @section('body')
  id="welcome"

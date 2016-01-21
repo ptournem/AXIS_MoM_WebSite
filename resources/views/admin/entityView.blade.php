@@ -1,8 +1,6 @@
 @extends('admin/template')
 
 @section('header')
-    <link rel="stylesheet" type="text/css" href="{{ URL::asset('css/style.css') }}">
-    <script type="text/javascript" src="{{ URL::asset('js/AXIS_MOM.js') }}"></script>
     <script type="text/javascript">
         $(document).ready(function(){
             var hasChanged = false;
@@ -83,10 +81,6 @@
             $('.selected').attr('style', 'background-color: rgb(100, 255, 104);');
         });
     </script>
-@stop
-
-@section('title')
-    Administration AXIS-MOM
 @stop
 
 @section('contenu')
@@ -196,8 +190,4 @@
         </table>
     </div>
 </div>
-@stop
-
-@section('footer')
-
 @stop

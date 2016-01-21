@@ -1,8 +1,6 @@
 @extends('admin/template')
 
 @section('header')
-    <link rel="stylesheet" type="text/css" href="{{ URL::asset('css/style.css') }}">
-    <script type="text/javascript" src="{{ URL::asset('js/AXIS_MOM.js') }}"></script>
     <script type='text/javascript'>
         $(document).ready(function(){
             $('#button-filter-show-all').click(function(){
@@ -27,13 +25,9 @@
     </script>
 @stop
 
-@section('title')
-    Administration AXIS-MOM
-@stop
-
 @section('contenu')
 
-<ul class="nav nav-tabs">
+<ul class="nav nav-tabs" id='adminNavTab'>
     <li><a data-toggle="tab" href="#membres">Gestion des membres</a></li>
     <li class="active"><a data-toggle="tab" href="#entites">Gestion des entités</a></li>
     <li><a data-toggle="tab" href="#commentaires">Gestion des commentaires</a></li>
@@ -279,9 +273,5 @@
     </div>
   </div>
 </div>
-
-@stop
-
-@section('footer')
 
 @stop

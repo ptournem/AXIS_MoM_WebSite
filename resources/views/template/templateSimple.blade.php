@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>@yield('title')</title>
+        <title>@section('title') AXIS_MoM @show</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 	<script type="text/javascript">
@@ -38,7 +38,7 @@
     </head>
     
     <body @yield('body')>
-	@section('connection')
+	@section('menu')
 	    @if(Session::get('isConnected') != 'true')
 		<div id="connexion">
 		    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modalConnexion">
