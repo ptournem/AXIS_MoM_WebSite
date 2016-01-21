@@ -99,6 +99,11 @@ class PublicController extends Controller {
 	$ret = new \stdClass();
 	$ret->literal = [];
 	$ret->object = [];
+	
+	if(!is_array($properties)){
+	    return $ret;
+	}
+	
 	foreach ($properties as $prop) {
 	    if ($prop->type !== 'uri') {
 		$ret->literal[] = $prop;

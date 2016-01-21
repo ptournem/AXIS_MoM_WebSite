@@ -53,6 +53,22 @@ class PublicControllerTest extends TestCase {
 	$this->action('GET', 'PublicController@anyEntity', ['uid' => 1]);
 	$this->assertRedirectedToAction('PublicController@anyIndex');
     }
+    
+    public function testShowEntityNoPropertyFound(){
+	$comments = [];
+	$properties = null;
+
+	Semantics::shouldReceive('GetEntity')->once()->andReturn(new Entity("URI", "Name", "image", "type"));
+	Semantics::shouldReceive('LoadEntityProperties')->once()->andReturn($properties);
+	Comments::shouldReceive('LoadComment')->once()->andReturn($comments);
+
+	//appel avec paramètre
+	$this->action('GET', 'PublicController@anyEntity', ['uid' => 1]);
+	$this->assertResponseOk();
+	$this->assertViewHas("comments");
+	$this->assertViewHas("infos");
+	$this->assertViewHas("entity");
+    }
 
     public function testSearchNoAjax() {
 	// appel sans paramètre
@@ -83,5 +99,7 @@ class PublicControllerTest extends TestCase {
 	$this->assertResponseOk();
 	$this->isJson();
     }
+    
+    
 
 }
