@@ -1,8 +1,8 @@
-@extends('template')
+@extends('template/templateNavbar')
 
 @section('contenu')
     <br>
-    <div class="col-sm-offset-4 col-sm-4">
+    <div class="col-sm-offset-1 col-sm-10 col-xs-offset-1 col-xs-10 col-md-offset-1 col-md-10">
 		<div class="panel panel-danger">
 			<div class="panel-heading">
 				<h3 class="panel-title">Il y a un problème !</h3>
