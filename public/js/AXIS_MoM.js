@@ -83,12 +83,14 @@ function unformatURI(url) {
     return url.replace(/\|/gi, '/');
 }
 
-function setProperty(name, value, type) {
+function setProperty(name, value, type, elt) {
     $.getJSON(top.location + '/' + name + '/' + value + '/' + type, null)
 	    .done(function (json) {
 		console.log(json);
 		if (json.success == true) {
 		    console.log("OK");
+                    elt.parent().children('.btn').addClass('disabled');
+                    elt.parent().children('.btn').attr('name', value);
 		    $('.alert-success-update').show();
 		}
 		else {

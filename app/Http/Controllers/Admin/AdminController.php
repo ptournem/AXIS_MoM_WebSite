@@ -63,7 +63,7 @@ class AdminController extends Controller
         $entity = new Entity($uri,"",'','');
         $retours = Semantics::GetAllPropertiesAdmin($entity);
         $entity = Semantics::GetEntity(new Entity($uri,"",'',''));
-        var_dump($retours);
+        //var_dump($retours);
         $dbpedia = array();
         $dbpediaInfo = false;
         
