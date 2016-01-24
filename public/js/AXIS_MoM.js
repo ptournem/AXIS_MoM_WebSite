@@ -90,7 +90,7 @@ function setProperty(name, value, type, elt) {
 		if (json.success == true) {
 		    console.log("OK");
                     elt.parent().children('.btn').addClass('disabled');
-                    elt.parent().children('.btn').attr('name', value);
+                    $('.locale-value.information-' + elt.parent().parent().attr('name')).children(".hidden").text(decodeURIComponent(unformatURI(value)));
 		    $('.alert-success-update').show();
 		}
 		else {

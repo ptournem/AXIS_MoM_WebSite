@@ -29,7 +29,7 @@
         
         $(document).on('click', '.btn-success', function () {
             if(!$(this).hasClass('disabled')){
-                var value = $(this).attr('name');
+                var value = $('.locale-value.information-' + $(this).parent().parent().attr('name')).children('.value').text();
                 console.log(value);
                 if (value.length > 7 && value.substring(0, 7) == 'http://') {
                     var type = 'uri';
@@ -38,6 +38,8 @@
                 else
                     var type = 'fr';
                 value = encodeURIComponent(formatURI(value));
+                console.log($(this).parent().parent().attr('name'));
+                console.log($('.locale-value.information-' + $(this).parent().parent().attr('name')).children(".hidden"));
                 setProperty($(this).attr('name'), value, type, $(this));
             }
         });
@@ -48,10 +50,20 @@
         });
         $(document).on('click', '.btn-danger', function () {
             if(!$(this).hasClass('disabled')){
-                $('.locale-value.information-' + $(this).parent().parent().attr('name')).text($(this).attr('name'));
+                var item = $('.locale-value.information-' + $(this).parent().parent().attr('name'));
+                item.children('.value').text(item.children('.hidden').text());
                 $(this).parent().children('.btn').addClass('disabled');
                 $('.alert-success').hide();
             }
+        });
+        $(document).on('click', '.btn-success-selected', function () {
+            var value = $(this).parent().children(".value").text();
+            console.log(value);
+            var name = $(this).parent().attr('name');
+            var item = $('.locale-value.information-' + name);
+            item.children(".value").text(value);
+            $('.locale-btn.information-' + name).children().children(".btn").removeClass('disabled');
+            $('.alert-success').hide();
         });
         $(document).on('click', '.locale-value', function () {
             $('.alert-success').hide();
@@ -119,7 +131,7 @@
             <thead>
                 <tr>
                     <th>Informations</th>
-                    <th colspan="2">Local</th>
+                    <th colspan="2" width="50%">Local</th>
                     @if($dbpediaInfo)
                     <th>DBPedia</th>
                     @endif
@@ -132,9 +144,10 @@
                         <td class="information-{{ $retour->name }}">{{ $retour->name }}  </td>
                         @if($retour->type == 'uri')
                             <td contenteditable="true" style="background-color: rgb(103, 145, 252)" name="{{ $retour->name }}" class="information-{{ $retour->name }} locale-value">
-                                {{ $retour->entity_locale->name }}
+                                <span class="value">{{ $retour->entity_locale->name }}</span>
+                                <span class="hidden" style="display: none">{{ $retour->entity_locale->name }}</span>
                             </td>
-                            <td style="background-color: rgb(103, 145, 252)" name="{{ $retour->name }}" class="information-{{ $retour->name }}">
+                            <td style="background-color: rgb(103, 145, 252)" width="30%" name="{{ $retour->name }}" class="information-{{ $retour->name }} locale-btn">
                                 <div class="input-group-btn" role="group">
                                     <button type="button" name="{{ $retour->entity_locale->name }}" class="btn btn-danger btn-danger-name-{{ $retour->name }} disabled">
                                         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
@@ -145,13 +158,19 @@
                                 </div>
                             </td>
                             @if($dbpediaInfo)
-                                <td class="information-{{ $retour->name }}" style="background-color: rgb(103, 145, 252)">{{ $retour->entity_dbpedia->name }}</td>
+                                <td class="information-{{ $retour->name }}" name="{{ $retour->name }}" style="background-color: rgb(103, 145, 252)">
+                                    <button type="button" name="{{ $retour->entity_locale->name }}" class="btn btn-success-selected btn-success-selected-{{ $retour->name }}">
+                                        <span class="glyphicon glyphicon-transfer" aria-hidden="true"></span>
+                                    </button>
+                                    <span class="value">{{ $retour->entity_dbpedia->name }}</span>
+                                </td>
                             @endif                                
                         @else
                             <td contenteditable="true" name="{{ $retour->name }}" class="information-{{ $retour->name }} locale-value">
-                                {{ $retour->value_locale }}
+                                <span class="value">{{ $retour->value_locale }}</span>
+                                <span class="hidden" style="display: none">{{ $retour->value_locale }}</span>
                             </td>
-                            <td name="{{ $retour->name }}" class="information-{{ $retour->name }}">
+                            <td name="{{ $retour->name }}" width="30%" class="information-{{ $retour->name }}  locale-btn">
                                 <div class="input-group-btn" role="group">
                                     <button type="button" name="{{ $retour->value_locale }}" class="btn btn-danger btn-danger-name-{{ $retour->name }} disabled">
                                         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
@@ -162,7 +181,12 @@
                                 </div>
                             </td>
                             @if($dbpediaInfo)
-                                <td class="information-{{ $retour->name }}">{{ $retour->value_dbpedia }}</td>
+                                <td class="information-{{ $retour->name }}" name="{{ $retour->name }}">
+                                    <button type="button" name="{{ $retour->value_locale }}" class="btn btn-success-selected btn-success-selected-{{ $retour->name }}">
+                                        <span class="glyphicon glyphicon-transfer" aria-hidden="true"></span>
+                                    </button>
+                                    <span class="value">{{ $retour->value_dbpedia }}</span>
+                                </td>
                             @endif
                         @endif
                         </tr>
