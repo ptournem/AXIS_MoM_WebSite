@@ -109,32 +109,26 @@ class PublicControllerTest extends TestCase {
     public function testPostCommentMissParameter() {
 	$this->withoutMiddleware();
 
-	$response1 = $this->action('POST', 'PublicController@postComment', null, array('authorName' => 'test', 'email' => ''));
+	$response1 = $this->action('POST', 'PublicController@postComment', null, array('Nom' => 'test', 'Mail' => 'azert@fr.fr'));
 	$this->assertResponseOk();
 	$this->isJson();
 	$json1 = json_decode($response1->getContent());
-	var_dump($json1);
-	$this->assertObjectHasAttribute("result", $json1);
-	$this->assertEquals($json1->result, false);
-	$this->assertObjectHasAttribute("message", $json1);
+	$this->assertObjectHasAttribute("require", $json1);
+	$this->assertObjectHasAttribute('Commentaire', $json1->require);
 
-	$response2 = $this->action('POST', 'PublicController@postComment', null, array('authorName' => 'test', 'comments' => ''));
+	$response2 = $this->action('POST', 'PublicController@postComment', null, array('Nom' => 'test', 'Commentaire' => ''));
 	$this->assertResponseOk();
 	$this->isJson();
 	$json2 = json_decode($response2->getContent());
-	var_dump($json2);
-	$this->assertObjectHasAttribute("result", $json2);
-	$this->assertEquals($json2->result, false);
-	$this->assertObjectHasAttribute("message", $json2);
+	$this->assertObjectHasAttribute("require", $json2);
+	$this->assertObjectHasAttribute('Mail', $json2->require);
 
-	$response3 = $this->action('POST', 'PublicController@postComment', null, array('email' => '', 'comments' => ''));
+	$response3 = $this->action('POST', 'PublicController@postComment', null, array('Mail' => 'azert@fr.fr', 'Commentaire' => 'comment'));
 	$this->assertResponseOk();
 	$this->isJson();
 	$json3 = json_decode($response3->getContent());
-	var_dump($json3);
-	$this->assertObjectHasAttribute("result", $json3);
-	$this->assertEquals($json3->result, false);
-	$this->assertObjectHasAttribute("message", $json3);
+	$this->assertObjectHasAttribute("require", $json3);
+	$this->assertObjectHasAttribute('Nom', $json3->require);
     }
 
     public function testPostCommentNoParameter() {
@@ -144,10 +138,10 @@ class PublicControllerTest extends TestCase {
 	$this->isJson();
 
 	$json = json_decode($response->getContent());
-	var_dump($json);
-	$this->assertObjectHasAttribute("result", $json);
-	$this->assertEquals($json->result, false);
-	$this->assertObjectHasAttribute("message", $json);
+	$this->assertObjectHasAttribute("require", $json);
+	$this->assertObjectHasAttribute('Nom', $json->require);
+	$this->assertObjectHasAttribute('Commentaire', $json->require);
+	$this->assertObjectHasAttribute('Mail', $json->require);
     }
 
     public function testPostCommentGood() {
@@ -155,7 +149,7 @@ class PublicControllerTest extends TestCase {
 
 	Comments::shouldReceive('AddComment')->once()->andReturn(new Comment());
 
-	$this->action('POST', 'PublicController@postComment', null, array('authorName' => 'test', 'email' => 'test', 'comment' => 'test'));
+	$this->action('POST', 'PublicController@postComment', null, array('Nom' => 'test', 'Mail' => 'mail@gmail.com', 'Commentaire' => 'test'));
 	$this->assertResponseOk();
 	$this->isJson();
 	$this->seeJsonEquals(['result' => true]);

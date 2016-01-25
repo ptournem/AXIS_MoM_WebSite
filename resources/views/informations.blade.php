@@ -17,7 +17,7 @@ $(document).ready(function () {
     $.fn.semanticGraphael.default.ItemOptions.verticalMargin = 0;
     $('#graph').semanticGraphael({
 	centralItem: {!!json_encode($entity)!!},
-	connections: {!! json_encode($infos->object) !!},
+	connections: {!! json_encode($infos->connection) !!},
 	onClickItem: function (item) {
 	    // on navigue vers l'url de l'item 
 	    window.location = ("{{route('public.show')}}/" + formatURI(item.URI));
@@ -61,20 +61,32 @@ $(document).ready(function () {
 	var data = $('#addCommentModal form').serialize();
 	$.post("{{route('public.comment')}}",data,function(data){
 	    if(data.result){
+		resetForm();
 		$('#addCommentModal .alert').removeClass('alert-danger').addClass('alert-success').text('Commentaire ajouté ! Il sera affiché après modération.').show('fade').delay(1500).hide(function(){
 		    $('#addCommentModal').modal('hide')
 		});
 		
 	    }else {
-		$('#addCommentModal .alert').removeClass('alert-success').addClass('alert-danger').text(data.message).show('fade').delay(4000).hide('fade');
+		resetForm();
+	$('#addCommentModal form p').hide();
+		$.each(data.require,function(key,msg){
+		    $('#addCommentModalError-'+key).parent().addClass('has-error');
+		    $('#addCommentModalError-'+key).text(msg).show('fade');
+		})
+		
 	    }
 	});
     })
     
+    function resetForm(){
+	$('#addCommentModal form>div').removeClass('has-error');
+	$('#addCommentModal form p').hide();
+    }
     
     // reset des champs lors de la fermeture de la modal 
     $('#addCommentModal').on('hide.bs.modal', function (event) {
 	$('#addCommentModal form').get(0).reset()
+	resetForm();
     });
 });
 </script>
@@ -136,16 +148,27 @@ $(document).ready(function () {
 	    </div>
 	    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
 		<div class="panel-body">
-		    <p>
-			@foreach($infos->literal as $info)
-			<b>{{ $info->name }}</b> : {{ $info->value }}<br />
-			@endforeach       
-		    </p>
-		    <p>
-			@foreach($infos->object as $info)
-			<b>{{ $info->name }}</b> : <a href="{{ route('public.show', ['uid'=>Utils::formatURI($info->ent->URI)]) }}">{{$info->ent->name}}</a><br />
-			@endforeach
-		    </p>
+		    @foreach($infos->literal as $info)
+			<p>
+			    <b>{{ $info->name }}</b> : {{ $info->value }}
+			</p>
+		    @endforeach   
+		    @foreach($infos->object as $info)
+			<p>
+			    <b>{{ $info->name }}</b> :
+			    @if(is_array($info->ent))
+				<ul>
+				    @foreach($info->ent as $ent)
+					<li><a href="{{ route('public.show', ['uid'=>Utils::formatURI($ent->URI)]) }}">{{$ent->name}}</a></li>
+				    @endforeach
+				</ul>
+			    @else 
+				 <a href="{{ route('public.show', ['uid'=>Utils::formatURI($info->ent->URI)]) }}">{{$info->ent->name}}</a>
+			    @endif
+			    
+			</p>
+		    @endforeach
+		    
 		</div>
 	    </div>
 	</div>
@@ -153,7 +176,7 @@ $(document).ready(function () {
 	    <div class="panel-heading" role="tab" id="headingTwo">
 		<h4 class="panel-title pull-left headingButton">
 		   <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-			Commentaires
+			Commentaires ({{count($comments)}})
 		    </a>
 		</h4>
 
@@ -189,18 +212,22 @@ $(document).ready(function () {
 	    <div class="modal-body">
 		<div class="alert" role="alert" style="display:none;"></div>
 		<form>
-		    {!! csrf_field() !!}   
+		    {!! csrf_field() !!}  
 		    <div class="form-group">
-			<label for="commentName">Nom et prénom :</label>
-			<input type="text" class="form-control" name="authorName" id="commentName" placeholder="Nom">
+			<label class="control-label" for="commentName">Nom et prénom :</label>
+			<input type="text" class="form-control" name="Nom" id="commentName" placeholder="Nom">
+			<p id="addCommentModalError-Nom" class="text-danger" style="display:none;"></p>
+			
 		    </div>
 		    <div class="form-group">
-			<label for="commentEmail">Email :</label>
-			<input type="email" class="form-control" name="email" id="commentEmail" placeholder="Email">
+			<label class="control-label" for="commentEmail">Mail :</label>
+			<input type="email" class="form-control" name="Mail" id="commentEmail" placeholder="Email">
+			<p id="addCommentModalError-Mail" class="text-danger" style="display:none;"></p>
 		    </div>
 		    <div class="form-group">
-			<label for="commentComment">Commentaire :</label>
-			<textarea class="form-control" name="comment" id="commentComment"></textarea>
+			<label class="control-label" for="commentComment">Commentaire :</label>
+			<textarea class="form-control" name="Commentaire" id="commentComment"></textarea>
+			<p id="addCommentModalError-Commentaire" class="text-danger" style="display:none;"></p>
 		    </div>
 		</form>
 	    </div>

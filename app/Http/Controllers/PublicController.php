@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Semantics;
 use Comments;
+use Validator;
 use Utils;
 use App\Classes\Dialog\Entity;
 use App\Classes\Dialog\Property;
@@ -99,6 +100,7 @@ class PublicController extends Controller {
 	$ret = new \stdClass();
 	$ret->literal = [];
 	$ret->object = [];
+	$ret->connection = [];
 
 	if (!is_array($properties)) {
 	    return $ret;
@@ -109,6 +111,13 @@ class PublicController extends Controller {
 		$ret->literal[] = $prop;
 	    } else {
 		$ret->object[] = $prop;
+		if (is_object($prop->ent)) {
+		    $ret->connection[] = new Property($prop->name, null, 'uri', Utils::cast($prop->ent, 'App\Classes\Dialog\Entity'));
+		} elseif (is_array($prop->ent)) {
+		    foreach ($prop->ent as $conn) {
+			$ret->connection[] = new Property($prop->name, null, 'uri', Utils::cast($conn, 'App\Classes\Dialog\Entity'));
+		    }
+		}
 	    }
 	}
 
@@ -116,10 +125,18 @@ class PublicController extends Controller {
     }
 
     public function postComment(Request $request) {
-	if (!$request->has('authorName') || !$request->has('email') || !$request->has('comment')) {
-	    return response()->json(['result' => false, "message"=>"Veuillez renseigner tous les champs du formulaire"]);
+
+	$validator = Validator::make($request->all(), [
+		    'Nom' => 'required|max:40|min:4',
+		    'Mail' => 'required|email',
+		    'Commentaire' => 'required'
+	]);
+
+	if ($validator->fails()) {
+	    return response()->json(['require' => $validator->errors()]);
 	}
-	return response()->json(['result' => is_object(Comments::AddComment(new Comment($request->get('authorName'), $request->get('email'), $request->get('comment'))))]);
+
+	return response()->json(['result' => is_object(Comments::AddComment(new Comment($request->get('Nom'), $request->get('Mail'), $request->get('Commentaire'))))]);
     }
 
 }
