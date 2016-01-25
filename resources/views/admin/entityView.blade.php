@@ -131,7 +131,7 @@
             <thead>
                 <tr>
                     <th>Informations</th>
-                    <th colspan="2" width="50%">Local</th>
+                    <th>Local</th>
                     @if($dbpediaInfo)
                     <th>DBPedia</th>
                     @endif
@@ -143,34 +143,51 @@
                         <tr>
                         <td class="information-{{ $retour->name }}">{{ $retour->name }}  </td>
                         @if($retour->type == 'uri')
-                            <td contenteditable="true" style="background-color: rgb(103, 145, 252)" name="{{ $retour->name }}" class="information-{{ $retour->name }} locale-value">
-                                <span class="value">{{ $retour->entity_locale->name }}</span>
-                                <span class="hidden" style="display: none">{{ $retour->entity_locale->name }}</span>
-                            </td>
-                            <td style="background-color: rgb(103, 145, 252)" width="30%" name="{{ $retour->name }}" class="information-{{ $retour->name }} locale-btn">
-                                <div class="input-group-btn" role="group">
-                                    <button type="button" name="{{ $retour->entity_locale->name }}" class="btn btn-danger btn-danger-name-{{ $retour->name }} disabled">
-                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                    </button>
-                                    <button type="button" name="{{ $retour->entity_locale->name }}" class="btn btn-success btn-success-name-{{ $retour->name }}  disabled">
-                                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                                    </button>
-                                </div>
+                            <td name="{{ $retour->name }}" class="information-{{ $retour->name }} locale-value">
+                                @if(is_array($retour->entity_locale))
+                                    @foreach($retour->entity_locale as $entity)
+                                    <span name="{{ $entity->URI }}" style="background-color: pink; padding: 2px;">
+                                        <span class="value">{{ $entity->name }}</span>
+                                    </span>
+                                    @endforeach
+                                @else
+                                    <span name="{{ $retour->entity_locale->URI }}" style="background-color: pink; padding: 2px;">
+                                        <span class="value">{{ $retour->entity_locale->name }}</span>
+                                    </span>
+                                @endif
+                                <span style="background-color: pink; padding: 2px;">
+                                    <span contenteditable="true" class="value"></span>
+                                </span>
+                                <button type="button" name="{{ $retour->name }}" class="btn btn-danger btn-danger-name-{{ $retour->name }} disabled">
+                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                </button>
+                                <button type="button" name="{{ $retour->name }}" class="btn btn-success btn-success-name-{{ $retour->name }}  disabled">
+                                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                </button>
                             </td>
                             @if($dbpediaInfo)
-                                <td class="information-{{ $retour->name }}" name="{{ $retour->name }}" style="background-color: rgb(103, 145, 252)">
-                                    <button type="button" name="{{ $retour->entity_locale->name }}" class="btn btn-success-selected btn-success-selected-{{ $retour->name }}">
+                                <td class="information-{{ $retour->name }}" name="{{ $retour->name }}">
+                                    <button type="button" name="{{ $entity->name }}" 
+                                            class="btn btn-success-selected btn-success-selected-{{ $retour->name }}">
                                         <span class="glyphicon glyphicon-transfer" aria-hidden="true"></span>
                                     </button>
-                                    <span class="value">{{ $retour->entity_dbpedia->name }}</span>
+                                    @if(is_array($retour->entity_dbpedia))
+                                        @foreach($retour->entity_dbpedia as $entity)
+                                        <span style="background-color: pink; padding: 2px;">
+                                            <span name="{{ $entity->URI }}" class="value">{{ $entity->name }}</span>
+                                        </span>
+                                        @endforeach    
+                                    @else
+                                        <span style="background-color: pink; padding: 2px;">
+                                            <span name="{{ $retour->entity_dbpedia->URI }}" class="value">{{ $retour->entity_dbpedia->name }}</span>
+                                        </span>
+                                    @endif
                                 </td>
                             @endif                                
                         @else
                             <td contenteditable="true" name="{{ $retour->name }}" class="information-{{ $retour->name }} locale-value">
                                 <span class="value">{{ $retour->value_locale }}</span>
                                 <span class="hidden" style="display: none">{{ $retour->value_locale }}</span>
-                            </td>
-                            <td name="{{ $retour->name }}" width="30%" class="information-{{ $retour->name }}  locale-btn">
                                 <div class="input-group-btn" role="group">
                                     <button type="button" name="{{ $retour->value_locale }}" class="btn btn-danger btn-danger-name-{{ $retour->name }} disabled">
                                         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
