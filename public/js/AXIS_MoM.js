@@ -103,15 +103,12 @@ function setProperty(name, value, type, elt) {
 	    });
 }
 
-function removeProperty(name, value, type, elt) {
-    $.getJSON(top.location + '/' + name + '/' + value + '/' + type, null)
+function removeProperty(name, uriB, elt) {
+    $.getJSON(top.location + '/' + name + '/' + uriB, null)
 	    .done(function (json) {
 		console.log(json);
 		if (json.success == true) {
 		    console.log("OK");
-                    elt.parent().children('.btn').addClass('disabled');
-                    $('.locale-value.information-' + elt.parent().parent().attr('name')).children(".hidden").text(decodeURIComponent(unformatURI(value)));
-		    $('.alert-success-update').show();
 		}
 		else {
 		    console.log("fail");

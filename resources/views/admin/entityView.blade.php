@@ -44,6 +44,7 @@
             }
         });
         $(document).on('click', '.entity-delete', function () {
+            removeProperty($(this).parent().parent().attr('name'), $(this).attr('name'), $(this));
             $(this).parent().remove();
         });
         $(document).on('click', '.entity-dbpedia', function () {
@@ -144,7 +145,6 @@
 <div class="tab-content">
     <div id="informations" class="tab-pane fade in active">
         <br />
-        <span class="testest">test</span>
         <div id='successMsg-update' class="alert alert-success alert-success-update" style="display: none">
             Mise à  jour du champ effectué.
         </div>
@@ -168,13 +168,13 @@
                                 @if(is_array($retour->entity_locale))
                                     @foreach($retour->entity_locale as $entity)
                                     <span class="entity" style="background-color: pink; padding: 2px; margin: 2px;">
-                                        <span class="value">{{ $entity->name }}</span>
+                                        <span class="value">{{ $entity->URI }}</span>
                                         <span class="glyphicon glyphicon-remove entity-delete" aria-hidden="true" style="position-top: 0px; position-left: 0px;"></span>
                                     </span>
                                     @endforeach
                                 @else
                                     <span class="entity" style="background-color: pink; padding: 2px; margin: 2px;">
-                                        <span class="value">{{ $retour->entity_locale->name }}</span>
+                                        <span name="{{ $retour->entity_locale->URI }}" class="value">{{ $retour->entity_locale->name }}</span>
                                         <span class="glyphicon glyphicon-remove entity-delete" aria-hidden="true" style="position-top: 0px; position-left: 0px;"></span>
                                     </span>
                                 @endif
