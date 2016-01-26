@@ -43,6 +43,26 @@
                 setProperty($(this).attr('name'), value, type, $(this));
             }
         });
+        $(document).on('click', '.entity-delete', function () {
+            $(this).parent().remove();
+        });
+        $(document).on('click', '.entity-dbpedia', function () {
+            setProperty($(this).parent().attr('name'), encodeURIComponent(formatURI($(this).attr('name'))), "uri", $(this));
+            var thisClone = $(this).clone().css('background-color', 'pink')
+                        .removeClass('entity-dbpedia');
+            thisClone.append('<span class="glyphicon glyphicon-remove entity-delete" aria-hidden="true" style="position-top: 0px; position-left: 0px;"></span>');
+            $(this).parent().parent().children('.locale-value')
+                        .append(thisClone);            
+        });
+        $(document).on('mouseover', '.entity', function () {
+            var color  = $(this).css("background-color");
+
+            $(this).css("background", "grey");
+
+            $(this).bind("mouseout", function(){
+                $(this).css("background-color", color);
+            }) 
+        });
         $(document).on('keyup', '.locale-value', function () {
             $(".btn-danger-name-" + $(this).attr('name')).removeClass('disabled');
             $(".btn-success-name-" + $(this).attr('name')).removeClass('disabled');
@@ -124,6 +144,7 @@
 <div class="tab-content">
     <div id="informations" class="tab-pane fade in active">
         <br />
+        <span class="testest">test</span>
         <div id='successMsg-update' class="alert alert-success alert-success-update" style="display: none">
             Mise à  jour du champ effectué.
         </div>
@@ -131,7 +152,7 @@
             <thead>
                 <tr>
                     <th>Informations</th>
-                    <th>Local</th>
+                    <th width="35%">Local</th>
                     @if($dbpediaInfo)
                     <th>DBPedia</th>
                     @endif
@@ -141,29 +162,22 @@
                 @foreach($retours as $retour)
                     @if($retour->name != 'sameas')
                         <tr>
-                        <td class="information-{{ $retour->name }}">{{ $retour->name }}  </td>
+                        <td class="information-{{ $retour->name }}">{{ $retour->name }}</td>
                         @if($retour->type == 'uri')
                             <td name="{{ $retour->name }}" class="information-{{ $retour->name }} locale-value">
                                 @if(is_array($retour->entity_locale))
                                     @foreach($retour->entity_locale as $entity)
-                                    <span name="{{ $entity->URI }}" style="background-color: pink; padding: 2px;">
+                                    <span class="entity" style="background-color: pink; padding: 2px; margin: 2px;">
                                         <span class="value">{{ $entity->name }}</span>
+                                        <span class="glyphicon glyphicon-remove entity-delete" aria-hidden="true" style="position-top: 0px; position-left: 0px;"></span>
                                     </span>
                                     @endforeach
                                 @else
-                                    <span name="{{ $retour->entity_locale->URI }}" style="background-color: pink; padding: 2px;">
+                                    <span class="entity" style="background-color: pink; padding: 2px; margin: 2px;">
                                         <span class="value">{{ $retour->entity_locale->name }}</span>
+                                        <span class="glyphicon glyphicon-remove entity-delete" aria-hidden="true" style="position-top: 0px; position-left: 0px;"></span>
                                     </span>
                                 @endif
-                                <span style="background-color: pink; padding: 2px;">
-                                    <span contenteditable="true" class="value"></span>
-                                </span>
-                                <button type="button" name="{{ $retour->name }}" class="btn btn-danger btn-danger-name-{{ $retour->name }} disabled">
-                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                </button>
-                                <button type="button" name="{{ $retour->name }}" class="btn btn-success btn-success-name-{{ $retour->name }}  disabled">
-                                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                                </button>
                             </td>
                             @if($dbpediaInfo)
                                 <td class="information-{{ $retour->name }}" name="{{ $retour->name }}">
@@ -173,12 +187,12 @@
                                     </button>
                                     @if(is_array($retour->entity_dbpedia))
                                         @foreach($retour->entity_dbpedia as $entity)
-                                        <span style="background-color: pink; padding: 2px;">
+                                        <span class="entity entity-dbpedia" name="{{ $entity->URI }}" style="background-color: pink; padding: 2px; margin: 2px;">
                                             <span name="{{ $entity->URI }}" class="value">{{ $entity->name }}</span>
                                         </span>
                                         @endforeach    
                                     @else
-                                        <span style="background-color: pink; padding: 2px;">
+                                        <span class="entity entity-dbpedia" style="background-color: pink; padding: 2px; margin: 2px;">
                                             <span name="{{ $retour->entity_dbpedia->URI }}" class="value">{{ $retour->entity_dbpedia->name }}</span>
                                         </span>
                                     @endif

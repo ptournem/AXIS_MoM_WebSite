@@ -103,6 +103,26 @@ function setProperty(name, value, type, elt) {
 	    });
 }
 
+function removeProperty(name, value, type, elt) {
+    $.getJSON(top.location + '/' + name + '/' + value + '/' + type, null)
+	    .done(function (json) {
+		console.log(json);
+		if (json.success == true) {
+		    console.log("OK");
+                    elt.parent().children('.btn').addClass('disabled');
+                    $('.locale-value.information-' + elt.parent().parent().attr('name')).children(".hidden").text(decodeURIComponent(unformatURI(value)));
+		    $('.alert-success-update').show();
+		}
+		else {
+		    console.log("fail");
+		}
+	    })
+	    .fail(function (jqxhr, textStatus, error) {
+		var err = textStatus + ", " + error;
+		console.log("Request Failed: " + err);
+	    });
+}
+
 function addEntity(type, name, description, image) {
     $.getJSON(top.location + '/addEntity/' + type + '/' + name + '/' + description + '/' + encodeURIComponent(formatURI(image)), null)
 	    .done(function (json) {
