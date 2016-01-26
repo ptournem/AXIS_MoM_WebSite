@@ -44,16 +44,13 @@
             }
         });
         $(document).on('click', '.entity-delete', function () {
+            $(this).parent().children('.loadingDelete').show();
             removeProperty($(this).parent().parent().attr('name'), $(this).attr('name'), $(this));
-            $(this).parent().remove();
         });
         $(document).on('click', '.entity-dbpedia', function () {
+            $(this).parent().children('.loadingSet').show();
             setProperty($(this).parent().attr('name'), encodeURIComponent(formatURI($(this).attr('name'))), "uri", $(this));
-            var thisClone = $(this).clone().css('background-color', 'pink')
-                        .removeClass('entity-dbpedia');
-            thisClone.append('<span class="glyphicon glyphicon-remove entity-delete" aria-hidden="true" style="position-top: 0px; position-left: 0px;"></span>');
-            $(this).parent().parent().children('.locale-value')
-                        .append(thisClone);            
+                      
         });
         $(document).on('mouseover', '.entity', function () {
             var color  = $(this).css("background-color");
@@ -178,6 +175,7 @@
                                         <span class="glyphicon glyphicon-remove entity-delete" aria-hidden="true" style="position-top: 0px; position-left: 0px;"></span>
                                     </span>
                                 @endif
+                                <img class="loadingDelete" src="{{ URL::asset('img/waiting.gif') }}" style="display: block; display: none;"/>
                             </td>
                             @if($dbpediaInfo)
                                 <td class="information-{{ $retour->name }}" name="{{ $retour->name }}">
@@ -196,6 +194,7 @@
                                             <span name="{{ $retour->entity_dbpedia->URI }}" class="value">{{ $retour->entity_dbpedia->name }}</span>
                                         </span>
                                     @endif
+                                    <img class="loadingSet" src="{{ URL::asset('img/waiting.gif') }}" style="display: block; display: none;"/>
                                 </td>
                             @endif                                
                         @else
