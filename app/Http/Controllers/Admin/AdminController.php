@@ -5,11 +5,13 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 
 use Semantics;
+use Logs;
 use App\Classes\Dialog\Entity;
 use App\Classes\Dialog\Property;
 use App\Http\Requests\Admin\AddEntityRequest;
 use App\Http\Controllers\Controller;
 use App\User;
+use App\Log;
 use Utils;
 use App\Repositories\UserRepository;
 use App\Http\Requests\UserCreateRequest;
@@ -29,10 +31,12 @@ class AdminController extends Controller
     public function Index() {
         $users = User::all();
         $entities = Semantics::GetAllEntities();
+	$logs = Log::all()->sortByDesc('created_at')->forPage(1, 12);
         
         $data = array(
             'users'  => $users,
-            'entities' => $entities
+            'entities' => $entities,
+	    'logs' => $logs,
         );
         //return '' . print_r($users);
 	return view('admin/admin')->with($data);

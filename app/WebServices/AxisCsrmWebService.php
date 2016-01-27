@@ -4,6 +4,7 @@ namespace App\WebServices;
 
 use Artisaninweb\SoapWrapper\Extension\SoapService;
 use Utils;
+use Logs;
 
 class AxisCsrmWebService extends SoapService {
 
@@ -20,8 +21,11 @@ class AxisCsrmWebService extends SoapService {
 	try {
 	    $ret = $this->call($name, $arguments);
 	} catch (\Exception $e) {
+	    // on log en debug
+	    Logs::debug('WS',$e->getMessage(),null);
 	    // si erreur on retourne null
 	    return null;
+	    
 	}
 
 	// si la réponse à une propriété return, on dit que renvoie la propriété

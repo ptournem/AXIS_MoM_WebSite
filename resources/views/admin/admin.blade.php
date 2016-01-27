@@ -99,6 +99,7 @@
                 </tr>
             </thead>
             <tbody class="tbody-entities">
+		@if(is_array($entities))
                 @foreach ($entities as $entity)
                 <div style="display: none">
                     {!! $uri = str_replace('/', '|', $entity->URI) !!}
@@ -108,6 +109,7 @@
                     <td>{{ $entity->type }}</td>
                 </tr>
                 @endforeach
+		@endif
             </tbody>
         </table>
     </div>
@@ -160,43 +162,20 @@
             <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
             <thead>
                 <tr>
-                    <th>Logs</th>
-                    <th>Logs</th>
-                    <th>Logs</th>
-                    <th>Logs</th>
+                    <th width="20%">Date</th>
+                    <th width="20%">User</th>
+                    <th>Message</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Roberts</td>
-                    <td>Roger</td>
-                    <td>roger.roberts904@gmail.com</td>
-                    <td>Administrateur</td>
-                </tr>
-                <tr>
-                    <td>Roberts</td>
-                    <td>Roger</td>
-                    <td>roger.roberts904@gmail.com</td>
-                    <td>Administrateur</td>
-                </tr>
-                <tr>
-                    <td>Roberts</td>
-                    <td>Roger</td>
-                    <td>roger.roberts904@gmail.com</td>
-                    <td>Administrateur</td>
-                </tr>
-                <tr>
-                    <td>Roberts</td>
-                    <td>Roger</td>
-                    <td>roger.roberts904@gmail.com</td>
-                    <td>Administrateur</td>
-                </tr>
-                <tr>
-                    <td>Roberts</td>
-                    <td>Roger</td>
-                    <td>roger.roberts904@gmail.com</td>
-                    <td>Administrateur</td>
-                </tr>
+		@foreach($logs as $log)
+		<tr>
+		    <td>{{$log->created_at}}</td>
+		    <td>@if($log->user != null){{$log->user->name}}@endif</td>
+		    <td>{{$log->message}}</td>
+		</tr>
+		@endforeach
+		
             </tbody>
         </table>
     </div>
