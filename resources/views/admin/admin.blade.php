@@ -1,28 +1,37 @@
 @extends('admin/template')
 
 @section('header')
-    <script type='text/javascript'>
-        $(document).ready(function(){
-            $('#button-filter-show-all').click(function(){
-                $('#entities tbody tr').show();
-            });
-            
-            $('.button-filter-type').click(function(){
-                var c = $(this).attr('data-class');
-                $('#entities tbody tr').show();
-                $('#entities tbody tr:not(.type-'+c+')').hide();
-            }); 
-            
-            $('.btn-add-entity').on('click', function(){
-                addEntity($('.entity-type').val(), $('.entity-name').val(), $('.entity-description').val(), $('.entity-image').val());
-            });
-            
-            $('.btn-form-entity-show').on('click', function(){
-                $('.alert-success-new-entity').hide();
-            });
-        });
-        
-    </script>
+<script type='text/javascript'>
+    $(document).ready(function () {
+	$('#button-filter-show-all').click(function () {
+	    $('#entities tbody tr').show();
+	});
+
+	$('.button-filter-type').click(function () {
+	    var c = $(this).attr('data-class');
+	    $('#entities tbody tr').show();
+	    $('#entities tbody tr:not(.type-' + c + ')').hide();
+	});
+
+	$('.btn-add-entity').on('click', function () {
+	    addEntity($('.entity-type').val(), $('.entity-name').val(), $('.entity-description').val(), $('.entity-image').val());
+	});
+
+	$('.btn-form-entity-show').on('click', function () {
+	    $('.alert-success-new-entity').hide();
+	});
+	
+	var logDelete = "{{route('log.deleteAll')}}";
+	$('#btn-reset-log').click(function(){
+	    $.post(logDelete,$('#logs-form').serialize(),function(data){
+		   if(data.result){
+		       $('#logs-table tbody').html('');
+		   }
+	    },'json');
+	});
+    });
+
+</script>
 @stop
 
 @section('contenu')
@@ -37,48 +46,48 @@
 <div class="tab-content">
     <div id="membres" class="tab-pane fade">
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ajouterMembre">
-          Ajouter un membre
+	    Ajouter un membre
         </button>
         <br /><br />
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Liste des utilisateurs</h3>
-                </div>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Nom</th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($users as $user)
-                            <tr>
-                                <td>{{ $user->id }}</td>
-                                <td class="text-primary"><strong>{!! $user->name !!}</strong></td>
-                                <td>
-                                    <a href="{{ URL::to('admin/users/' . $user->id) }}" class="btn btn-mini btn-primary">Voir</a>
-                                </td>
-                                <td>
-                                    <form action="{{ URL::to('admin/users') }}" method="POST">
-                                        <button type="submit" class='btn btn-danger btn-block' onclick="return confirm(\'Vraiment supprimer cet utilisateur ?\')">
-                                            Supprimer
-                                        </button>
-                                    </form>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-        
+	<div class="panel panel-primary">
+	    <div class="panel-heading">
+		<h3 class="panel-title">Liste des utilisateurs</h3>
+	    </div>
+	    <table class="table">
+		<thead>
+		    <tr>
+			<th>#</th>
+			<th>Nom</th>
+			<th></th>
+			<th></th>
+			<th></th>
+		    </tr>
+		</thead>
+		<tbody>
+		    @foreach ($users as $user)
+		    <tr>
+			<td>{{ $user->id }}</td>
+			<td class="text-primary"><strong>{!! $user->name !!}</strong></td>
+			<td>
+			    <a href="{{ URL::to('admin/users/' . $user->id) }}" class="btn btn-mini btn-primary">Voir</a>
+			</td>
+			<td>
+			    <form action="{{ URL::to('admin/users') }}" method="POST">
+				<button type="submit" class='btn btn-danger btn-block' onclick="return confirm(\'Vraiment supprimer cet utilisateur ?\')">
+				    Supprimer
+				</button>
+			    </form>
+			</td>
+		    </tr>
+		    @endforeach
+		</tbody>
+	    </table>
+	</div>
+
     </div>
     <div id="entites" class="tab-pane fade in active">
         <button type="button" class="btn btn-primary btn-form-entity-show" data-toggle="modal" data-target="#ajouterEntite">
-          Ajouter une entité
+	    Ajouter une entité
         </button>
         <a id="button-filter-show-all">Tout</a> | 
         <a data-class='event' class='button-filter-type'>Evénement</a> | 
@@ -91,7 +100,7 @@
         <div id='successMsg-update' class="alert alert-success alert-success-new-entity" style="display: none">
             Entité ajoutée.
         </div>
-            <table id="entities" class="table table-striped table-bordered" cellspacing="0" width="100%">
+	<table id="entities" class="table table-striped table-bordered" cellspacing="0" width="100%">
             <thead>
                 <tr>
                     <th>Nom</th>
@@ -101,20 +110,20 @@
             <tbody class="tbody-entities">
 		@if(is_array($entities))
                 @foreach ($entities as $entity)
-                <div style="display: none">
-                    {!! $uri = str_replace('/', '|', $entity->URI) !!}
-                </div>
-                <tr class="type-{{ $entity->type }}">
-                    <td><a href="{{URL::to('admin/view/' . rawurlencode($uri)) }}" style="display: block;width: 100%; height: 100%;">{{ $entity->name }}</a></td>
-                    <td>{{ $entity->type }}</td>
-                </tr>
-                @endforeach
-		@endif
+	    <div style="display: none">
+		{!! $uri = str_replace('/', '|', $entity->URI) !!}
+	    </div>
+	    <tr class="type-{{ $entity->type }}">
+		<td><a href="{{URL::to('admin/view/' . rawurlencode($uri)) }}" style="display: block;width: 100%; height: 100%;">{{ $entity->name }}</a></td>
+		<td>{{ $entity->type }}</td>
+	    </tr>
+	    @endforeach
+	    @endif
             </tbody>
         </table>
     </div>
     <div id="commentaires" class="tab-pane fade">
-            <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+	<table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
             <thead>
                 <tr>
                     <th>Commentaire</th>
@@ -158,8 +167,12 @@
         </table>
     </div>
     <div id="logs" class="tab-pane fade">
-
-            <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+	<form id="logs-form" class="form-inline">
+	    {!! csrf_field() !!}  
+	    <input type="button" class="btn btn-primary" id="btn-reset-log" value="Vider les logs"/>
+	</form>
+	<br />
+	<table id="logs-table" class="table table-striped table-bordered" cellspacing="0" width="100%">
             <thead>
                 <tr>
                     <th width="20%">Date</th>
@@ -175,7 +188,7 @@
 		    <td>{{$log->message}}</td>
 		</tr>
 		@endforeach
-		
+
             </tbody>
         </table>
     </div>
@@ -185,31 +198,31 @@
 
 <!-- Modal membre -->
 <div class="modal fade" id="ajouterMembre" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Création utilisateur</h4>
-      </div>
-      <div class="modal-body">
-          ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
+    <div class="modal-dialog" role="document">
+	<div class="modal-content">
+	    <div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		<h4 class="modal-title" id="myModalLabel">Création utilisateur</h4>
+	    </div>
+	    <div class="modal-body">
+		...
+	    </div>
+	    <div class="modal-footer">
+		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		<button type="button" class="btn btn-primary">Save changes</button>
+	    </div>
+	</div>
     </div>
-  </div>
 </div>
 
 
 <!-- Modal entite -->
 <div class="modal fade" id="ajouterEntite" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
+    <div class="modal-dialog" role="document">
+	<div class="modal-content">
             <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title" id="myModalLabel">Création entitées</h4>
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		<h4 class="modal-title" id="myModalLabel">Création entitées</h4>
             </div>
             <div class="modal-body">
                 <table>
@@ -243,14 +256,14 @@
                             <input type="text" class="entity-image" id="entity-image" name="entity-image"/>
                         </td>
                     </tr>
-                  </table>
+		</table>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-default btn-close-add-entity" data-dismiss="modal">Fermer</button>
-              <button type="submit" class="btn btn-primary btn-add-entity">Créer</button>
+		<button type="button" class="btn btn-default btn-close-add-entity" data-dismiss="modal">Fermer</button>
+		<button type="submit" class="btn btn-primary btn-add-entity">Créer</button>
             </div>
+	</div>
     </div>
-  </div>
 </div>
 
 @stop

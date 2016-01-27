@@ -21,6 +21,11 @@ Route::controller('public', 'PublicController', [
     "postComment" => "public.comment",
 ]);
 
+// Controller log pour la suppresion des logs
+Route::controller('logs', 'Admin\LogsController', [
+    "postDeleteLog" => "log.deleteAll",
+]);
+
 Route::get('admin', 'Admin\AdminController@Index');
 Route::post('admin', 'Admin\AdminController@Index');
 Route::get('admin/view/{uri}', 'Admin\AdminController@view');

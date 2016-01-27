@@ -21,6 +21,10 @@ use Illuminate\Support\Facades\Blade;
 
 class AdminController extends Controller
 {
+    /**
+     * Nombre de logs affichés dans l'admin
+     */
+    const NB_LOGS_SHOWN = 20;
     protected $userRepository;
     
     public function __construct(UserRepository $userRepository)
@@ -31,7 +35,7 @@ class AdminController extends Controller
     public function Index() {
         $users = User::all();
         $entities = Semantics::GetAllEntities();
-	$logs = Log::all()->sortByDesc('created_at')->forPage(1, 12);
+	$logs = Log::all()->sortByDesc('created_at')->forPage(1, self::NB_LOGS_SHOWN);
         
         $data = array(
             'users'  => $users,
