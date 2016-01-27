@@ -83,21 +83,50 @@ function unformatURI(url) {
     return url.replace(/\|/gi, '/');
 }
 
-function setProperty(name, value, type) {
+function setProperty(name, value, type, elt) {
     $.getJSON(top.location + '/' + name + '/' + value + '/' + type, null)
 	    .done(function (json) {
 		console.log(json);
 		if (json.success == true) {
 		    console.log("OK");
+                    elt.parent().children('.btn').addClass('disabled');
+                    $('.locale-value.information-' + elt.parent().parent().attr('name')).children(".hidden").text(decodeURIComponent(unformatURI(value)));
 		    $('.alert-success-update').show();
+                    var thisClone = elt.clone().css('background-color', 'pink')
+                        .removeClass('entity-dbpedia');
+                        thisClone.append('<span class="glyphicon glyphicon-remove entity-delete" aria-hidden="true" style="position-top: 0px; position-left: 0px;"></span>');
+                        elt.parent().parent().children('.locale-value')
+                                    .append(thisClone);  
 		}
 		else {
 		    console.log("fail");
 		}
+                elt.parent().children('.loadingSet').hide();
 	    })
 	    .fail(function (jqxhr, textStatus, error) {
 		var err = textStatus + ", " + error;
 		console.log("Request Failed: " + err);
+                elt.parent().children('.loadingSet').hide();
+	    });
+}
+
+function removeProperty(name, uriB, elt) {
+    $.getJSON(top.location + '/' + name + '/' + uriB, null)
+	    .done(function (json) {
+		console.log(json);
+		if (json.success == true) {
+		    console.log("OK");
+                    elt.parent().remove();
+		}
+		else {
+		    console.log("fail");
+		}
+                elt.parent().children('.loadingDelete').hide();
+	    })
+	    .fail(function (jqxhr, textStatus, error) {
+		var err = textStatus + ", " + error;
+		console.log("Request Failed: " + err);
+                elt.parent().children('.loadingDelete').hide();
 	    });
 }
 

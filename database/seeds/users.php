@@ -13,15 +13,15 @@ class users extends Seeder
     {
         $users = array(
             array(
-                'name' => 'coco',
-                'email' => 'coco@gmail.com',
-                'password' => bcrypt('cococo'),
+                'name' => 'admin',
+                'email' => 'admin@lookout.com',
+                'password' => 'admin',
                 'admin' => true
             ),
             array(
-                'name' => 'lolo',
-                'email' => 'lolo@gmail.com',
-                'password' => bcrypt('lololo'),
+                'name' => 'consultant',
+                'email' => 'consultant@lookout.com',
+                'password' => 'consultant',
                 'admin' => false
             )
         );

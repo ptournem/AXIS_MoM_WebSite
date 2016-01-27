@@ -63,7 +63,7 @@ class AdminController extends Controller
         $entity = new Entity($uri,"",'','');
         $retours = Semantics::GetAllPropertiesAdmin($entity);
         $entity = Semantics::GetEntity(new Entity($uri,"",'',''));
-        var_dump($retours);
+        //var_dump($retours);
         $dbpedia = array();
         $dbpediaInfo = false;
         
@@ -71,8 +71,10 @@ class AdminController extends Controller
             if($retour->name == 'sameas')
                 $dbpedia[] = $retour;
             if($retour->value_dbpedia != null
-                || $retour->entity_dbpedia != null)
+                || $retour->entity_dbpedia != null){
                 $dbpediaInfo = true;
+                var_dump($retour);
+            }
         }
         
         Blade::extend(function($value)
@@ -124,6 +126,21 @@ class AdminController extends Controller
         
     } 
     
+    public function deleteEntityProperty($uri, $name, $uriB) {  
+        $uri  = Utils::unformatURI($uri);
+        $uriB  = Utils::unformatURI($uriB);
+        $entityValue = new Entity($uriB, null, null, null);
+        $property = new Property($name, null, null, null); 
+        $retours = Semantics::RemoveEntityObjectProperty(new Entity($uri, null, null, null), 
+            $property, $entityValue);    
+        
+        return json_encode (['success' => true]);
+        if($retours)
+            return json_encode (['success' => true]);
+        else
+            return json_encode (['success' => false]);
+    }
+    
     public function deleteLOD($EntityID, $LODID) {  
         $retour = [true, $EntityID, $LODID];
         
@@ -131,6 +148,6 @@ class AdminController extends Controller
         return 'reponse id : ' . $id . 'reponse value : ' . $value;
         
         //TODO: update
-    } 
+    }
     
 }
