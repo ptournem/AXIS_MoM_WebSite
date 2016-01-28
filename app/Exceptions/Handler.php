@@ -45,7 +45,12 @@ class Handler extends ExceptionHandler
         if ($e instanceof ModelNotFoundException) {
             $e = new NotFoundHttpException($e->getMessage(), $e);
         }
-
+	
+	// don't display SOAP Error
+	if(str_contains($e->getMessage(), 'SOAP-ERROR')){
+	    return;
+	}
+	
         return parent::render($request, $e);
     }
 }

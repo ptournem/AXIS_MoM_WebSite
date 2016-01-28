@@ -14,7 +14,7 @@ class Logs {
 	
     }
 
-    public function add($action, $message, $user) {
+    public function add($action, $message, $user = null) {
 	$log = new Log();
 	$log->message = "$action : $message";
 	if (is_object($user) && hasEntry("id", $user)) {
@@ -23,7 +23,7 @@ class Logs {
 	$log->save();
     }
 
-    public function debug($type, $message, $user) {
+    public function debug($type, $message, $user = null) {
 	if (env('APP_DEBUG', false) == true) {
 	    $this->add("DEBUG $type", $message, $user);
 	}
