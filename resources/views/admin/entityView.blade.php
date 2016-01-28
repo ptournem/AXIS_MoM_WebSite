@@ -4,6 +4,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         var hasChanged = false;
+        var tempValue;
         $(document).on('click', '.btn-succedss', function () {
             if (tempValue != $(this).text()) {
                 var uid = $(this).attr('uid');
@@ -13,14 +14,16 @@
                 setProperty('sameas', value, 'uri');
             }
             else
-                console.log('pas changé');
+                console.log('pas changÃ©');
         });
         $(document).on('blur', '.editableProp', function () {
             if (tempValue != $(this).text()) {
                 $(".btn-danger-name-" + $(this).attr('propertyName')).removeClass('disable');
+                console.log($(this).text());
+                setProperty('sameas', encodeURIComponent(formatURI($(this).text())), "uri", $(this));
             }
             else
-                console.log('pas changé');
+                console.log('pas changÃ©');
         });
         $(document).on('focus', '.editableProp', function () {
             tempValue = $(this).text();
@@ -42,6 +45,11 @@
                 console.log($('.locale-value.information-' + $(this).parent().parent().attr('name')).children(".hidden"));
                 setProperty($(this).attr('name'), value, type, $(this));
             }
+        });
+        
+        $(document).on('click', '.btn-retour', function () {
+            tempValue = $(this).text();
+            $('.alert-success').hide();
         });
         $(document).on('click', '.entity-delete', function () {
             $(this).parent().children('.loadingDelete').show();
@@ -133,17 +141,20 @@
 
 @section('contenu')
 <h2 class="Entity-name" id="{{ $URIencode }}">{{ $entity->name }}</h2>
+<button class='btn btn-default btn-retour'>
+    <a href="{{url('admin')}}">Retour</a>
+</button>
+
 {!! QrCode::size(100)->generate(URL::to('public/entity/' . $URIencode)); !!}
 <ul class="nav nav-tabs">
     <li class="active"><a data-toggle="tab" href="#informations">Informations</a></li>
     <li><a data-toggle="tab" href="#LODLink">Liens LoD</a></li>
-    <li><a data-toggle="tab" href="#commentaires">Commentaires</a></li>
 </ul>
 <div class="tab-content">
     <div id="informations" class="tab-pane fade in active">
         <br />
         <div id='successMsg-update' class="alert alert-success alert-success-update" style="display: none">
-            Mise à  jour du champ effectué.
+            Mise à jour du champ effectuée.
         </div>
         <table id="entity-information" class="table table-striped table-bordered" cellspacing="0" width="100%">
             <thead>
@@ -160,66 +171,68 @@
                     @if($retour->name != 'sameas')
                         <tr>
                         <td class="information-{{ $retour->name }}">{{ $retour->name }}</td>
-                        @if($retour->type == 'uri')
-                            <td name="{{ $retour->name }}" class="information-{{ $retour->name }} locale-value">
-                                @if(is_array($retour->entity_locale))
-                                    @foreach($retour->entity_locale as $entity)
-                                    <span class="entity" style="background-color: pink; padding: 2px; margin: 2px;">
-                                        <span class="value">{{ $entity->URI }}</span>
-                                        <span class="glyphicon glyphicon-remove entity-delete" aria-hidden="true" style="position-top: 0px; position-left: 0px;"></span>
+                        
+                        @if($retour->entity_locale != null)
+                        <td name="{{ $retour->name }}" class="information-{{ $retour->name }} locale-value">
+                            @if(is_array($retour->entity_locale))
+                                @foreach($retour->entity_locale as $entity)
+                                <span class="entity" style="background-color: pink; padding: 2px; margin: 2px;">
+                                    <span class="value">{{ $entity->URI }}</span>
+                                    <span class="glyphicon glyphicon-remove entity-delete" aria-hidden="true" style="position-top: 0px; position-left: 0px;"></span>
+                                </span>
+                                @endforeach
+                            @else
+                                <span class="entity" style="background-color: pink; padding: 2px; margin: 2px;">
+                                    <span name="{{ $retour->entity_locale->URI }}" class="value">{{ $retour->entity_locale->name }}</span>
+                                    <span class="glyphicon glyphicon-remove entity-delete" aria-hidden="true" style="position-top: 0px; position-left: 0px;"></span>
+                                </span>
+                            @endif
+                            <img class="loadingDelete" src="{{ URL::asset('img/waiting.gif') }}" style="display: block; display: none;"/>
+                        </td>
+                        @else
+                        <td contenteditable="true" id="searchEntities" name="{{ $retour->name }}" class="information-{{ $retour->name }} locale-value">
+                            <span class="value"></span>
+                            <span class="hidden" style="display: none">{{ $retour->value_locale }}</span>
+                            <div contenteditable="false" style="position: relative; right: 0px;" class="input-group-btn" role="group">
+                                <button type="button" style="position: relative; right: 0px;" name="{{ $retour->value_locale }}" class="btn btn-danger btn-danger-name-{{ $retour->name }} disabled">
+                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                </button>
+                                <button type="button" style="position: relative; right: 0px;" name="{{ $retour->value_locale }}" class="btn btn-success btn-success-name-{{ $retour->name }}  disabled">
+                                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                </button>
+                            </div>
+                        </td>
+                        @endif
+
+                        @if($dbpediaInfo)
+                            @if($retour->entity_dbpedia != null)
+                            <td class="information-{{ $retour->name }}" name="{{ $retour->name }}">
+                                <button type="button" name="{{ $entity->name }}" 
+                                        class="btn btn-success-selected btn-success-selected-{{ $retour->name }}">
+                                    <span class="glyphicon glyphicon-transfer" aria-hidden="true"></span>
+                                </button>
+                                @if(is_array($retour->entity_dbpedia))
+                                    @foreach($retour->entity_dbpedia as $entity)
+                                    <span class="entity entity-dbpedia" name="{{ $entity->URI }}" style="background-color: pink; padding: 2px; margin: 2px;">
+                                        <span name="{{ $entity->URI }}" class="value">{{ $entity->name }}</span>
                                     </span>
-                                    @endforeach
+                                    @endforeach    
                                 @else
-                                    <span class="entity" style="background-color: pink; padding: 2px; margin: 2px;">
-                                        <span name="{{ $retour->entity_locale->URI }}" class="value">{{ $retour->entity_locale->name }}</span>
-                                        <span class="glyphicon glyphicon-remove entity-delete" aria-hidden="true" style="position-top: 0px; position-left: 0px;"></span>
+                                    <span class="entity entity-dbpedia" style="background-color: pink; padding: 2px; margin: 2px;">
+                                        <span name="{{ $retour->entity_dbpedia->URI }}" class="value">{{ $retour->entity_dbpedia->name }}</span>
                                     </span>
                                 @endif
-                                <img class="loadingDelete" src="{{ URL::asset('img/waiting.gif') }}" style="display: block; display: none;"/>
+                                <img class="loadingSet" src="{{ URL::asset('img/waiting.gif') }}" style="display: block; display: none;"/>
                             </td>
-                            @if($dbpediaInfo)
-                                <td class="information-{{ $retour->name }}" name="{{ $retour->name }}">
-                                    <button type="button" name="{{ $entity->name }}" 
-                                            class="btn btn-success-selected btn-success-selected-{{ $retour->name }}">
-                                        <span class="glyphicon glyphicon-transfer" aria-hidden="true"></span>
-                                    </button>
-                                    @if(is_array($retour->entity_dbpedia))
-                                        @foreach($retour->entity_dbpedia as $entity)
-                                        <span class="entity entity-dbpedia" name="{{ $entity->URI }}" style="background-color: pink; padding: 2px; margin: 2px;">
-                                            <span name="{{ $entity->URI }}" class="value">{{ $entity->name }}</span>
-                                        </span>
-                                        @endforeach    
-                                    @else
-                                        <span class="entity entity-dbpedia" style="background-color: pink; padding: 2px; margin: 2px;">
-                                            <span name="{{ $retour->entity_dbpedia->URI }}" class="value">{{ $retour->entity_dbpedia->name }}</span>
-                                        </span>
-                                    @endif
-                                    <img class="loadingSet" src="{{ URL::asset('img/waiting.gif') }}" style="display: block; display: none;"/>
-                                </td>
-                            @endif                                
-                        @else
-                            <td contenteditable="true" name="{{ $retour->name }}" class="information-{{ $retour->name }} locale-value">
-                                <span class="value">{{ $retour->value_locale }}</span>
-                                <span class="hidden" style="display: none">{{ $retour->value_locale }}</span>
-                                <div class="input-group-btn" role="group">
-                                    <button type="button" name="{{ $retour->value_locale }}" class="btn btn-danger btn-danger-name-{{ $retour->name }} disabled">
-                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                    </button>
-                                    <button type="button" name="{{ $retour->value_locale }}" class="btn btn-success btn-success-name-{{ $retour->name }}  disabled">
-                                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                                    </button>
-                                </div>
+                            @else
+                            <td class="information-{{ $retour->name }}" name="{{ $retour->name }}">
+                                <button type="button" name="{{ $retour->value_locale }}" class="btn btn-success-selected btn-success-selected-{{ $retour->name }}">
+                                    <span class="glyphicon glyphicon-transfer" aria-hidden="true"></span>
+                                </button>
+                                <span class="value">{{ $retour->value_dbpedia }}</span>
                             </td>
-                            @if($dbpediaInfo)
-                                <td class="information-{{ $retour->name }}" name="{{ $retour->name }}">
-                                    <button type="button" name="{{ $retour->value_locale }}" class="btn btn-success-selected btn-success-selected-{{ $retour->name }}">
-                                        <span class="glyphicon glyphicon-transfer" aria-hidden="true"></span>
-                                    </button>
-                                    <span class="value">{{ $retour->value_dbpedia }}</span>
-                                </td>
                             @endif
                         @endif
-                        </tr>
                     @endif
                 @endforeach
             </tbody>
@@ -228,7 +241,7 @@
     <div id="LODLink" class="tab-pane fade">
         <br />
         <div id='successMsg-update' class="alert alert-success alert-success-update" style="display: none">
-            Mise à  jour du champ effectué.
+            Mise à jour du champ effectuée.
         </div>
         <div id='successMsg-delete' class="alert alert-success alert-success-delete" style="display: none">
             LOD supprimé.
@@ -241,11 +254,12 @@
                 </tr>
             </thead>
             <tbody class="table-LOD">
+                @foreach($dbpedia as $retour)
                 <tr>
                     <td>
-                        @foreach($dbpedia as $retour)
-                        <label class="editableProp" uid="3" style="display: block; width: 100%; height: 100%; background-color: rgb(180,180,180);"  contenteditable="true">$retour-></label>
-                        @endforeach
+                        <span class="editableProp" 
+                              style="display: block; width: 100%; height: 100%;" 
+                              contenteditable="true">{{ $retour->entity_locale->name }}</span>
                     </td>
                     <td>
                         <button class='btn btn-danger btn-block btn-delete' uid="3">
@@ -253,26 +267,10 @@
                         </button>
                     </td>
                 </tr>
+                @endforeach
                 <tr>
                     <td class="new-LOD"></td>
                     <td><button class="btn btn-primary btn-addLOD">Ajouter un lien LOD</button></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <div id="commentaires" class="tab-pane fade">
-        <br />
-        <table id="comments" class="table table-striped table-bordered" cellspacing="0" width="100%">
-            <thead>
-                <tr>
-                    <th>Nom</th>
-                    <th>Type</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>lala</td>
-                    <td>blabla</td>
                 </tr>
             </tbody>
         </table>

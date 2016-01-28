@@ -2,11 +2,11 @@ function getCatInfo(cat) {
     var ret = {
 	activity: {
 	    class: 'wrench',
-	    text: 'Activité'
+	    text: 'ActivitÃ©'
 	},
 	event: {
 	    class: 'time',
-	    text: 'Evènement'
+	    text: 'EvÃ¨nement'
 	},
 	organisation: {
 	    class: 'education',
@@ -40,7 +40,7 @@ $.widget("custom.catcomplete", $.ui.autocomplete, {
     _renderMenu: function (ul, items) {
 	ul.addClass('list-group col-md-3');
 	ul.addClass('list-group col-sm-3');
-	ul.addClass('list-group col-xs-10');
+	ul.addClass('list-group  col-xs-10');
 	var that = this,
 		currentCategory = "";
 	$.each(items, function (index, item) {
@@ -64,6 +64,19 @@ $.widget("custom.catcomplete", $.ui.autocomplete, {
 
 $(document).ready(function () {
     $('#searchEntity').catcomplete({
+	source: function (request, response) {
+	    $.getJSON(global.searchUrl, {needle: request.term}, response);
+	},
+	select: function (event, ui) {
+	    // on redirect vers la bonne page
+	    window.location = (global.showUrl + "/" + formatURI(ui.item.URI));
+	},
+	delay: 600
+    });
+});
+
+$(document).ready(function () {
+    $('#searchEntities').catcomplete({
 	source: function (request, response) {
 	    $.getJSON(global.searchUrl, {needle: request.term}, response);
 	},

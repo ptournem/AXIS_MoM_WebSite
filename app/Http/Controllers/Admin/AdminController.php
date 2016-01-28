@@ -81,9 +81,10 @@ class AdminController extends Controller
             if($retour->value_dbpedia != null
                 || $retour->entity_dbpedia != null){
                 $dbpediaInfo = true;
-                var_dump($retour);
+                //var_dump($retour);
             }
         }
+        //var_dump($dbpedia);
         
         Blade::extend(function($value)
         {
