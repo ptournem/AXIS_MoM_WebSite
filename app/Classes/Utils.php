@@ -56,12 +56,17 @@ class Utils {
 	    $class = substr($className, 0, -2);
 	    $ret = array();
 	    
-	    // doit être un tableau ou au moins un objet
+	    // doit être un tableau ou au moins un objet 
 	    if (!is_array($instance) && !is_object($instance)) {
-		return null;
+		return $ret;
+	    }
+	    
+	    // si l'objet renvoyé n'a pas de propriété
+	    if(count((array) $instance)<1){
+		return $ret;
 	    }
 	    if (!class_exists($class)) {
-		return null;
+		return $ret;
 	    }
 
 	    // si c'est un tableau , on les ajoute tous
@@ -74,7 +79,9 @@ class Utils {
 	    }
 	} else {
 	    $ret = null;
-	    if (!class_exists($className)) {
+	    
+	    // si la classe n'existe pas ou que l'objet n'a pas d'attributs
+	    if (!class_exists($className) || count((array) $instance)<1 ) {
 		return $ret;
 	    }
 

@@ -12,7 +12,7 @@
 		<div class="input-group stylish-input-group">
 		    <input type="text" class="form-control" id="searchEntity" placeholder="Rechercher une oeuvre ou un artiste" >
 		    <span class="input-group-addon">
-			<button type="submit">
+			<button type="button">
 			    <span class="glyphicon glyphicon-search"></span>
 			</button>  
 		    </span>
