@@ -1,0 +1,44 @@
+<div id="commentaires" class="tab-pane fade">
+    <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+	<thead>
+	    <tr>
+		<th>Commentaire</th>
+		<th>Commentaire</th>
+		<th>Commentaire</th>
+		<th>Commentaire</th>
+	    </tr>
+	</thead>
+	<tbody>
+	    <tr>
+		<td>Roberts</td>
+		<td>Roger</td>
+		<td>roger.roberts904@gmail.com</td>
+		<td>Administrateur</td>
+	    </tr>
+	    <tr>
+		<td>Roberts</td>
+		<td>Roger</td>
+		<td>roger.roberts904@gmail.com</td>
+		<td>Administrateur</td>
+	    </tr>
+	    <tr>
+		<td>Roberts</td>
+		<td>Roger</td>
+		<td>roger.roberts904@gmail.com</td>
+		<td>Administrateur</td>
+	    </tr>
+	    <tr>
+		<td>Roberts</td>
+		<td>Roger</td>
+		<td>roger.roberts904@gmail.com</td>
+		<td>Administrateur</td>
+	    </tr>
+	    <tr>
+		<td>Roberts</td>
+		<td>Roger</td>
+		<td>roger.roberts904@gmail.com</td>
+		<td>Administrateur</td>
+	    </tr>
+	</tbody>
+    </table>
+</div>
