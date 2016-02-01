@@ -3,6 +3,10 @@
     <head>
         <title>@section('title') AXIS_MoM @show</title>
         <meta charset="utf-8" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+	<link rel="canonical" href="{{url('/')}}">
+	<meta name="keywords" content="AXIS-MoM,Titan.be,LookOut,IG2I,Tite Maison Production" >
+	<meta name="description" content="AXIS_MoM est un POC réalisé par une équipe d'étudiant de l'IG2I pour l'ASBL Titan et la société Tite Maison Production qui a pour but de prouver que l'ontologie AXIS-CSRM développée par Titan est utilisable.">
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 	<script type="text/javascript">
 	    var global = {

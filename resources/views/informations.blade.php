@@ -6,6 +6,26 @@ id="info"
 
 @section('header')
 
+<!--FACEBOOK-->
+<meta property="og:title" content="{{$entity->name}}" >
+<meta property="og:site_name" content="AXIS-MoM">
+<meta property="og:url" content="{{url('/')}}" >
+<meta property="og:description" content="AXIS_MoM est un POC réalisé par une équipe d'étudiant de l'IG2I pour l'ASBL Titan et la société Tite Maison Production qui a pour but de prouver que l'ontologie AXIS-CSRM développée par Titan est utilisable." >
+<meta property="og:image" content="{{$entity->image}}" >
+<meta property="og:type" content="website" >
+<meta property="og:locale" content="fr_FR" >
+<!--TWITTER-->
+<meta property="twitter:card" content="summary" >
+<meta property="twitter:title" content="{{$entity->name}}" >
+<meta property="twitter:description" content="AXIS_MoM est un POC réalisé par une équipe d'étudiant de l'IG2I pour l'ASBL Titan et la société Tite Maison Production qui a pour but de prouver que l'ontologie AXIS-CSRM développée par Titan est utilisable." >
+<meta property="twitter:url" content="{{url('/')}}" >
+<meta property="twitter:image" content="{{$entity->image}}" >
+<!--GOOGLE-->
+<meta itemprop="name" content="{{$entity->name}}">
+<meta itemprop="description" content="AXIS_MoM est un POC réalisé par une équipe d'étudiant de l'IG2I pour l'ASBL Titan et la société Tite Maison Production qui a pour but de prouver que l'ontologie AXIS-CSRM développée par Titan est utilisable.">
+<meta itemprop="image" content="{{$entity->image}}">
+
+
 <script type="text/javascript" src="{{ URL::asset('js/raphael.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('js/raphael-svg-filter-min.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('js/semanticGraphael.js') }}"></script>
