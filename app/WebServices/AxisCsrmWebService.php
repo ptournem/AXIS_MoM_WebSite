@@ -8,8 +8,6 @@ use Logs;
 
 class AxisCsrmWebService extends SoapService {
 
-    
-
     /**
      * Override du call pour caster automatique et renvoyer le resultat si il est dans un stdClass contenant un attribut result 
      * @param string $name
@@ -22,10 +20,9 @@ class AxisCsrmWebService extends SoapService {
 	    $ret = $this->call($name, $arguments);
 	} catch (\Exception $e) {
 	    // on log en debug
-	    Logs::debug('WS',$e->getMessage(),null);
+	    Logs::debug('WS', $e->getMessage());
 	    // si erreur on retourne null
 	    return null;
-	    
 	}
 
 	// si la réponse à une propriété return, on dit que renvoie la propriété
@@ -69,7 +66,11 @@ class AxisCsrmWebService extends SoapService {
     public function __construct() {
 	// load the wsdl url from the config 
 	$this->wsdl = config('webservices.AXIS_MoM_WSDL');
-	parent::__construct();
+	try {
+	    parent::__construct();
+	} catch (\SoapFault $e) {
+	    Logs::debug('WS', $e->getMessage());
+	}
     }
 
 }

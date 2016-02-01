@@ -23,18 +23,18 @@
 
 	@yield('menu-before')
 	 
-	<form class="navbar-form navbar-left" role="search">
+	<div class="navbar-form navbar-left">
 	    <div class="form-group">
 		<div class="input-group stylish-input-group">
 		    <input type="text" class="form-control" id="searchEntity" placeholder="Rechercher une oeuvre ou un artiste" >
 		    <span class="input-group-addon">
-			<button type="submit">
+			<button type="button">
 			    <span class="glyphicon glyphicon-search"></span>
 			</button>  
 		    </span>
 		</div>
 	    </div>
-	</form>
+	</div>
 	
 	@yield('menu-after')
       
