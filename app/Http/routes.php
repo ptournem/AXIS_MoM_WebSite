@@ -26,6 +26,13 @@ Route::controller('logs', 'Admin\LogsController', [
     "postDeleteLog" => "log.deleteAll",
 ]);
 
+// Controller comment pour la gestion des commentaires
+Route::controller('comments', 'Admin\CommentController', [
+    "postGrantComment" => "comment.grant",
+    "postDenyComment" => "comment.deny",
+    "postRemoveComment" => "comment.remove",
+]);
+
 Route::get('admin', 'Admin\AdminController@Index');
 Route::post('admin', 'Admin\AdminController@Index');
 Route::get('admin/view/{uri}', 'Admin\AdminController@view');

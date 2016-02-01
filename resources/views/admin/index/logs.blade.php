@@ -24,3 +24,15 @@
 	</tbody>
     </table>
 </div>
+<script type="text/javascript">
+    $(document).ready(function () {
+	var logDelete = "{{route('log.deleteAll')}}";
+	$('#btn-reset-log').click(function () {
+	    $.post(logDelete, $('#logs-form').serialize(), function (data) {
+		if (data.result) {
+		    $('#logs-table tbody').html('');
+		}
+	    }, 'json');
+	});
+    })
+</script>

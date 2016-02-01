@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use Semantics;
 use Logs;
+use Comments;
 use App\Classes\Dialog\Entity;
 use App\Classes\Dialog\Property;
 use App\Http\Requests\Admin\AddEntityRequest;
@@ -36,13 +37,14 @@ class AdminController extends Controller
         $users = User::all();
         $entities = Semantics::GetAllEntities();
 	$logs = Log::all()->sortByDesc('created_at')->forPage(1, self::NB_LOGS_SHOWN);
+	$comments = Comments::LoadComment();
         
         $data = array(
-            'users'  => $users,
-            'entities' => $entities,
+	    'users' => $users,
+	    'entities' => $entities,
 	    'logs' => $logs,
-        );
-        //return '' . print_r($users);
+	    'comments' => $comments
+	);
 	return view('admin/admin')->with($data);
     }  
     

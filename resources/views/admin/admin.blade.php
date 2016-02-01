@@ -20,15 +20,6 @@
 	$('.btn-form-entity-show').on('click', function () {
 	    $('.alert-success-new-entity').hide();
 	});
-	
-	var logDelete = "{{route('log.deleteAll')}}";
-	$('#btn-reset-log').click(function(){
-	    $.post(logDelete,$('#logs-form').serialize(),function(data){
-		   if(data.result){
-		       $('#logs-table tbody').html('');
-		   }
-	    },'json');
-	});
     });
 
 </script>
