@@ -2,11 +2,11 @@ function getCatInfo(cat) {
     var ret = {
 	activity: {
 	    class: 'wrench',
-	    text: 'ActivitÃ©'
+	    text: 'Activité'
 	},
 	event: {
 	    class: 'time',
-	    text: 'EvÃ¨nement'
+	    text: 'Evénement'
 	},
 	organisation: {
 	    class: 'education',
@@ -81,8 +81,32 @@ $(document).ready(function () {
 	    $.getJSON(global.searchUrl, {needle: request.term}, response);
 	},
 	select: function (event, ui) {
-	    // on redirect vers la bonne page
-	    window.location = (global.showUrl + "/" + formatURI(ui.item.URI));
+            $(this).children('.value-edited').text('');
+            elt = $(this);
+            console.log(formatURI($(".Entity-name").attr('id')));
+            $.getJSON(top.location + '/' + $(this).attr('name') + '/' + encodeURIComponent(formatURI($(".Entity-name").attr('id'))) + '/' + "uri", null)
+	    .done(function (json) {
+		console.log(json);
+		if (json.success == true) {
+		    console.log("OK");
+		    $('.alert-success-update').show();
+                    $("<span class='entity' name='" + ui.item.name + "' style='background-color: pink; padding: 2px; margin: 2px;'></span>").insertBefore(elt.children(".value-edited"));
+                    elt.children(".entity[name='" + ui.item.name + "']").append('<span name="' + ui.item.URI + '" class="value">' + ui.item.name + '</span>');
+                    elt.children(".entity[name='" + ui.item.name + "']")
+                            .append('<span class="glyphicon glyphicon-remove entity-delete" aria-hidden="true" style="position-top: 0px; position-left: 0px;"></span>');
+		}
+		else {
+		    console.log("fail");
+		}
+                elt.parent().children('.loadingSet').hide();
+	    })
+	    .fail(function (jqxhr, textStatus, error) {
+		var err = textStatus + ", " + error;
+		console.log("Request Failed: " + err);
+                elt.parent().children('.loadingSet').hide();
+	    });
+            
+            return false;
 	},
 	delay: 600
     });
