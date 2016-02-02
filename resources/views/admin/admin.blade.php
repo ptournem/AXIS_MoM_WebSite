@@ -30,7 +30,14 @@
 <ul class="nav nav-tabs" id='adminNavTab'>
     <li><a data-toggle="tab" href="#membres">Gestion des membres</a></li>
     <li class="active"><a data-toggle="tab" href="#entites">Gestion des entités</a></li>
-    <li><a data-toggle="tab" href="#commentaires">Gestion des commentaires</a></li>
+    <li>
+	<a data-toggle="tab" href="#commentaires">
+	    Gestion des commentaires
+	    @if($nbCommentNotValidated > 0)
+		({{$nbCommentNotValidated}})
+	    @endif
+	</a>
+    </li>
     <li><a data-toggle="tab" href="#logs">Logs</a></li>
 </ul>
 <br />
