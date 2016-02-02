@@ -6,6 +6,8 @@
         console.log("successEntityAutocompletion");
         $('.alert-success-update').show();
         elt.text("");
+        console.log(elt.parent().children(".input-group-btn"));
+        elt.parent().children(".input-group-btn").children(".btn").hide();
         $("<span class='entity' name='" + ui.item.name + "' style='background-color: pink; padding: 2px; margin: 2px;'></span>").insertBefore(elt.parent().children(".value-edited"));
         elt.parent().children(".entity[name='" + ui.item.name + "']").append('<span name="' + ui.item.URI + '" class="value">' + ui.item.name + '</span>');
         elt.parent().children(".entity[name='" + ui.item.name + "']").append('<span class="glyphicon glyphicon-remove entity-delete" aria-hidden="true" style="position-top: 0px; position-left: 0px;"></span>');
@@ -25,15 +27,15 @@
 
     function successSameas(elt) {
         console.log("successSameas");
-        console.log(elt.parent().parent().parent().children(".delete").children());
-        console.log(elt.parent().parent().children(".value").text());
+        $('.alert-success-update').show();
         elt.parent().parent().parent().children(".delete").children().attr("uri", elt.parent().parent().children(".value").text());
-        //TODO
     }
 
     function successLiteral(elt) {
         console.log("successLiteral");
-        //TODO
+        $('.alert-success-update').show();
+        elt.parent().parent().children(".hidden").text(elt.parent().parent().children(".value").text());
+        elt.parent().children(".btn").addClass("disabled");
     }
 
     function setProperty(name, value, type, elt, successType, ui) {
@@ -254,16 +256,9 @@
         });
         // Pour set une propriÃ©tÃ© litÃ©rale
         $(document).on('click', '.btn-success-locale', function () {
-            var value = $(this).parent().parent().children('.value').text();
-            if (value.length > 7 && value.substring(0, 7) == 'http://') {
-                var successType = "successEntityAutocompletion";
-                var type = 'uri';
-            }
-            else{
-                var successType = "successLiteral";
-                var type = 'fr';
-            }
-            
+            var value = $(this).parent().parent().children('.value-edited').text();
+            var successType = "successLiteral";
+            var type = 'fr';
             onClickSuccess($(this), value, type, successType, $(this).attr('name'));
         }); 
         
@@ -271,11 +266,10 @@
         // TODO
         $(document).on('click', '.btn-success-selected', function () {
             var value = $(this).parent().children(".value").text();
-            console.log(value);
             var name = $(this).parent().attr('name');
             var item = $('.locale-value.information-' + name);
             item.children(".value").text(value);
-            $('.locale-btn.information-' + name).children().children(".btn").removeClass('disabled');
+            $('.information-' + name + '.locale-value').children(".input-group-btn").children(".btn").removeClass('disabled');
             $('.alert-success').hide();
         });
         // Hide des alert-success
@@ -293,7 +287,6 @@
             select: function (event, ui) {
                 $(this).children('.value-edited').text('');
                 elt = $(this);
-                console.log(formatURI($(".Entity-name").attr('id')));
                 setProperty(elt.parent().attr('name'), encodeURIComponent(formatURI(ui.item.URI)), "uri", elt, "successEntityAutocompletion", ui);
 
                 return false;
