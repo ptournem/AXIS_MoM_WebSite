@@ -4,8 +4,8 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class Authenticate
-{
+class IsAdmin{
+
     /**
      * Handle an incoming request.
      *
@@ -13,10 +13,9 @@ class Authenticate
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
-    {
-	// on vérifie que l'utilisateur est authentifié
-	if(!$request->session()->has('user')){
+    public function handle($request, Closure $next) {
+	// vérifie que l'user est authentifié en admin
+	if(!($request->session()->has('user')&& $request->session()->get('user')->admin==1 )){
 	    if ($request->ajax()) {
                 return response('Unauthorized.', 401);
             } else {
@@ -26,4 +25,5 @@ class Authenticate
 
         return $next($request);
     }
+
 }

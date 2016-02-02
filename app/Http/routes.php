@@ -18,7 +18,6 @@ Route::get('/home', 'PublicController@anyIndex');
 Route::controller('public', 'PublicController', [
     "anySearchEntity" => "public.search",
     "anyEntity" => "public.show",
-    "postComment" => "public.comment",
 ]);
 
 // Controller log pour la suppresion des logs
@@ -27,10 +26,11 @@ Route::controller('logs', 'Admin\LogsController', [
 ]);
 
 // Controller comment pour la gestion des commentaires
-Route::controller('comments', 'Admin\CommentController', [
+Route::controller('comments', 'CommentController', [
     "postGrantComment" => "comment.grant",
     "postDenyComment" => "comment.deny",
     "postRemoveComment" => "comment.remove",
+    "postComment" => "comment.add",
 ]);
 
 Route::get('admin', 'Admin\AdminController@Index');

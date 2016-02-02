@@ -5,11 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Semantics;
 use Comments;
-use Validator;
 use Utils;
 use App\Classes\Dialog\Entity;
 use App\Classes\Dialog\Property;
-use App\Classes\Dialog\Comment;
 
 class PublicController extends Controller {
 
@@ -125,35 +123,6 @@ class PublicController extends Controller {
 	}
 
 	return $ret;
-    }
-
-    public function postComment(Request $request) {
-
-	// on crée le validator pour la requête
-	$validator = Validator::make($request->all(), [
-		    'Nom' => 'required|max:40|min:4',
-		    'Mail' => 'required|email',
-		    'Commentaire' => 'required'
-	]);
-
-	// Si la requête fail, on revoit un tableau avec les errors
-	if ($validator->fails()) {
-	    return response()->json(['require' => $validator->errors()]);
-	}
-
-	// on vérifie que l'on a bien une entité
-	if (!$request->has('entity')) {
-	    return response()->json(['result' => false]);
-	}
-
-	// sinon, on test l'envoie du commentaire
-	return response()->json([
-		    'result' => is_object(
-			    Comments::AddComment(
-				    new Comment($request->get('Nom'), $request->get('Mail'), $request->get('Commentaire')), new Entity($request->get('entity'))
-			    )
-		    )
-	]);
     }
 
 }

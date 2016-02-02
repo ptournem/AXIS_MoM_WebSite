@@ -79,7 +79,7 @@ $(document).ready(function () {
     // envoie du commentaire 
     $('#addCommentModal #btnComment').click(function(){
 	var data = $('#addCommentModal form').serialize();
-	$.post("{{route('public.comment')}}",data,function(data){
+	$.post("{{route('comment.add')}}",data,function(data){
 	    if(data.result){
 		resetForm();
 		$('#addCommentModal .alert').removeClass('alert-danger').addClass('alert-success').text('Commentaire ajouté ! Il sera affiché après modération.').show('fade').delay(1500).hide(function(){

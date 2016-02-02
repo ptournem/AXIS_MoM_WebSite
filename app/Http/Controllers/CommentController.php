@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
 use Comments;
 use Utils;
 use App\Classes\Dialog\Comment;
+use App\Classes\Dialog\Entity;
+use Validator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -13,6 +15,7 @@ class CommentController extends Controller {
     public function __construct() {
 	// toutes les méthodes sont accessible en ajax uniquement 
 	$this->middleware('ajax');
+	$this->middleware('isAdmin', ['except' => 'postComment']);
     }
 
     /**
@@ -52,6 +55,35 @@ class CommentController extends Controller {
 	}
 	$c = new Comment(Utils::unformatURI($request->get('id')));
 	return response()->json(['result' => Comments::DenyComment($c)]);
+    }
+
+    public function postComment(Request $request) {
+
+	// on crée le validator pour la requête
+	$validator = Validator::make($request->all(), [
+		    'Nom' => 'required|max:40|min:4',
+		    'Mail' => 'required|email',
+		    'Commentaire' => 'required'
+	]);
+
+	// Si la requête fail, on revoit un tableau avec les errors
+	if ($validator->fails()) {
+	    return response()->json(['require' => $validator->errors()]);
+	}
+
+	// on vérifie que l'on a bien une entité
+	if (!$request->has('entity')) {
+	    return response()->json(['result' => false]);
+	}
+
+	// sinon, on test l'envoie du commentaire
+	return response()->json([
+		    'result' => is_object(
+			    Comments::AddComment(
+				    new Comment($request->get('Nom'), $request->get('Mail'), $request->get('Commentaire')), new Entity($request->get('entity'))
+			    )
+		    )
+	]);
     }
 
 }
