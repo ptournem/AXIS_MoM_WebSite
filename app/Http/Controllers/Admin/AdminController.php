@@ -142,7 +142,7 @@ class AdminController extends Controller
         $uriB  = Utils::unformatURI($uriB);
         $entityValue = new Entity($uriB, null, null, null);
         $property = new Property($name, null, null, null); 
-        $retours = Semantics::RemoveEntityObjectProperty(new Entity($uri, null, null, null), 
+        $retours = Semantics::RemoveEntityProperty(new Entity($uri, null, null, null), 
             $property, $entityValue);    
         
         return json_encode (['success' => true]);
