@@ -81,13 +81,15 @@ class AdminController extends Controller
         $dbpedia = array();
         $dbpediaInfo = false;
         
-        foreach($retours as $retour){
-            if($retour->name == 'sameas')
-                $dbpedia[] = $retour;
-            if($retour->value_dbpedia != null
-                || $retour->entity_dbpedia != null){
-                $dbpediaInfo = true;
-                //var_dump($retour);
+        if($retours != null){
+            foreach($retours as $retour){
+                if($retour->name == 'sameas')
+                    $dbpedia[] = $retour;
+                if($retour->value_dbpedia != null
+                    || $retour->entity_dbpedia != null){
+                    $dbpediaInfo = true;
+                    //var_dump($retour);
+                }
             }
         }
         //var_dump($dbpedia);
