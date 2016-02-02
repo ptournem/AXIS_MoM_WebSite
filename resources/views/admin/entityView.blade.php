@@ -22,7 +22,8 @@
             .removeClass('entity-dbpedia');
         thisClone.append('<span class="glyphicon glyphicon-remove entity-delete" aria-hidden="true" style="position-top: 0px; position-left: 0px;"></span>');
         elt.parent().parent().children('.locale-value')
-            .append(thisClone); 
+            .prepend(thisClone); 
+        elt.parent().parent().children('.locale-value').children(".input-group-btn").children(".btn").hide();
     }
 
     function successSameas(elt) {
