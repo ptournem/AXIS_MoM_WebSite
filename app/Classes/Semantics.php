@@ -35,7 +35,7 @@ class Semantics {
 	return $this->service->SetEntityProperty($request);
     }
 
-    public function RemoveEntityObjectProperty(Entity $e, Property $p, Entity $valueEntity) {
+    public function RemoveEntityProperty(Entity $e, Property $p, Entity $valueEntity) {
 	$request = new \stdClass();
 	$request->e = $e;
 	$request->p = $p;

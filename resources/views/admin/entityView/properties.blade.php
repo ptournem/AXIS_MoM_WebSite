@@ -25,7 +25,7 @@
                         @if(is_array($retour->entity_locale))
                         @foreach($retour->entity_locale as $entity)
                         <span class="entity" style="background-color: pink; padding: 2px; margin: 2px;">
-                            <span class="value">{{ $entity->URI }}</span>
+                            <span name="{{ $entity->URI }}" class="value">{{ $entity->name }}</span>
                             <span class="glyphicon glyphicon-remove entity-delete" aria-hidden="true" style="position-top: 0px; position-left: 0px;"></span>
                         </span>
                         @endforeach
@@ -36,21 +36,21 @@
                         </span>
                         @endif
                         <img class="loadingDelete" src="{{ URL::asset('img/waiting.gif') }}" style="display: block; display: none;"/>
-                        <span contenteditable="true" class="value-edited" style="width: 5px; background-color: blue;"></span>
+                        <span contenteditable="true" class="value-edited searchEntities" style="display: inline-block; width: 100%;"></span>
                     </td>
                     @else
-                    <td id="searchEntities" name="{{ $retour->name }}" class="information-{{ $retour->name }} locale-value">
+                    <td name="{{ $retour->name }}" class="information-{{ $retour->name }} locale-value">
                         <span class="value"></span>
                         <span class="hidden" style="display: none">{{ $retour->value_locale }}</span>
-                        <span contenteditable="true" class="value-edited" style="display: inline-block; width: 100%;"></span>
-                        <!-- <div contenteditable="false" style="position: relative; right: 0px;" class="input-group-btn" role="group">
+                        <span contenteditable="true" class="value-edited searchEntities" style="display: inline-block; width: 100%;"></span>
+                        <div style="position: relative; right: 0px;" class="input-group-btn" role="group">
                             <button type="button" style="position: relative; right: 0px;" name="{{ $retour->name }}" class="btn btn-warning btn-warning-locale btn-warning-name-{{ $retour->name }} disabled">
                                 <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                             </button>
                             <button type="button" style="position: relative; right: 0px;" name="{{ $retour->name }}" class="btn btn-success btn-success-locale btn-success-name-{{ $retour->name }}  disabled">
                                 <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                             </button>
-                        </div> -->
+                        </div>
                     </td>
                     @endif
 
