@@ -13,7 +13,7 @@ class AuthentificationController extends Controller
 {
     public function postLogin(AuthRequest $request)
     {
-        if(session('isConnected') != true && is_object($session('user'))){
+        if(!(session('isConnected') == true && is_object(session('user')))){
         $user = User::where('name', $request->input('name'))
                 ->where('password', $request->input('password'))
                 ->first();

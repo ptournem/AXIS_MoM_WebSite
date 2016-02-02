@@ -37,11 +37,12 @@ class CommentController extends Controller {
      * @return \Illuminate\Http\JsonResponse
      */
     public function postRemoveComment(Request $request) {
-	if (!$request->has('id')) {
+	if (!$request->has('id') || !$request->has('entity') ) {
 	    return response()->json(['result' => false]);
 	}
 	$c = new Comment(Utils::unformatURI($request->get('id')));
-	return response()->json(['result' => Comments::RemoveComment($c)]);
+	$e = new Entity(Utils::unformatURI($request->get('entity')));
+	return response()->json(['result' => Comments::RemoveComment($c,$e)]);
     }
 
     /**
@@ -80,7 +81,7 @@ class CommentController extends Controller {
 	return response()->json([
 		    'result' => is_object(
 			    Comments::AddComment(
-				    new Comment($request->get('Nom'), $request->get('Mail'), $request->get('Commentaire')), new Entity($request->get('entity'))
+				    new Comment(null,$request->get('Nom'), $request->get('Mail'), $request->get('Commentaire')), new Entity($request->get('entity'))
 			    )
 		    )
 	]);

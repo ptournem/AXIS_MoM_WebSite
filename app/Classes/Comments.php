@@ -46,17 +46,19 @@ class Comments {
     public function DenyComment(Comment $c) {
 	$request = new \stdClass();
 	$request->c = $c;
-	return $this->service->DenyComment();
+	return $this->service->DenyComment($request);
     }
 
     /**
      * Supprime un commentaire
      * @param Comment $c
+     * @param Entity $e
      * @return bool
      */
-    public function RemoveComment(Comment $c) {
+    public function RemoveComment(Comment $c, Entity $e) {
 	$request = new \stdClass();
 	$request->c = $c;
+	$request->e = $e;
 	return $this->service->RemoveComment($request);
     }
 

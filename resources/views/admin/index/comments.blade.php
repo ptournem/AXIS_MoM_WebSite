@@ -14,7 +14,7 @@
 	<tbody>
 	    @if(is_array($comments))
 	    @foreach($comments as $comment)
-	    <tr data-id="{{$comment->id}}">
+	    <tr data-id="{{Utils::formatURI($comment->id)}}">
 		<td>{{$comment->createDt}}</td>
 		<td>{{$comment->authorName}}</td>
 		<td>{{$comment->email}}</td>
@@ -34,7 +34,7 @@
 		    @endif
 		</td>
 		<td>
-		    <button type="button" class="btn btn-danger comment-remove">
+		    <button type="button" class="btn btn-danger comment-remove" data-entity-uri="{{Utils::formatURI($comment->entity->URI)}}">
 			<span class="glyphicon glyphicon-trash"></span>
 			Supprimer
 		    </button></td>
@@ -79,7 +79,7 @@
 	// click sur le bouton remove
 	$('#comments').on('click', '.comment-remove', function () {
 	    var $button = $(this);
-	    $.post(commentRemove, {id: formatURI($button.parents('tr').attr('data-id')), _token: token}, function (data) {
+	    $.post(commentRemove, {id: formatURI($button.parents('tr').attr('data-id')), _token: token, entity : $button.attr('data-entity-uri')}, function (data) {
 		if (data.result) {
 		    // suppresion de la ligne 
 		    $button.parents('tr').get(0).remove();

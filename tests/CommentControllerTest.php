@@ -27,6 +27,20 @@ class CommentControllerTest extends TestCase {
 	$this->isJson();
 	$this->seeJsonEquals(array('result' => false));
     }
+    
+    public function testRemoveCommentMissingParameter() {
+	$this->withoutMiddleware();
+
+	$this->action('POST', 'CommentController@postRemoveComment', null,array('id'=>'http:||test.fr|2'));
+	$this->assertResponseOk();
+	$this->isJson();
+	$this->seeJsonEquals(array('result' => false));
+	
+	$this->action('POST', 'CommentController@postRemoveComment', null,array('entity'=>'http:||test.fr|3'));
+	$this->assertResponseOk();
+	$this->isJson();
+	$this->seeJsonEquals(array('result' => false));
+    }
 
     public function testDenyCommentNoParameter() {
 	$this->withoutMiddleware();
@@ -73,7 +87,7 @@ class CommentControllerTest extends TestCase {
 
 	Comments::shouldReceive('RemoveComment')->once()->andReturn(true);
 
-	$this->action('POST', 'CommentController@postRemoveComment', null, array('id' => 'http:||axis-mom.fr|'));
+	$this->action('POST', 'CommentController@postRemoveComment', null, array('id' => 'http:||axis-mom.fr|1','entity'=>'http:||axis-mom.fr|2'));
 	$this->assertResponseOk();
 	$this->isJson();
 	$this->seeJsonEquals(array('result' => true));
