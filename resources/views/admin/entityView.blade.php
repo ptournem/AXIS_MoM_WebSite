@@ -2,7 +2,6 @@
 
 @section('header')
 <script type="text/javascript">
-    
     function successEntityAutocompletion(elt, ui) {
         console.log("successEntityAutocompletion");
         $('.alert-success-update').show();
@@ -106,7 +105,7 @@
 
     function onKeyUp(name){
         var parent = $(".information-" + name + ".sameasValue");
-        // Si la valeur initiale est différente de la valeur actuelle
+        // Si la valeur initiale est diffÃ©rente de la valeur actuelle
         if(parent.children(".value") != parent.children(".hidden")){
             $(".btn-danger-name-" + name).removeClass('disabled');
             $(".btn-success-name-" + name).removeClass('disabled');
@@ -130,10 +129,29 @@
         }
     }
     
-    $(document).ready(function () {
-        var hasChanged = false;
-        var tempValue;
+    function makeSameasLigne(){
+        $('.alert-success').hide();
+        // Création du content editable
+        $('.new-LOD').append('<span></span>');
+        $('.new-LOD label').attr('class', 'value value-edited');
+        $('.new-LOD label').attr('style', "display: block; width: 100%; height: 100%;");
+        $('.new-LOD label').attr('contenteditable', true);
+        $('.new-LOD label').attr('autofocus', true);
+        // Création du bouton delete
+        $('.new-LOD').append('<span class="hidden"></span>');
+        $('.new-LOD .hidden').attr('style', 'display: none');
         
+        $('.new-LOD').addClass("sameasValue");
+        $('.new-LOD').removeClass("new-LOD");
+        
+        // Remplacement du bouton ajouter par supprimer
+        $(this).attr('class', 'btn btn-danger btn-block btn-delete');
+        $(this).text('Supprimer');
+        //Ajout d'une nouvelle ligne : pour pouvoir ajouter un sameas
+        $('.table-LOD').append("<tr><td class='new-LOD'></td><td><button class='btn btn-primary btn-addLOD'>Ajouter un lien LOD</button></td></tr>");
+    }
+    
+    $(document).ready(function () {        
         // Bouton retour
         $(document).on('click', '.btn-retour', function () {
             $('.alert-success').hide();
@@ -148,14 +166,6 @@
          * 
          * 
          */
-        // Quand le focus est perdu, on set une nouvelle valeur
-        // si le text a changé
-        $(document).on('blur', '.sameasValue', function () {
-            if (tempValue != $(this).text()) {
-                $(".btn-danger-name-" + $(this).attr('propertyName')).removeClass('disable');
-                setProperty('sameas', encodeURIComponent(formatURI($(this).text())), "uri", $(this), null);
-            }
-        });
         // On rend cliquable les boutons set ou cancel
         $(document).on('keyup', '.sameasValue', function () {
             onKeyup($(this).attr('name'));
@@ -168,26 +178,11 @@
         $(document).on('click', '.btn-success-sameas', function () {
             var value = $(this).parent().parent().children('.value').text();            
             onClickSuccess($(this), value, "uri", "successSameas", $(this).attr('name'));
-        }); 
-        $(document).on('focus', '.sameasValue', function () {
-            tempValue = $(this).text();
-            $('.alert-success').hide();
         });
         // Pour pouvoir rajouter une ligne sameas
         $(document).on('click', '.btn-addLOD', function () {
             $('.alert-success').hide();
-            $('.new-LOD').append('<label></label>');
-            $('.new-LOD label').attr('class', 'sameasValue');
-            $('.new-LOD label').attr('uid', 7);
-            $('.new-LOD label').attr('style', "display: block; width: 100%; height: 100%; background-color: rgb(235,235,235);");
-            $('.new-LOD label').attr('contenteditable', true);
-            $('.new-LOD label').attr('autofocus', true);
-            $('.new-LOD').removeClass();
-            $(this).attr('class', 'btn btn-danger btn-block btn-delete');
-            $(this).attr('uid', 7);
-            $(this).text('Supprimer');
-            $('.table-LOD').append("<tr><td class='new-LOD'></td><td><button class='btn btn-primary btn-addLOD'>Ajouter un lien LOD</button></td></tr>");
-            $('.sameasValue[uid=7]').get(0).focus();
+            makeSameasLigne();
         });
         // Supprimer un lien sameas
         $(document).on('click', '.btn-delete', function () {
@@ -220,7 +215,7 @@
          * 
          * 
          */
-        // click sur la 'croix' d'une entité -> delete de celle-ci
+        // click sur la 'croix' d'une entitÃ© -> delete de celle-ci
         $(document).on('click', '.entity-delete', function () {
             $(this).parent().children('.loadingDelete').show();
             removeProperty($(this).parent().parent().attr('name'), $(this).attr('name'), $(this));
@@ -249,7 +244,7 @@
         $(document).on('click', '.btn-warning-locale', function () {
             onClickCancel($(this), '.locale-value.information-' + $(this).attr('name'));            
         });
-        // Pour set une propriété litérale
+        // Pour set une propriÃ©tÃ© litÃ©rale
         $(document).on('click', '.btn-success-locale', function () {
             var value = $(this).parent().parent().children('.value').text();
             if (value.length > 7 && value.substring(0, 7) == 'http://') {
@@ -318,7 +313,7 @@
 @stop
 
 @section('contenu')
-<h2 class="Entity-name" id="{{ $URIencode }}">{{ $entity->name }}</h2>
+<h2 class="Entity-name" id="{{ $URIencode }}">@if($entity != null) {{ $entity->name }} @endif</h2>
 <button class='btn btn-default btn-retour'>
     <a href="{{url('admin')}}">Retour</a>
 </button>
