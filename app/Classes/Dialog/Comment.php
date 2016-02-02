@@ -5,6 +5,11 @@ namespace App\Classes\Dialog;
 class Comment {
 
     /**
+     * @var string
+     */
+    public $id;
+
+    /**
      *
      * @var string 
      */
@@ -28,16 +33,35 @@ class Comment {
     public $validated;
 
     /**
+     *
+     * @var \App\Classes\Dialog\Entity
+     */
+    public $entity;
+
+    /**
+     *
+     * @var String 
+     */
+    public $createDt;
+
+    /**
      * 
+     * @param string $id
      * @param string $authorName
      * @param string $email
      * @param string $comment
+     * @param boolean $validated
+     * @param \App\Classes\Dialog\Entity $entity
+     * @param String $createDt
      */
-    function __construct($authorName = null, $email = null, $comment = null, $validated = false) {
+    public function __construct($id = null, $authorName = null, $email = null, $comment = null, $validated = null, \App\Classes\Dialog\Entity $entity = null, Date $createDt = null) {
+	$this->id = $id;
 	$this->authorName = $authorName;
 	$this->email = $email;
 	$this->comment = $comment;
 	$this->validated = $validated;
+	$this->entity = $entity;
+	$this->createDt = $createDt;
     }
 
     /**
@@ -102,6 +126,54 @@ class Comment {
      */
     public function setValidated($validated) {
 	$this->validated = $validated;
+    }
+
+    /**
+     * 
+     * @return string
+     */
+    public function getId() {
+	return $this->id;
+    }
+
+    /**
+     * 
+     * @return \App\Classes\Dialog\Entity
+     */
+    public function getEntity() {
+	return $this->entity;
+    }
+
+    /**
+     * 
+     * @return String
+     */
+    public function getCreateDt() {
+	return $this->createDt;
+    }
+
+    /**
+     * 
+     * @param string $URI
+     */
+    public function setId($id) {
+	$this->id = $id;
+    }
+
+    /**
+     * 
+     * @param \App\Classes\Dialog\Entity $entity
+     */
+    public function setEntity($entity) {
+	$this->entity = $entity;
+    }
+
+    /**
+     * 
+     * @param String $createDt
+     */
+    public function setCreateDt($createDt) {
+	$this->createDt = $createDt;
     }
 
 }

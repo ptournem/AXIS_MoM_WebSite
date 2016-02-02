@@ -53,13 +53,12 @@
 			<span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Déconnexion
 		    </button>
 		</form>
-		<form id='admin-bt' action="{{url('admin')}}" method="POST" class="form-inline pull-right">
-		    {!! csrf_field() !!}
+		<a id='admin-bt' href="{{url('admin')}}" class="form-inline pull-right">
 		    <button type="submit" class="btn btn-default">
 			<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Administration
 			
 		    </button>
-		</form>
+		</a>
 	    </div>
 	    @endif
 	@show
