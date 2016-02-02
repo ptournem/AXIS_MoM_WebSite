@@ -113,6 +113,16 @@ $(document).ready(function () {
 
 @stop
 
+@section('menu-after')
+    @if(Session::get('isConnected') )
+    <form class="navbar-form navbar-left" role="search">
+        <a href="{{action('Admin\AdminController@view',['uri'=>Utils::formatURI($entity->URI)])}}" class="btn btn-default">
+	      <span class="glyphicon glyphicon-pencil"></span>
+	      Modifier
+	</a>
+    </form>
+    @endif
+@stop
 
 
 
