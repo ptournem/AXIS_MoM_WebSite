@@ -73,6 +73,7 @@ class AdminController extends Controller
         $entity = new Entity($uri,"",'','');
         $retours = Semantics::GetAllPropertiesAdmin($entity);
         $entity = Semantics::GetEntity(new Entity($uri,"",'',''));
+	$comments = Comments::LoadComment($entity);
         //var_dump($retours);
         $dbpedia = array();
         $dbpediaInfo = false;
@@ -98,7 +99,8 @@ class AdminController extends Controller
             'dbpedia' => $dbpedia,
             'entity' => $entity,
             'URIencode' => $URIencode,
-            'dbpediaInfo' => $dbpediaInfo
+            'dbpediaInfo' => $dbpediaInfo,
+	    'comments' => $comments
         );
 	return view('admin/entityView')->with($data);
     }  
