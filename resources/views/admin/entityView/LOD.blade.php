@@ -21,20 +21,21 @@
                         <tr>
                             <td class="sameasValue">
                                 <span contenteditable="true" 
-                                      class="value value-edited" 
+                                      class="value value-edited"
+                                      name="sameas"
                                       style="display: block; width: 100%; height: 100%;">{{ $retour->entity_locale->name }}</span>
                                 <span class="hidden" style="display: none">{{ $retour->entity_locale->name }}</span>
-                                <!-- <div contenteditable="false" style="position: relative; right: 0px;" class="input-group-btn" role="group">
-                                    <button type="button" style="position: relative; right: 0px;" name="{{ $retour->entity_locale->name }}" class="btn btn-warning btn-warning-sameas btn-warning-name-{{ $retour->name }} disabled">
+                                <div contenteditable="false" style="position: relative; right: 0px;" class="input-group-btn" role="group">
+                                    <button type="button" style="position: relative; right: 0px;" name="sameas" class="btn btn-warning btn-warning-sameas btn-warning-name-{{ $retour->name }} disabled">
                                         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                     </button>
-                                    <button type="button" style="position: relative; right: 0px;" name="{{ $retour->entity_locale->name }}" class="btn btn-success btn-success-sameas btn-success-name-{{ $retour->name }}  disabled">
+                                    <button type="button" style="position: relative; right: 0px;" uri="{{ $retour->entity_locale->URI }}" name="sameas" class="btn btn-success btn-success-sameas btn-success-name-{{ $retour->name }}  disabled">
                                         <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                                     </button>
-                                </div> -->
+                                </div>
                             </td>
-                            <td>
-                                <button class='btn btn-danger btn-block btn-delete' uid="3">
+                            <td class="delete">
+                                <button class='btn btn-danger btn-block btn-delete'>
                                     Supprimer
                                 </button>
                             </td>
@@ -48,17 +49,17 @@
                                   class="value value-edited" 
                                   style="display: block; width: 100%; height: 100%;">{{ $dbpedia->entity_locale->name }}</span>
                             <span class="hidden" style="display: none">{{ $dbpedia->entity_locale->name }}</span>
-                            <!-- <div contenteditable="false" style="position: relative; right: 0px;" class="input-group-btn" role="group">
+                            <div contenteditable="false" style="position: relative; right: 0px;" class="input-group-btn" role="group">
                                 <button type="button" style="position: relative; right: 0px;" name="{{ $retour->entity_locale->name }}" class="btn btn-warning btn-warning-sameas btn-warning-name-{{ $retour->name }} disabled">
                                     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                 </button>
                                 <button type="button" style="position: relative; right: 0px;" name="{{ $retour->entity_locale->name }}" class="btn btn-success btn-success-sameas btn-success-name-{{ $retour->name }}  disabled">
                                     <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                                 </button>
-                            </div> -->
+                            </div>
                         </td>
-                        <td>
-                            <button class='btn btn-danger btn-block btn-delete' uid="3">
+                        <td class="delete">
+                            <button class='btn btn-danger btn-block btn-delete'>
                                 Supprimer
                             </button>
                         </td>

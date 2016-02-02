@@ -74,7 +74,7 @@ class AdminController extends Controller
         $retours = Semantics::GetAllPropertiesAdmin($entity);
         $entity = Semantics::GetEntity(new Entity($uri,"",'',''));
 	$comments = Comments::LoadComment($entity);
-        //var_dump($retours);
+        //var_dump($retours[4]);
         $dbpedia = array();
         $dbpediaInfo = false;
         
@@ -141,7 +141,8 @@ class AdminController extends Controller
         
     } 
     
-    public function deleteEntityProperty($uri, $name, $uriB) {  
+    public function deleteEntityProperty($uri, $name, $uriB) { 
+        //return $uri . ' ' . $name . ' ' . $uriB;
         $uri  = Utils::unformatURI($uri);
         $uriB  = Utils::unformatURI($uriB);
         $entityValue = new Entity($uriB, null, null, null);
