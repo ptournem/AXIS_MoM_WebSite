@@ -14,29 +14,57 @@
 	    </tr>
 	</thead>
 	<tbody class="table-LOD">
-	    @foreach($dbpedia as $retour)
-	    <tr>
-		<td class="sameasValue">
-		    <span contenteditable="true" 
-			  class="value value-edited" 
-			  style="display: block; width: 100%; height: 100%;">{{ $retour->entity_locale->name }}</span>
-		    <span class="hidden" style="display: none">{{ $retour->entity_locale->name }}</span>
-		    <!-- <div contenteditable="false" style="position: relative; right: 0px;" class="input-group-btn" role="group">
-			<button type="button" style="position: relative; right: 0px;" name="{{ $retour->entity_locale->name }}" class="btn btn-warning btn-warning-sameas btn-warning-name-{{ $retour->name }} disabled">
-			    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-			</button>
-			<button type="button" style="position: relative; right: 0px;" name="{{ $retour->entity_locale->name }}" class="btn btn-success btn-success-sameas btn-success-name-{{ $retour->name }}  disabled">
-			    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-			</button>
-		    </div> -->
-		</td>
-		<td>
-		    <button class='btn btn-danger btn-block btn-delete' uid="3">
-			Supprimer
-		    </button>
-		</td>
-	    </tr>
-	    @endforeach
+            @if($dbpedia != null)
+                @if(is_array($dbpedia))
+                    @foreach($dbpedia as $retour)
+                        @if($retour->entity_locale != null)
+                        <tr>
+                            <td class="sameasValue">
+                                <span contenteditable="true" 
+                                      class="value value-edited" 
+                                      style="display: block; width: 100%; height: 100%;">{{ $retour->entity_locale->name }}</span>
+                                <span class="hidden" style="display: none">{{ $retour->entity_locale->name }}</span>
+                                <!-- <div contenteditable="false" style="position: relative; right: 0px;" class="input-group-btn" role="group">
+                                    <button type="button" style="position: relative; right: 0px;" name="{{ $retour->entity_locale->name }}" class="btn btn-warning btn-warning-sameas btn-warning-name-{{ $retour->name }} disabled">
+                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                    </button>
+                                    <button type="button" style="position: relative; right: 0px;" name="{{ $retour->entity_locale->name }}" class="btn btn-success btn-success-sameas btn-success-name-{{ $retour->name }}  disabled">
+                                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                    </button>
+                                </div> -->
+                            </td>
+                            <td>
+                                <button class='btn btn-danger btn-block btn-delete' uid="3">
+                                    Supprimer
+                                </button>
+                            </td>
+                        </tr>
+                        @endif
+                    @endforeach
+                @else
+                    <tr>
+                        <td class="sameasValue">
+                            <span contenteditable="true" 
+                                  class="value value-edited" 
+                                  style="display: block; width: 100%; height: 100%;">{{ $dbpedia->entity_locale->name }}</span>
+                            <span class="hidden" style="display: none">{{ $dbpedia->entity_locale->name }}</span>
+                            <!-- <div contenteditable="false" style="position: relative; right: 0px;" class="input-group-btn" role="group">
+                                <button type="button" style="position: relative; right: 0px;" name="{{ $retour->entity_locale->name }}" class="btn btn-warning btn-warning-sameas btn-warning-name-{{ $retour->name }} disabled">
+                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                </button>
+                                <button type="button" style="position: relative; right: 0px;" name="{{ $retour->entity_locale->name }}" class="btn btn-success btn-success-sameas btn-success-name-{{ $retour->name }}  disabled">
+                                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                </button>
+                            </div> -->
+                        </td>
+                        <td>
+                            <button class='btn btn-danger btn-block btn-delete' uid="3">
+                                Supprimer
+                            </button>
+                        </td>
+                    </tr>
+                @endif
+            @endif
 	    <tr>
 		<td class="new-LOD"></td>
 		<td><button class="btn btn-primary btn-addLOD">Ajouter un lien LOD</button></td>
