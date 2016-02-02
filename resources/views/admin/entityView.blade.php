@@ -6,8 +6,8 @@
         console.log("successEntityAutocompletion");
         $('.alert-success-update').show();
         $("<span class='entity' name='" + ui.item.name + "' style='background-color: pink; padding: 2px; margin: 2px;'></span>").insertBefore(elt.parent().children(".value-edited"));
-        elt.parent().children(".value-edited").append('<span name="' + ui.item.URI + '" class="value">' + ui.item.name + '</span>');
-        elt.parent().children(".value-edited").append('<span class="glyphicon glyphicon-remove entity-delete" aria-hidden="true" style="position-top: 0px; position-left: 0px;"></span>');
+        elt.parent().children(".entity").append('<span name="' + ui.item.URI + '" class="value">' + ui.item.name + '</span>');
+        elt.parent().children(".entity").append('<span class="glyphicon glyphicon-remove entity-delete" aria-hidden="true" style="position-top: 0px; position-left: 0px;"></span>');
     }
 
     function successEntityDBpedia(elt, value) {
