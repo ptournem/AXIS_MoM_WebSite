@@ -9,7 +9,7 @@ id="info"
 <!--FACEBOOK-->
 <meta property="og:title" content="{{$entity->name}}" >
 <meta property="og:site_name" content="AXIS-MoM">
-<meta property="og:url" content="{{url('/')}}" >
+    <meta property="og:url" content="{{Request::url()}}" >
 <meta property="og:description" content="AXIS_MoM est un POC réalisé par une équipe d'étudiant de l'IG2I pour l'ASBL Titan et la société Tite Maison Production qui a pour but de prouver que l'ontologie AXIS-CSRM développée par Titan est utilisable." >
 <meta property="og:image" content="{{$entity->image}}" >
 <meta property="og:type" content="website" >
@@ -18,7 +18,7 @@ id="info"
 <meta property="twitter:card" content="summary" >
 <meta property="twitter:title" content="{{$entity->name}}" >
 <meta property="twitter:description" content="AXIS_MoM est un POC réalisé par une équipe d'étudiant de l'IG2I pour l'ASBL Titan et la société Tite Maison Production qui a pour but de prouver que l'ontologie AXIS-CSRM développée par Titan est utilisable." >
-<meta property="twitter:url" content="{{url('/')}}" >
+<meta property="twitter:url" content="{{Request::url()}}" >
 <meta property="twitter:image" content="{{$entity->image}}" >
 <!--GOOGLE-->
 <meta itemprop="name" content="{{$entity->name}}">
@@ -88,7 +88,7 @@ $(document).ready(function () {
 		
 	    }else {
 		resetForm();
-	$('#addCommentModal form p').hide();
+		$('#addCommentModal form p').hide();
 		$.each(data.require,function(key,msg){
 		    $('#addCommentModalError-'+key).parent().addClass('has-error');
 		    $('#addCommentModalError-'+key).text(msg).show('fade');
@@ -233,6 +233,7 @@ $(document).ready(function () {
 		<div class="alert" role="alert" style="display:none;"></div>
 		<form>
 		    {!! csrf_field() !!}  
+		    <input type="hidden" name="entity" value="{{$entity->URI}}" />
 		    <div class="form-group">
 			<label class="control-label" for="commentName">Nom et prénom :</label>
 			<input type="text" class="form-control" name="Nom" id="commentName" placeholder="Nom">

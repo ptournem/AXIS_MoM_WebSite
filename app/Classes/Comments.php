@@ -17,11 +17,13 @@ class Comments {
     /**
      * Ajoute un commentaire
      * @param Comment $c
+     * @param Entity $e
      * @return Comment
      */
-    public function AddComment(Comment $c) {
+    public function AddComment(Comment $c, Entity $e) {
 	$request = new \stdClass();
 	$request->c = $c;
+	$request->e = $e;
 	return $this->service->AddComment($request, 'App\Classes\Dialog\Comment');
     }
 
@@ -35,13 +37,13 @@ class Comments {
 	$request->c = $c;
 	return $this->service->GrantComment($request);
     }
-    
+
     /**
      * Refuse un commentaire
      * @param Comment $c
      * @return bool
      */
-    public function DenyComment(Comment $c){
+    public function DenyComment(Comment $c) {
 	$request = new \stdClass();
 	$request->c = $c;
 	return $this->service->DenyComment();
@@ -66,7 +68,7 @@ class Comments {
     public function LoadComment(Entity $e = null) {
 	$request = new \stdClass();
 	$request->e = $e;
-	return $this->service->LoadComment($request,'App\Classes\Dialog\Comment[]');
+	return $this->service->LoadComment($request, 'App\Classes\Dialog\Comment[]');
     }
 
 }

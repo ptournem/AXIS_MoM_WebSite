@@ -60,19 +60,22 @@ class PublicController extends Controller {
 	    return redirect()->action('PublicController@anyIndex');
 	}
 
-	// on charge les commentaires et les properties
+	// on charge les commentaires puis on les mets dans une collection pour 
+	// pouvoir les filtrer
 	$comments = Comments::LoadComment($e);
-	$infos = $this->sortProperties(Semantics::LoadEntityProperties($e));
+	$cComments = collect($comments);
 
+	// chargement des infos 
+	$infos = $this->sortProperties(Semantics::LoadEntityProperties($e));
 
 	// on les ajoute aux data
 	$data = array(
-	    'comments' => $comments,
+	    'comments' => $cComments->where('validated', true), // comments filtrés
 	    'infos' => $infos,
 	    'entity' => $e
 	);
 
-	// on renvoie la vue
+	// on renvoie la vue avec les datas
 	return view('informations')->with($data);
     }
 
@@ -107,13 +110,13 @@ class PublicController extends Controller {
 	}
 
 	foreach ($properties as $prop) {
-	    if ($prop->type !== 'uri') {
+	    if ($prop->type !== 'uri') { // pas de type URI, on mets dans les literaux
 		$ret->literal[] = $prop;
 	    } else {
-		$ret->object[] = $prop;
-		if (is_object($prop->ent)) {
+		$ret->object[] = $prop; // C'est un objet
+		if (is_object($prop->ent)) { // si la prop entity est un object, on l'ajoute en tant que property de connection
 		    $ret->connection[] = new Property($prop->name, null, 'uri', Utils::cast($prop->ent, 'App\Classes\Dialog\Entity'));
-		} elseif (is_array($prop->ent)) {
+		} elseif (is_array($prop->ent)) {// si c'est un tableau, on les ajoutes tous en tant que property de connection
 		    foreach ($prop->ent as $conn) {
 			$ret->connection[] = new Property($prop->name, null, 'uri', Utils::cast($conn, 'App\Classes\Dialog\Entity'));
 		    }
@@ -126,17 +129,31 @@ class PublicController extends Controller {
 
     public function postComment(Request $request) {
 
+	// on crée le validator pour la requête
 	$validator = Validator::make($request->all(), [
 		    'Nom' => 'required|max:40|min:4',
 		    'Mail' => 'required|email',
 		    'Commentaire' => 'required'
 	]);
 
+	// Si la requête fail, on revoit un tableau avec les errors
 	if ($validator->fails()) {
 	    return response()->json(['require' => $validator->errors()]);
 	}
 
-	return response()->json(['result' => is_object(Comments::AddComment(new Comment($request->get('Nom'), $request->get('Mail'), $request->get('Commentaire'))))]);
+	// on vérifie que l'on a bien une entité
+	if (!$request->has('entity')) {
+	    return response()->json(['result' => false]);
+	}
+
+	// sinon, on test l'envoie du commentaire
+	return response()->json([
+		    'result' => is_object(
+			    Comments::AddComment(
+				    new Comment($request->get('Nom'), $request->get('Mail'), $request->get('Commentaire')), new Entity($request->get('entity'))
+			    )
+		    )
+	]);
     }
 
 }

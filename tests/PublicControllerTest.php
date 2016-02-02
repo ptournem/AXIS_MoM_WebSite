@@ -106,7 +106,7 @@ class PublicControllerTest extends TestCase {
 	$this->assertResponseStatus(404);
     }
 
-    public function testPostCommentMissParameter() {
+    public function testPostCommentMissCommentParameter() {
 	$this->withoutMiddleware();
 
 	$response1 = $this->action('POST', 'PublicController@postComment', null, array('Nom' => 'test', 'Mail' => 'azert@fr.fr'));
@@ -131,6 +131,15 @@ class PublicControllerTest extends TestCase {
 	$this->assertObjectHasAttribute('Nom', $json3->require);
     }
 
+    public function testPostCommentMissEntityParameter() {
+	$this->withoutMiddleware();
+
+	$this->action('POST', 'PublicController@postComment', null, array('Nom' => 'test', 'Mail' => 'azert@fr.fr', 'Commentaire' => 'comment'));
+	$this->assertResponseOk();
+	$this->isJson();
+	$this->seeJsonEquals(['result' => false]);
+    }
+
     public function testPostCommentNoParameter() {
 	$this->withoutMiddleware();
 	$response = $this->action('POST', 'PublicController@postComment', null);
@@ -149,7 +158,7 @@ class PublicControllerTest extends TestCase {
 
 	Comments::shouldReceive('AddComment')->once()->andReturn(new Comment());
 
-	$this->action('POST', 'PublicController@postComment', null, array('Nom' => 'test', 'Mail' => 'mail@gmail.com', 'Commentaire' => 'test'));
+	$this->action('POST', 'PublicController@postComment', null, array('Nom' => 'test', 'Mail' => 'mail@gmail.com', 'Commentaire' => 'test', 'entity' => 'azert'));
 	$this->assertResponseOk();
 	$this->isJson();
 	$this->seeJsonEquals(['result' => true]);
