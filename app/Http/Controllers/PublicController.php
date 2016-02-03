@@ -91,6 +91,21 @@ class PublicController extends Controller {
 	// on renvoie ce que l'on obtient du web service 
 	return response()->json(Semantics::SearchOurEntitiesFromText($request->input("needle")));
     }
+    
+    /**
+     * Renvoie les recherches d'un tableau
+     * @param Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function anySearchEntitySameas(Request $request) {
+	// on test que l'on a bien le needle sinon on renvoie un tableau vide
+	if (!$request->has("needle") || $request->input("needle") == "") {
+	    return response()->json([]);
+	}
+
+	// on renvoie ce que l'on obtient du web service 
+	return response()->json(Semantics::SearchAllEntitiesFromText($request->input("needle")));
+    }
 
     /**
      * Trie les propriété et renvoie un object avec un tableau de propriété literal (literal) et un tableau de propriété d'entite (object)
