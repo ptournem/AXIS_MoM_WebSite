@@ -124,7 +124,7 @@ class AdminController extends Controller
             $entityValue = new Entity();
             $property = new Property($name, Utils::unformatURI($value), $type, null); 
             $retours = Semantics::SetEntityProperty(new Entity($uri,"",'',''), 
-                $property, $entityValue);            
+                $property, $entityValue);
         }
         else{
             $entityValue = new Entity(Utils::unformatURI($value), null, null, null);
@@ -132,12 +132,15 @@ class AdminController extends Controller
             $retours = Semantics::SetEntityProperty(new Entity($uri,"",'',''), 
                 $property, $entityValue);
         }
-            
-        return json_encode (['success' => true]);
-        if($retours)
+        
+        if($retours){
+            Logs::add("SUCCED : SET PROPERTY", "Uri Entity : " . $uri . " name : " . $name . " value : " . $value, session("user"));
             return json_encode (['success' => true]);
-        else
-            return json_encode (['success' => false]);
+        }
+        else{
+            Logs::add("FAILED : SET PROPERTY", "Uri Entity : " . $uri . " name : " . $name . " value : " . $value, session("user"));
+            return json_encode (['success' => false]);            
+        }
         
     } 
     

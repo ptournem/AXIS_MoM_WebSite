@@ -12,6 +12,16 @@
         elt.parent().children(".entity[name='" + ui.item.name + "']").append('<span name="' + ui.item.URI + '" class="value">' + ui.item.name + '</span>');
         elt.parent().children(".entity[name='" + ui.item.name + "']").append('<span class="glyphicon glyphicon-remove entity-delete" aria-hidden="true" style="position-top: 0px; position-left: 0px;"></span>');
     }
+    
+    function successEntityAutocompletionSameas(elt, ui) {
+        console.log("successEntityAutocompletionSameas");        
+        $('.alert-success-update').show();
+        console.log(elt.parent().children(".input-group-btn"));
+        elt.parent().children(".input-group-btn").children(".btn").hide();
+        $("<span class='entity' name='" + ui.item.name + "' style='background-color: pink; padding: 2px; margin: 2px;'></span>").insertBefore(elt.parent().children(".value-edited"));
+        elt.parent().children(".entity[name='" + ui.item.name + "']").append('<span name="' + ui.item.URI + '" class="value">' + ui.item.name + '</span>');
+        elt.remove();
+    }
 
     function successEntityDBpedia(elt, value) {
         console.log("successEntityDBpedia");
@@ -53,6 +63,8 @@
                             case "successEntityDBpedia" : successEntityDBpedia(elt, value);
                                 break;
                             case "successEntityAutocompletion" : successEntityAutocompletion(elt, ui);
+                                break;
+                            case "successEntityAutocompletionSameas" : successEntityAutocompletionSameas(elt, ui);
                                 break;
                          }
                     }
@@ -137,11 +149,26 @@
     function makeSameasLigne(elt){
         // Création du content editable
         $('.new-LOD').append('<span></span>');
-        $('.new-LOD span').attr('class', 'value value-edited');
+        $('.new-LOD span').attr('class', 'value value-edited searchSameas');
         $('.new-LOD span').attr('name', 'sameas');
         $('.new-LOD span').attr('style', "display: block; width: 100%; height: 100%;");
         $('.new-LOD span').attr('contenteditable', true);
         $('.new-LOD span').attr('autofocus', true);
+        // autocomplétion
+        $('.new-LOD span').catcomplete({
+            source: function (request, response) {
+                console.log("searchSameas");
+                $.getJSON(global.searchUrlSameas, {needle: request.term}, response);
+            },
+            select: function (event, ui) {
+                $(this).children('.value-edited').text('');
+                elt = $(this);
+                setProperty("sameas", encodeURIComponent(formatURI(ui.item.URI)), "uri", elt, "successEntityAutocompletionSameas", ui);
+
+                return false;
+            },
+            delay: 600
+        });
         // Création du bouton delete
         $('.new-LOD').append('<span class="hidden"></span>');
         $('.new-LOD .hidden').attr('style', 'display: none');
@@ -212,6 +239,21 @@
             $('.alert-success').hide();
             removeProperty("sameas", encodeURIComponent(formatURI($(this).attr("uri"))), $(this));
         });
+        // autocomplétion
+        $('.searchSameas').catcomplete({
+            source: function (request, response) {
+                console.log("searchSameas");
+                $.getJSON(global.searchUrlSameas, {needle: request.term}, response);
+            },
+            select: function (event, ui) {
+                $(this).children('.value-edited').text('');
+                elt = $(this);
+                setProperty("sameas", encodeURIComponent(formatURI(ui.item.URI)), "uri", elt, "successEntityAutocompletionSameas", ui);
+
+                return false;
+            },
+            delay: 600
+        });
         
         /*
          * 
@@ -262,6 +304,20 @@
             var type = 'fr';
             onClickSuccess($(this), value, type, successType, $(this).attr('name'));
         }); 
+        // autocomplétion
+        $('.searchEntities').catcomplete({
+            source: function (request, response) {
+                $.getJSON(global.searchUrl, {needle: request.term}, response);
+            },
+            select: function (event, ui) {
+                $(this).children('.value-edited').text('');
+                elt = $(this);
+                setProperty(elt.parent().attr('name'), encodeURIComponent(formatURI(ui.item.URI)), "uri", elt, "successEntityAutocompletion", ui);
+
+                return false;
+            },
+            delay: 600
+        });
         
         // Permet de reporter les valeurs de DBpedia dans local
         // TODO
@@ -281,19 +337,7 @@
             $('.alert-success').hide();
         });
         
-        $('.searchEntities').catcomplete({
-            source: function (request, response) {
-                $.getJSON(global.searchUrl, {needle: request.term}, response);
-            },
-            select: function (event, ui) {
-                $(this).children('.value-edited').text('');
-                elt = $(this);
-                setProperty(elt.parent().attr('name'), encodeURIComponent(formatURI(ui.item.URI)), "uri", elt, "successEntityAutocompletion", ui);
-
-                return false;
-            },
-            delay: 600
-        });
+        
     });
 </script>
 @stop

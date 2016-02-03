@@ -17,6 +17,7 @@ Route::get('/home', 'PublicController@anyIndex');
 // Controller public pour les interraction publiques
 Route::controller('public', 'PublicController', [
     "anySearchEntity" => "public.search",
+    "anySearchEntitySameas" => "public.searchSameas",
     "anyEntity" => "public.show",
 ]);
 
