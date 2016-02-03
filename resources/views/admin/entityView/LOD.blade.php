@@ -21,7 +21,7 @@
                         <tr>
                             <td class="sameasValue">
                                 <span contenteditable="true" 
-                                      class="value value-edited"
+                                      class="value value-edited searchSameas"
                                       name="sameas"
                                       style="display: block; width: 100%; height: 100%;">{{ $retour->entity_locale->name }}</span>
                                 <span class="hidden" style="display: none">{{ $retour->entity_locale->name }}</span>
@@ -46,7 +46,7 @@
                     <tr>
                         <td class="sameasValue">
                             <span contenteditable="true" 
-                                  class="value value-edited" 
+                                  class="value value-edited searchSameas" 
                                   style="display: block; width: 100%; height: 100%;">{{ $dbpedia->entity_locale->name }}</span>
                             <span class="hidden" style="display: none">{{ $dbpedia->entity_locale->name }}</span>
                             <div contenteditable="false" style="position: relative; right: 0px;" class="input-group-btn" role="group">
