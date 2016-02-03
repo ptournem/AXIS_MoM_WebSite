@@ -216,7 +216,7 @@ $(document).ready(function () {
 	    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
 		 <ul class="list-group">
 		    @foreach($comments as $comment)
-		    <li class="list-group-item"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span> <b>{{ $comment->authorName }}</b> : {{ $comment->comment }}</li>
+		    <li class="list-group-item"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span><i> {{ $comment->createDt}}</i> - <b>{{ $comment->authorName }}</b> : {{ $comment->comment }}</li>
 		    @endforeach
 		  </ul>
 	    </div>
