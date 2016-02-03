@@ -41,6 +41,12 @@ class PropertyAdmin {
     public $type;
 
     /**
+     *
+     * @var string 
+     */
+    public $lang;
+
+    /**
      * 
      * @param String $name
      * @param String $value_locale
@@ -48,14 +54,16 @@ class PropertyAdmin {
      * @param App\Classes\Dialog\PropertyAdmin $entity_locale
      * @param App\Classes\Dialog\PropertyAdmin $entity_dbpedia
      * @param String $type
+     * @param String $lang
      */
-    public function __construct($name = null, $value_locale = null, $value_dbpedia = null, $entity_locale = null, $entity_dbpedia = null, $type = null) {
+    public function __construct($name = null, $value_locale = null, $value_dbpedia = null, $entity_locale = null, $entity_dbpedia = null, $type = null, $lang = null) {
 	$this->name = $name;
 	$this->value_locale = $value_locale;
 	$this->value_dbpedia = $value_dbpedia;
 	$this->entity_locale = $entity_locale;
 	$this->entity_dbpedia = $entity_dbpedia;
 	$this->type = $type;
+	$this->lang = $lang;
     }
 
     /**
@@ -153,5 +161,23 @@ class PropertyAdmin {
     public function setType($type) {
 	$this->type = $type;
     }
+    
+    /**
+     * 
+     * @return String
+     */
+    public function getLang() {
+	return $this->lang;
+    }
+
+    /**
+     * 
+     * @param String $lang
+     */
+    public function setLang($lang) {
+	$this->lang = $lang;
+    }
+
+
 
 }

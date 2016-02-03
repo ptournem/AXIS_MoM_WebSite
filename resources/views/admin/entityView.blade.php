@@ -352,7 +352,14 @@
 <ul class="nav nav-tabs">
     <li class="active"><a data-toggle="tab" href="#informations">Informations</a></li>
     <li><a data-toggle="tab" href="#LODLink">Liens LoD</a></li>
-    <li><a data-toggle="tab" href="#commentaires">Commentaires</a></li>
+    <li>
+	<a data-toggle="tab" href="#commentaires">
+	    Commentaires
+	    @if($nbCommentNotValidated>0)
+		({{$nbCommentNotValidated}})
+	    @endif
+	</a>
+    </li>
 </ul>
 <div class="tab-content">
     @include('admin.entityView.properties')

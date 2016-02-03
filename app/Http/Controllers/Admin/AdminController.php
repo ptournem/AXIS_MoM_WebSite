@@ -38,12 +38,14 @@ class AdminController extends Controller
         $entities = Semantics::GetAllEntities();
 	$logs = Log::all()->sortByDesc('created_at')->forPage(1, self::NB_LOGS_SHOWN);
 	$comments = Comments::LoadComment();
+	$cComments = collect($comments);
         
         $data = array(
 	    'users' => $users,
 	    'entities' => $entities,
 	    'logs' => $logs,
-	    'comments' => $comments
+	    'comments' => $comments,
+	    'nbCommentNotValidated' => $cComments->where("validated", false)->count()
 	);
 	return view('admin/admin')->with($data);
     }  
@@ -74,7 +76,8 @@ class AdminController extends Controller
         $retours = Semantics::GetAllPropertiesAdmin($entity);
         $entity = Semantics::GetEntity(new Entity($uri,"",'',''));
 	$comments = Comments::LoadComment($entity);
-        //var_dump($retours[4]);
+	$cComments = collect($comments);
+        //var_dump($retours);
         $dbpedia = array();
         $dbpediaInfo = false;
         
@@ -102,7 +105,8 @@ class AdminController extends Controller
             'entity' => $entity,
             'URIencode' => $URIencode,
             'dbpediaInfo' => $dbpediaInfo,
-	    'comments' => $comments
+	    'comments' => $comments,
+	    'nbCommentNotValidated' => $cComments->where("validated", false)->count()
         );
 	return view('admin/entityView')->with($data);
     }  
