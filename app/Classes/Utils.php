@@ -10,7 +10,7 @@ class Utils {
      * @return String
      */
     public function formatURI($uri) {
-	return str_replace("/", "|", $uri);
+	return str_replace("/", "!", $uri);
     }
 
     /**
@@ -19,7 +19,7 @@ class Utils {
      * @return string
      */
     public function unformatURI($uri) {
-	return str_replace("|", "/", $uri);
+	return str_replace("!", "/", $uri);
     }
     
     /**
