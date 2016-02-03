@@ -21,6 +21,11 @@ class Property {
      * @var string 
      */
     public $type;
+    
+    /**
+     * 
+     */
+    public $lang;
 
     /**
      *
@@ -34,12 +39,14 @@ class Property {
      * @param string $value
      * @param string $type
      * @param \App\Classes\Dialog\App\Classes\Dialog\Property $e
+     * @param string $lang
      */
-    public function __construct($name = null, $value = null, $type = null, Entity $ent = null) {
+    public function __construct($name = null, $value = null, $type = null, Entity $ent = null,$lang = null) {
 	$this->name = $name;
 	$this->value = $value;
 	$this->type = $type;
 	$this->ent = $ent;
+	$this->lang = $lang;
     }
 
     /**
@@ -105,5 +112,23 @@ class Property {
     public function setEnt(App\Classes\Dialog\Property $ent) {
 	$this->ent = $ent;
     }
+    
+    /**
+     * 
+     * @return string
+     */
+    public function getLang() {
+	return $this->lang;
+    }
+
+    /**
+     * 
+     * @param strig $lang
+     */
+    public function setLang($lang) {
+	$this->lang = $lang;
+    }
+
+
 
 }
