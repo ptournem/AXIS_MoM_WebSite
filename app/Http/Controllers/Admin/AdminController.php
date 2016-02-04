@@ -148,8 +148,8 @@ class AdminController extends Controller
         
     } 
     
-    public function deleteEntityProperty($uri, $name, $uriB) { 
-        //return $uri . ' ' . $name . ' ' . $uriB;
+    public function deleteEntityProperty($uri, $name, $uriB = null) { 
+        return $uri . ' ' . $name . ' ' . $uriB;
         $uri  = Utils::unformatURI($uri);
         $uriB  = Utils::unformatURI($uriB);
         $entityValue = new Entity($uriB, null, null, null);

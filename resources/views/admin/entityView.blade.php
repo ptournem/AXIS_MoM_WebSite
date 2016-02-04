@@ -1,6 +1,10 @@
 @extends('admin/template')
 
 @section('header')
+<link rel="stylesheet" href="{{ URL::asset('css/datepicker.css') }}">
+<script type="text/javascript" src="{{ URL::asset('js/bootstrap-datepicker.js') }}"></script>
+<script type="text/javascript" src="{{ URL::asset('js/locales/bootstrap-datepicker.fr.js') }}" charset="UTF-8"></script>
+<script type="text/javascript" src="{{ URL::asset('js/jquery-dateFormat.min.js') }}"></script>
 <script type="text/javascript">
     function successEntityAutocompletion(elt, ui) {
         console.log("successEntityAutocompletion");
@@ -48,6 +52,11 @@
         elt.parent().parent().children(".hidden").text(elt.parent().parent().children(".value").text());
         elt.parent().children(".btn").addClass("disabled");
     }
+    
+    function successDate(elt) {
+        console.log("successDate");
+        $('.alert-success-update').show();
+    }
 
     function setProperty(name, value, type, elt, successType, ui) {
         $.getJSON(top.location + '/' + name + '/' + value + '/' + type, null)
@@ -65,6 +74,8 @@
                             case "successEntityAutocompletion" : successEntityAutocompletion(elt, ui);
                                 break;
                             case "successEntityAutocompletionSameas" : successEntityAutocompletionSameas(elt, ui);
+                                break;
+                            case "successDate" : successDate(elt);
                                 break;
                          }
                     }
@@ -87,6 +98,26 @@
                     if (json.success == true) {
                         console.log("OK");
                         elt.parent().remove();
+                    }
+                    else {
+                        console.log("fail");
+                    }
+                    elt.parent().children('.loadingDelete').hide();
+                })
+                .fail(function (jqxhr, textStatus, error) {
+                    var err = textStatus + ", " + error;
+                    console.log("Request Failed: " + err);
+                    elt.parent().children('.loadingDelete').hide();
+                });
+    }
+    
+    function removeLiteralProperty(name, value, type, elt, successType) {
+        $.getJSON(top.location + '/' + name + '/' + "", null)
+                .done(function (json) {
+                    console.log(json);
+                    if (json.success == true) {
+                        console.log("OK removeLiteralProperty");
+                        setProperty(name, value, type, elt, successType);
                     }
                     else {
                         console.log("fail");
@@ -141,8 +172,10 @@
 
     function onClickSuccess(elt, value, type, successType, name){
         if(!elt.hasClass('disabled')){
+            console.log("onclicksuccess");
             value = encodeURIComponent(formatURI(value));
-            setProperty(name, value, type, elt, successType);
+            console.log("beforeRemove");
+            removeLiteralProperty(name, "", elt, successType, type, value);
         }
     }
     
@@ -337,7 +370,18 @@
             $('.alert-success').hide();
         });
         
-        
+        $('.date').datepicker({
+            autoclose: true,
+            dateFormat: 'yyyy-mm-dd',
+            language: 'fr'
+        });
+        $('.date').datepicker()
+            .on("changeDate", function(e) {
+                console.log($.format.date(e.date, "yyyy-MM-dd"));
+                //console.log($.datepicker.dateFormat('yyyy-mm-dd', new Date()));
+                //console.log($(this).children("input").text());
+            onClickSuccess($(this), $.format.date(e.date, "yyyy-MM-dd"), 'fr', "successDate", $(this).attr("name"));
+        });
     });
 </script>
 @stop
