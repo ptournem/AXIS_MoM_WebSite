@@ -1,3 +1,4 @@
+
 <div id="informations" class="tab-pane fade in active">
     <br />
     <div id='successMsg-update' class="alert alert-success alert-success-update" style="display: none">
@@ -40,8 +41,16 @@
                     </td>
                     @else
                     <td name="{{ $retour->name }}" class="information-{{ $retour->name }} locale-value">
+                        @if($retour->type == "date")
+                        <div class="input-group date" name="{{ $retour->name }}" data-provide="datepicker" data-date-format="yyyy-mm-dd">
+                            <input type="text" name="{{ $retour->name }}" class="form-control" value="{{ $retour->value_locale }}" disabled>
+                            <div class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </div>
+                        </div>
+                        @else
                         <span class="hidden" style="display: none">{{ $retour->value_locale }}</span>
-                        <span contenteditable="true" class="value value-edited searchEntities" style="display: inline-block; width: 100%;">{{ $retour->value_locale }}</span>
+                        <span contenteditable="true" class="value value-edited searchEntities" style="display: inline-block; width: 100%;" >{{ $retour->value_locale }}</span>
                         <div style="position: relative; right: 0px;" class="input-group-btn" role="group">
                             <button type="button" style="position: relative; right: 0px;" name="{{ $retour->name }}" class="btn btn-warning btn-warning-locale btn-warning-name-{{ $retour->name }} disabled">
                                 <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
@@ -50,6 +59,8 @@
                                 <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                             </button>
                         </div>
+                        @endif
+                        
                     </td>
                     @endif
 
