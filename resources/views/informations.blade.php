@@ -161,7 +161,7 @@ $(document).ready(function () {
 		    <a href="https://plus.google.com/share?url={{rawurlencode(Request::url())}}" class="btn-social btn-outline" target="_blank"><i class="fa fa-fw fa-google-plus"></i></a>
 		</li>
 		<li>
-		    <a href="https://twitter.com/intent/tweet?text=Partagez%20vos%20emotions%20&button_hashtag={{$entity->type}}&url={{rawurlencode(Request::url())}}" target="_blank" class="btn-social btn-outline" ><i class="fa fa-fw fa-twitter"></i></a>
+		    <a href="https://twitter.com/intent/tweet?text=Partagez%20vos%20émotions%20&button_hashtag={{$socialNetworkTags}}&url={{rawurlencode(Request::url())}}" target="_blank" class="btn-social btn-outline" ><i class="fa fa-fw fa-twitter"></i></a>
 		</li>
 	    </ul>
 
