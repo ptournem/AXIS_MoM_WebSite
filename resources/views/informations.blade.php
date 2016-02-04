@@ -137,12 +137,12 @@ $(document).ready(function () {
 	@if(!BrowserDetect::isMobile())
 	<div class="hidden-phone" id="graphe">
 
-	    <label class="checkbox-inline"><input class="cbfilter" type="checkbox" value="event" checked>Event</label>
-	    <label class="checkbox-inline"><input class="cbfilter" type="checkbox" value="location" checked>Lieu</label>
-	    <label class="checkbox-inline"><input class="cbfilter" type="checkbox" value="object" checked>Objet</label>
-	    <label class="checkbox-inline"><input class="cbfilter" type="checkbox" value="person" checked>Personne</label>
-	    <label class="checkbox-inline"><input class="cbfilter" type="checkbox" value="activity" checked>Activité</label>
-	    <label class="checkbox-inline"><input class="cbfilter" type="checkbox" value="organisation" checked>Organisation</label>
+	    <label class="checkbox-inline"><input class="cbfilter" type="checkbox" value="event" checked>Evènements</label>
+	    <label class="checkbox-inline"><input class="cbfilter" type="checkbox" value="location" checked>Lieux</label>
+	    <label class="checkbox-inline"><input class="cbfilter" type="checkbox" value="object" checked>Objets</label>
+	    <label class="checkbox-inline"><input class="cbfilter" type="checkbox" value="person" checked>Personnes</label>
+	    <label class="checkbox-inline"><input class="cbfilter" type="checkbox" value="activity" checked>Activités</label>
+	    <label class="checkbox-inline"><input class="cbfilter" type="checkbox" value="organisation" checked>Organisations</label>
 
 	    <div id="graph" style="height:500px; width :100%"></div>
 	</div>
