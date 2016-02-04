@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use Semantics;
 use Logs;
+use Session;
 use Comments;
 use App\Classes\Dialog\Entity;
 use App\Classes\Dialog\Property;
@@ -70,7 +71,7 @@ class AdminController extends Controller
     
     public function view($uri) {
         $URIencode = $uri;
-        $uri = str_replace('|', '/', $uri);
+        $uri = Utils::unformatURI($uri);
         //var_dump($uri);
         $entity = new Entity($uri,"",'','');
         $retours = Semantics::GetAllPropertiesAdmin($entity);
@@ -171,6 +172,15 @@ class AdminController extends Controller
         return 'reponse id : ' . $id . 'reponse value : ' . $value;
         
         //TODO: update
+    }
+    
+    public function printQrCode($uri){
+	$entity = Semantics::GetEntity(new Entity(Utils::unformatURI($uri)));
+	if($entity == null || $entity->name==null){
+	    Session::flash('messages',array("L'entité dont vous souhaitez imprimer le QrCode n'éxiste pas"));
+	    return redirect('admin');
+	}
+	return view('admin/printQrCode')->with(array('entity'=>$entity));
     }
     
 }

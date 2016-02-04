@@ -76,9 +76,9 @@ $(document).ready(function () {
 });
 
 function formatURI(url) {
-    return url.replace(/\//gi, '|');
+    return url.replace(/\//gi, '!');
 }
 
 function unformatURI(url) {
-    return url.replace(/\|/gi, '/');
+    return url.replace(/\!/gi, '/');
 }

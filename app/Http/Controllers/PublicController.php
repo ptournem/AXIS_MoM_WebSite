@@ -50,6 +50,10 @@ class PublicController extends Controller {
      * @return type
      */
     public function anyEntity($uid) {
+	// variable globale pour les hashTags socialNetwork
+	global $socialNetwork ;
+	$socialNetwork = "";
+	
 	$uri = Utils::unformatURI($uid);
 	$e = Semantics::GetEntity(new Entity($uri));
 
@@ -64,13 +68,21 @@ class PublicController extends Controller {
 	$cComments = collect($comments);
 
 	// chargement des infos 
-	$infos = $this->sortProperties(Semantics::LoadEntityProperties($e));
+	$unformatedInfos = Semantics::LoadEntityProperties($e);
+	$infos = $this->sortProperties($unformatedInfos);
+	
+	// création du texte pour les hashTags
+	collect($unformatedInfos)->where("name", "socialnetwork")->each(function($item,$key){
+	    global $socialNetwork;
+	    $socialNetwork .= (($socialNetwork=="")?$item->value:",".$item->value);
+	});
 
 	// on les ajoute aux data
 	$data = array(
 	    'comments' => $cComments->where('validated', true), // comments filtrés
 	    'infos' => $infos,
-	    'entity' => $e
+	    'entity' => $e,
+	    'socialNetworkTags'=> $socialNetwork
 	);
 
 	// on renvoie la vue avec les datas
