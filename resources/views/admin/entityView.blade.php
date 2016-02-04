@@ -6,235 +6,226 @@
 <script type="text/javascript" src="{{ URL::asset('js/locales/bootstrap-datepicker.fr.js') }}" charset="UTF-8"></script>
 <script type="text/javascript" src="{{ URL::asset('js/jquery-dateFormat.min.js') }}"></script>
 <script type="text/javascript">
-    function successEntityAutocompletion(elt, ui) {
-        console.log("successEntityAutocompletion");
-        $('.alert-success-update').show();
-        elt.text("");
-        console.log(elt.parent().children(".input-group-btn"));
-        elt.parent().children(".input-group-btn").children(".btn").hide();
-        $("<span class='entity' name='" + ui.item.name + "' style='background-color: pink; padding: 2px; margin: 2px;'></span>").insertBefore(elt.parent().children(".value-edited"));
-        elt.parent().children(".entity[name='" + ui.item.name + "']").append('<span name="' + ui.item.URI + '" class="value">' + ui.item.name + '</span>');
-        elt.parent().children(".entity[name='" + ui.item.name + "']").append('<span class="glyphicon glyphicon-remove entity-delete" aria-hidden="true" style="position-top: 0px; position-left: 0px;"></span>');
-    }
     
-    function successEntityAutocompletionSameas(elt, ui) {
-        console.log("successEntityAutocompletionSameas");        
-        $('.alert-success-update').show();
-        console.log(elt.parent().children(".input-group-btn"));
-        elt.parent().children(".input-group-btn").children(".btn").hide();
-        $("<span class='entity' name='" + ui.item.name + "' style='background-color: pink; padding: 2px; margin: 2px;'></span>").insertBefore(elt.parent().children(".value-edited"));
-        elt.parent().children(".entity[name='" + ui.item.name + "']").append('<span name="' + ui.item.URI + '" class="value">' + ui.item.name + '</span>');
-        elt.remove();
-    }
-
-    function successEntityDBpedia(elt, value) {
-        console.log("successEntityDBpedia");
-        elt.parent().children('.btn').addClass('disabled');
-        $('.locale-value.information-' + elt.parent().parent().attr('name')).children(".hidden").text(decodeURIComponent(unformatURI(value)));
-        $('.alert-success-update').show();
-        var thisClone = elt.clone().css('background-color', 'pink')
-            .removeClass('entity-dbpedia');
-        thisClone.append('<span class="glyphicon glyphicon-remove entity-delete" aria-hidden="true" style="position-top: 0px; position-left: 0px;"></span>');
-        elt.parent().parent().children('.locale-value')
-            .prepend(thisClone); 
-        elt.parent().parent().children('.locale-value').children(".input-group-btn").children(".btn").hide();
-    }
-
-    function successSameas(elt) {
-        console.log("successSameas");
-        $('.alert-success-update').show();
-        elt.parent().parent().parent().children(".delete").children().attr("uri", elt.parent().parent().children(".value").text());
-    }
-
-    function successLiteral(elt) {
-        console.log("successLiteral");
-        $('.alert-success-update').show();
-        elt.parent().parent().children(".hidden").text(elt.parent().parent().children(".value").text());
-        elt.parent().children(".btn").addClass("disabled");
-    }
     
-    function successDate(elt) {
-        console.log("successDate");
-        $('.alert-success-update').show();
-    }
+    $(document).ready(function () {  
+        var adminDeleteLiteral = "{{route('admin.deleteLiteral')}}";
+        var adminDeleteEntity = "{{route('admin.deleteEntity')}}";
+        var token = "{{csrf_token()}}";
+        var EntityUri = "{{$entity->URI}}";
+        
+        function successEntityAutocompletion(elt, ui) {
+            console.log("successEntityAutocompletion");
+            $('.alert-success-update').show();
+            elt.text("");
+            console.log(elt.parent().children(".input-group-btn"));
+            elt.parent().children(".input-group-btn").children(".btn").hide();
+            $("<span class='entity' name='" + ui.item.name + "' style='background-color: pink; padding: 2px; margin: 2px;'></span>").insertBefore(elt.parent().children(".value-edited"));
+            elt.parent().children(".entity[name='" + ui.item.name + "']").append('<span name="' + ui.item.URI + '" class="value">' + ui.item.name + '</span>');
+            elt.parent().children(".entity[name='" + ui.item.name + "']").append('<span class="glyphicon glyphicon-remove entity-delete" aria-hidden="true" style="position-top: 0px; position-left: 0px;"></span>');
+        }
 
-    function setProperty(name, value, type, elt, successType, ui) {
-        $.getJSON(top.location + '/' + name + '/' + value + '/' + type, null)
-                .done(function (json) {
-                    console.log(json);
-                    if (json.success == true) {
-                        console.log("OK");
-                         switch(successType){
-                            case "successLiteral" : successLiteral(elt);
-                                break;
-                            case "successSameas" : successSameas(elt);
-                                break;
-                            case "successEntityDBpedia" : successEntityDBpedia(elt, value);
-                                break;
-                            case "successEntityAutocompletion" : successEntityAutocompletion(elt, ui);
-                                break;
-                            case "successEntityAutocompletionSameas" : successEntityAutocompletionSameas(elt, ui);
-                                break;
-                            case "successDate" : successDate(elt);
-                                break;
-                         }
-                    }
-                    else {
-                        console.log("fail");
-                    }
-                    elt.parent().children('.loadingSet').hide();
-                })
-                .fail(function (jqxhr, textStatus, error) {
-                    var err = textStatus + ", " + error;
-                    console.log("Request Failed: " + err);
-                    elt.parent().children('.loadingSet').hide();
-                });
-    }
+        function successEntityAutocompletionSameas(elt, ui) {
+            console.log("successEntityAutocompletionSameas");        
+            $('.alert-success-update').show();
+            console.log(elt.parent().children(".input-group-btn"));
+            elt.parent().children(".input-group-btn").children(".btn").hide();
+            $("<span class='entity' name='" + ui.item.name + "' style='background-color: pink; padding: 2px; margin: 2px;'></span>").insertBefore(elt.parent().children(".value-edited"));
+            elt.parent().children(".entity[name='" + ui.item.name + "']").append('<span name="' + ui.item.URI + '" class="value">' + ui.item.name + '</span>');
+            elt.remove();
+        }
 
-    function removeProperty(name, uriB, elt) {
-        $.getJSON(top.location + '/' + name + '/' + uriB, null)
-                .done(function (json) {
-                    console.log(json);
-                    if (json.success == true) {
-                        console.log("OK");
+        function successEntityDBpedia(elt, value) {
+            console.log("successEntityDBpedia");
+            $('.locale-value.information-' + elt.parent().parent().attr('name')).children(".hidden").text(decodeURIComponent(unformatURI(value)));
+            $('.alert-success-update').show();
+            var thisClone = elt.clone().css('background-color', 'rgb( 34, 238, 70)')
+                .removeClass('entity-dbpedia');
+            thisClone.append('<span class="glyphicon glyphicon-remove entity-delete" aria-hidden="true" style="position-top: 0px; position-left: 0px;"></span>');
+            elt.parent().parent().children('.locale-value')
+                .prepend(thisClone); 
+            elt.parent().parent().children('.locale-value').children(".input-group-btn").children(".btn").hide();
+        }
+
+        function successSameas(elt) {
+            console.log("successSameas");
+            $('.alert-success-update').show();
+            elt.parent().parent().parent().children(".delete").children().attr("uri", elt.parent().parent().children(".value").text());
+        }
+
+        function successLiteral(elt) {
+            console.log("successLiteral");
+            $('.alert-success-update').show();
+            elt.parent().parent().children(".hidden").text(elt.parent().parent().children(".value").text());
+            elt.parent().children(".btn").addClass("disabled");
+        }
+
+        function successDate(elt) {
+            console.log("successDate");
+            $('.alert-success-update').show();
+        }
+
+        function setProperty(name, value, type, elt, successType, ui) {
+            $.getJSON(top.location + '/' + name + '/' + value + '/' + type, null)
+                    .done(function (json) {
+                        console.log(json);
+                        if (json.success == true) {
+                            console.log("OK");
+                             switch(successType){
+                                case "successLiteral" : successLiteral(elt);
+                                    break;
+                                case "successSameas" : successSameas(elt);
+                                    break;
+                                case "successEntityDBpedia" : successEntityDBpedia(elt, value);
+                                    break;
+                                case "successEntityAutocompletion" : successEntityAutocompletion(elt, ui);
+                                    break;
+                                case "successEntityAutocompletionSameas" : successEntityAutocompletionSameas(elt, ui);
+                                    break;
+                                case "successDate" : successDate(elt);
+                                    break;
+                             }
+                        }
+                        else {
+                            console.log("fail");
+                        }
+                        elt.parent().children('.loadingSet').hide();
+                    })
+                    .fail(function (jqxhr, textStatus, error) {
+                        var err = textStatus + ", " + error;
+                        console.log("Request Failed: " + err);
+                        elt.parent().children('.loadingSet').hide();
+                    });
+        }
+
+        function removeEntityProperty(name, uriB, elt) {
+            console.log("adminDeleteEntity : " + adminDeleteEntity);
+            $.post(adminDeleteEntity, {uri: EntityUri, name: name, uriB: uriB, _token: token}, function (data) {
+                    console.log(data.success);
+                    if (data.success) {
+                        // changement des classes
+                        console.log("remove OK");
                         elt.parent().remove();
                     }
-                    else {
-                        console.log("fail");
-                    }
                     elt.parent().children('.loadingDelete').hide();
-                })
-                .fail(function (jqxhr, textStatus, error) {
-                    var err = textStatus + ", " + error;
-                    console.log("Request Failed: " + err);
-                    elt.parent().children('.loadingDelete').hide();
-                });
-    }
-    
-    function removeLiteralProperty(name, value, type, elt, successType) {
-        $.getJSON(top.location + '/' + name + '/' + "", null)
-                .done(function (json) {
-                    console.log(json);
-                    if (json.success == true) {
-                        console.log("OK removeLiteralProperty");
+                }, 'json');
+        }
+        
+        function removeLiteralProperty(name, value, type, elt, successType) {
+            $.post(adminDeleteLiteral, {uri: EntityUri, name: name, _token: token}, function (data) {
+                    if (data.success) {
+                        // changement des classes
+                        console.log("remove OK");
                         setProperty(name, value, type, elt, successType);
                     }
-                    else {
-                        console.log("fail");
-                    }
                     elt.parent().children('.loadingDelete').hide();
-                })
-                .fail(function (jqxhr, textStatus, error) {
-                    var err = textStatus + ", " + error;
-                    console.log("Request Failed: " + err);
-                    elt.parent().children('.loadingDelete').hide();
-                });
-    }
-
-    function addEntity(type, name, description, image) {
-        $.getJSON(top.location + '/addEntity/' + type + '/' + name + '/' + description + '/' + encodeURIComponent(formatURI(image)), null)
-                .done(function (json) {
-                    if (json.success === true) {
-                        $('.alert-success-new-entity').show();
-                        $('.btn-close-add-entity').trigger('click');
-                        $('.tbody-entities').append("<tr class='type-" + json.type + "'><td><a href='" + top.location + "/view/" + encodeURIComponent(formatURI(json.URI)) + "' style='display: block;width: 100%; height: 100%;'>" + json.name + "</a></td><td>" + json.type + "</td></tr>");
-                        $('.entity-name').val(null);
-                        $('.entity-description').val(null);
-                        $('.entity-image').val(null);
-                    }
-                    else {
-                        console.log("fail");
-                    }
-                })
-                .fail(function (jqxhr, textStatus, error) {
-                    var err = textStatus + ", " + error;
-                    console.log("Request Failed: " + err);
-                });
-    }
-
-    function onKeyUp(elt){
-        // Si la valeur initiale est différente de la valeur actuelle
-        if(elt.parent().children(".value") != elt.parent().children(".hidden")){
-            $(".btn-warning-name-" + elt.attr('name')).removeClass('disabled');
-            $(".btn-success-name-" + elt.attr('name')).removeClass('disabled');
+                }, 'json');
         }
-    }
 
-    function onClickCancel(elt, classUsed){
-        if(!elt.hasClass('disabled')){
-            var item = $(classUsed);
-            // On remet dans 'value' sa valeur initiale (qui est dans 'hidden'
-            item.children('.value').text(item.children('.hidden').text());
-            elt.parent().children('.btn').addClass('disabled');
-            $('.alert-success').hide();
+        function addEntity(type, name, description, image) {
+            $.getJSON(top.location + '/addEntity/' + type + '/' + name + '/' + description + '/' + encodeURIComponent(formatURI(image)), null)
+                    .done(function (json) {
+                        if (json.success === true) {
+                            $('.alert-success-new-entity').show();
+                            $('.btn-close-add-entity').trigger('click');
+                            $('.tbody-entities').append("<tr class='type-" + json.type + "'><td><a href='" + top.location + "/view/" + encodeURIComponent(formatURI(json.URI)) + "' style='display: block;width: 100%; height: 100%;'>" + json.name + "</a></td><td>" + json.type + "</td></tr>");
+                            $('.entity-name').val(null);
+                            $('.entity-description').val(null);
+                            $('.entity-image').val(null);
+                        }
+                        else {
+                            console.log("fail");
+                        }
+                    })
+                    .fail(function (jqxhr, textStatus, error) {
+                        var err = textStatus + ", " + error;
+                        console.log("Request Failed: " + err);
+                    });
         }
-    }
 
-    function onClickSuccess(elt, value, type, successType, name){
-        if(!elt.hasClass('disabled')){
-            console.log("onclicksuccess");
-            value = encodeURIComponent(formatURI(value));
-            console.log("beforeRemove");
-            removeLiteralProperty(name, "", elt, successType, type, value);
+        function onKeyUp(elt){
+            // Si la valeur initiale est différente de la valeur actuelle
+            if(elt.parent().children(".value") != elt.parent().children(".hidden")){
+                $(".btn-warning-name-" + elt.attr('name')).removeClass('disabled');
+                $(".btn-success-name-" + elt.attr('name')).removeClass('disabled');
+            }
         }
-    }
+
+        function onClickCancel(elt, classUsed){
+            if(!elt.hasClass('disabled')){
+                var item = $(classUsed);
+                // On remet dans 'value' sa valeur initiale (qui est dans 'hidden'
+                item.children('.value').text(item.children('.hidden').text());
+                elt.parent().children('.btn').addClass('disabled');
+                $('.alert-success').hide();
+            }
+        }
+
+        function onClickSuccess(elt, value, type, successType, name){
+            if(!elt.hasClass('disabled')){
+                console.log("onclicksuccess");
+                value = encodeURIComponent(formatURI(value));
+                console.log("beforeRemove");
+                removeLiteralProperty(name, value, type, elt, successType);
+            }
+        }
+
+        function makeSameasLigne(elt){
+            // Création du content editable
+            $('.new-LOD').append('<span></span>');
+            $('.new-LOD span').attr('class', 'value value-edited searchSameas');
+            $('.new-LOD span').attr('name', 'sameas');
+            $('.new-LOD span').attr('style', "display: block; width: 100%; height: 100%;");
+            $('.new-LOD span').attr('contenteditable', true);
+            $('.new-LOD span').attr('autofocus', true);
+            // autocomplétion
+            $('.new-LOD span').catcomplete({
+                source: function (request, response) {
+                    console.log("searchSameas");
+                    $.getJSON(global.searchUrlSameas, {needle: request.term}, response);
+                },
+                select: function (event, ui) {
+                    $(this).children('.value-edited').text('');
+                    elt = $(this);
+                    setProperty("sameas", encodeURIComponent(formatURI(ui.item.URI)), "uri", elt, "successEntityAutocompletionSameas", ui);
+
+                    return false;
+                },
+                delay: 600
+            });
+            // Création du bouton delete
+            $('.new-LOD').append('<span class="hidden"></span>');
+            $('.new-LOD .hidden').attr('style', 'display: none');
+
+            // Ajout des boutons validation ou annulation
+            // D'abord le div qui contient les deux boutons
+            $('.new-LOD').append('<div></div>');
+            $('.new-LOD div').attr('class', 'input-group-btn');
+            $('.new-LOD div').attr('role', 'group');
+            $('.new-LOD div').attr('style', 'position: relative; right: 0px;');
+            // Le 1er bouton
+            $('.new-LOD div').append('<button type="button" class="btn btn-warning btn-warning-sameas btn-warning-name-sameas disabled"></button>');
+            $('.new-LOD div .btn-warning-sameas').attr('style', 'position: relative; right: 0px;');
+            $('.new-LOD div .btn-warning-sameas').attr('name', 'sameas');
+            $('.new-LOD div .btn-warning-sameas').append('<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>');
+            // Le 2ieme bouton
+            $('.new-LOD div').append('<button type="button" class="btn btn-success btn-success-sameas btn-success-name-sameas disabled"></button>');
+            $('.new-LOD div .btn-success-sameas').attr('style', 'position: relative; right: 0px;');
+            $('.new-LOD div .btn-success-sameas').attr('name', 'sameas');
+            $('.new-LOD div .btn-success-sameas').append('<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>');
+
+            $('.new-LOD').addClass("sameasValue");
+            $('.new-LOD').removeClass("new-LOD");
+
+            // Remplacement du bouton ajouter par supprimer
+            elt.attr('class', 'btn btn-danger btn-block btn-delete');
+            elt.parent().attr("class", "delete");
+            elt.text('Supprimer');
+            //Ajout d'une nouvelle ligne : pour pouvoir ajouter un sameas
+            $('.table-LOD').append("<tr><td class='new-LOD'></td><td><button class='btn btn-primary btn-addLOD'>Ajouter un lien LOD</button></td></tr>");
+        }
+            
     
-    function makeSameasLigne(elt){
-        // Création du content editable
-        $('.new-LOD').append('<span></span>');
-        $('.new-LOD span').attr('class', 'value value-edited searchSameas');
-        $('.new-LOD span').attr('name', 'sameas');
-        $('.new-LOD span').attr('style', "display: block; width: 100%; height: 100%;");
-        $('.new-LOD span').attr('contenteditable', true);
-        $('.new-LOD span').attr('autofocus', true);
-        // autocomplétion
-        $('.new-LOD span').catcomplete({
-            source: function (request, response) {
-                console.log("searchSameas");
-                $.getJSON(global.searchUrlSameas, {needle: request.term}, response);
-            },
-            select: function (event, ui) {
-                $(this).children('.value-edited').text('');
-                elt = $(this);
-                setProperty("sameas", encodeURIComponent(formatURI(ui.item.URI)), "uri", elt, "successEntityAutocompletionSameas", ui);
-
-                return false;
-            },
-            delay: 600
-        });
-        // Création du bouton delete
-        $('.new-LOD').append('<span class="hidden"></span>');
-        $('.new-LOD .hidden').attr('style', 'display: none');
-        
-        // Ajout des boutons validation ou annulation
-        // D'abord le div qui contient les deux boutons
-        $('.new-LOD').append('<div></div>');
-        $('.new-LOD div').attr('class', 'input-group-btn');
-        $('.new-LOD div').attr('role', 'group');
-        $('.new-LOD div').attr('style', 'position: relative; right: 0px;');
-        // Le 1er bouton
-        $('.new-LOD div').append('<button type="button" class="btn btn-warning btn-warning-sameas btn-warning-name-sameas disabled"></button>');
-        $('.new-LOD div .btn-warning-sameas').attr('style', 'position: relative; right: 0px;');
-        $('.new-LOD div .btn-warning-sameas').attr('name', 'sameas');
-        $('.new-LOD div .btn-warning-sameas').append('<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>');
-        // Le 2ieme bouton
-        $('.new-LOD div').append('<button type="button" class="btn btn-success btn-success-sameas btn-success-name-sameas disabled"></button>');
-        $('.new-LOD div .btn-success-sameas').attr('style', 'position: relative; right: 0px;');
-        $('.new-LOD div .btn-success-sameas').attr('name', 'sameas');
-        $('.new-LOD div .btn-success-sameas').append('<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>');
-        
-        $('.new-LOD').addClass("sameasValue");
-        $('.new-LOD').removeClass("new-LOD");
-        
-        // Remplacement du bouton ajouter par supprimer
-        elt.attr('class', 'btn btn-danger btn-block btn-delete');
-        elt.parent().attr("class", "delete");
-        elt.text('Supprimer');
-        //Ajout d'une nouvelle ligne : pour pouvoir ajouter un sameas
-        $('.table-LOD').append("<tr><td class='new-LOD'></td><td><button class='btn btn-primary btn-addLOD'>Ajouter un lien LOD</button></td></tr>");
-    }
-    
-    $(document).ready(function () {        
         // Bouton retour
         $(document).on('click', '.btn-retour', function () {
             $('.alert-success').hide();
@@ -270,7 +261,7 @@
         // Supprimer un lien sameas
         $(document).on('click', '.btn-delete', function () {
             $('.alert-success').hide();
-            removeProperty("sameas", encodeURIComponent(formatURI($(this).attr("uri"))), $(this));
+            removeEntityProperty("sameas", encodeURIComponent(formatURI($(this).attr("uri"))), $(this));
         });
         // autocomplétion
         $('.searchSameas').catcomplete({
@@ -303,8 +294,8 @@
             //console.log()
             console.log($(this).parent().parent().attr('name'));
             console.log($(this).parent().children('.value').attr('name'));
-            var value = encodeURIComponent(formatURI($(this).parent().children('.value').attr('name')));
-            removeProperty($(this).parent().parent().attr('name'), value, $(this));
+            var value = $(this).parent().children('.value').attr('name');
+            removeEntityProperty($(this).parent().parent().attr('name'), value, $(this));
         });
         // click sur une entity DBpedia (set de celle-ci dans le local de la property)
         $(document).on('click', '.entity-dbpedia', function () {

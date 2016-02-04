@@ -139,20 +139,24 @@ class AdminController extends Controller
         }
         
         if($retours){
-            Logs::add("SUCCED : SET PROPERTY", "Uri Entity : " . $uri . " name : " . $name . " value : " . $value, session("user"));
+            Logs::add("SUCCED : SET PROPERTY", "Uri Entity : " . $uri . " name : " . $name . " value : " . $value . " type : " . $type, session("user"));
             return json_encode (['success' => true]);
         }
         else{
-            Logs::add("FAILED : SET PROPERTY", "Uri Entity : " . $uri . " name : " . $name . " value : " . $value, session("user"));
+            Logs::add("FAILED : SET PROPERTY", "Uri Entity : " . $uri . " name : " . $name . " value : " . $value . " type : " . $type, session("user"));
             return json_encode (['success' => false]);            
         }
         
     } 
     
-    public function deleteEntityProperty($uri, $name, $uriB = null) { 
-        return $uri . ' ' . $name . ' ' . $uriB;
-        $uri  = Utils::unformatURI($uri);
-        $uriB  = Utils::unformatURI($uriB);
+    public function postDeleteEntityProperty(Request $request) { 
+        if (!$request->has('uri') || !$request->has('name')
+                || !$request->has('uriB')) {
+	    return response()->json(['result' => false]);
+	}
+        $uri  = $request->get('uri');
+        $uriB  = $request->get('uriB');
+        $name = $request->get('name');
         $entityValue = new Entity($uriB, null, null, null);
         $property = new Property($name, null, null, null); 
         $retours = Semantics::RemoveEntityProperty(new Entity($uri, null, null, null), 
@@ -164,6 +168,25 @@ class AdminController extends Controller
         else
             return json_encode (['success' => false]);
     }
+    	
+    public function postDeleteLiteralProperty(Request $request) { 
+        if (!$request->has('uri') || !$request->has('name') ) {
+	    return response()->json(['result' => "parametres non présent"]);
+	}
+        $uri  = $request->get('uri');
+        $entityValue = new Entity(null, null, null, null);
+        $property = new Property($request->get('name'), null, null, null); 
+        $retours = Semantics::RemoveEntityProperty(new Entity($uri, null, null, null), 
+            $property, $entityValue);    
+        
+        return json_encode (['success' => $request->get('name')]);
+        if($retours)
+            return json_encode (['success' => "true"]);
+        else
+            return json_encode (['success' => "false"]);
+    }
+    
+    
     
     public function deleteLOD($EntityID, $LODID) {  
         $retour = [true, $EntityID, $LODID];

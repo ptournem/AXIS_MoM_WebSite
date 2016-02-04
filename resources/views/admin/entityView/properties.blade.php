@@ -25,19 +25,19 @@
                     <td id="searchEntitis" name="{{ $retour->name }}" class="information-{{ $retour->name }} locale-value">
                         @if(is_array($retour->entity_locale))
                         @foreach($retour->entity_locale as $entity)
-                        <span class="entity" style="background-color: pink; padding: 2px; margin: 2px;">
+                        <span class="entity btn btn-default center-block" target="_blank" style="background-color: rgb(34, 238, 70);">
                             <span name="{{ $entity->URI }}" class="value">{{ $entity->name }}</span>
                             <span class="glyphicon glyphicon-remove entity-delete" aria-hidden="true" style="position-top: 0px; position-left: 0px;"></span>
                         </span>
                         @endforeach
                         @else
-                        <span class="entity" style="background-color: pink; padding: 2px; margin: 2px;">
+                        <span class="entity btn btn-default center-block" target="_blank" style="background-color: rgb(34, 238, 70);">
                             <span name="{{ $retour->entity_locale->URI }}" class="value">{{ $retour->entity_locale->name }}</span>
                             <span class="glyphicon glyphicon-remove entity-delete" aria-hidden="true" style="position-top: 0px; position-left: 0px;"></span>
                         </span>
                         @endif
                         <img class="loadingDelete" src="{{ URL::asset('img/waiting.gif') }}" style="display: block; display: none;"/>
-                        <span contenteditable="true" class="value-edited searchEntities" style="display: inline-block; width: 100%;"></span>
+                        <span contenteditable="true" class="value-edited searchEntities" style="background-color: rgb(239, 228, 176); display: inline-block; width: 100%; padding-top: 2px;"></span>
                     </td>
                     @else
                     <td name="{{ $retour->name }}" class="information-{{ $retour->name }} locale-value">
@@ -50,8 +50,8 @@
                         </div>
                         @else
                         <span class="hidden" style="display: none">{{ $retour->value_locale }}</span>
-                        <span contenteditable="true" class="value value-edited searchEntities" style="display: inline-block; width: 100%;" >{{ $retour->value_locale }}</span>
-                        <div style="position: relative; right: 0px;" class="input-group-btn" role="group">
+                        <span contenteditable="true" class="value value-edited searchEntities" style="background-color: rgb(239, 228, 176); display: inline-block; width: 100%; padding-top: 2px;" >{{ $retour->value_locale }}</span>
+                        <div style="position: relative; bottom: 0px; right: 0px;" class="input-group-btn" role="group">
                             <button type="button" style="position: relative; right: 0px;" name="{{ $retour->name }}" class="btn btn-warning btn-warning-locale btn-warning-name-{{ $retour->name }} disabled">
                                 <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                             </button>
@@ -60,7 +60,6 @@
                             </button>
                         </div>
                         @endif
-                        
                     </td>
                     @endif
 
@@ -69,12 +68,12 @@
                     <td class="information-{{ $retour->name }}" name="{{ $retour->name }}">
                         @if(is_array($retour->entity_dbpedia))
                         @foreach($retour->entity_dbpedia as $entity)
-                        <span class="entity entity-dbpedia" name="{{ $entity->URI }}" style="background-color: pink; padding: 2px; margin: 2px;">
+                        <span class="entity entity-dbpedia btn btn-default center-block" target="_blank" name="{{ $entity->URI }}">
                             <span name="{{ $entity->URI }}" class="value">{{ $entity->name }}</span>
                         </span>
                         @endforeach    
                         @else
-                        <span class="entity entity-dbpedia" name="{{ $retour->entity_dbpedia->URI }}" style="background-color: pink; padding: 2px; margin: 2px;">
+                        <span class="entity entity-dbpedia btn btn-default center-block" target="_blank" name="{{ $retour->entity_dbpedia->URI }}">
                             <span name="{{ $retour->entity_dbpedia->URI }}" class="value">{{ $retour->entity_dbpedia->name }}</span>
                         </span>
                         @endif
