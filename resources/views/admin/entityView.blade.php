@@ -349,9 +349,19 @@
             var value = $(this).parent().children(".value").text();
             var name = $(this).parent().attr('name');
             var item = $('.locale-value.information-' + name);
-            item.children(".value").text(value);
-            $('.information-' + name + '.locale-value').children(".input-group-btn").children(".btn").removeClass('disabled');
-            $('.alert-success').hide();
+            console.log(item);
+            console.log(value);
+            console.log(name);
+            console.log(item.children().children(".form-control"));
+            if($(this).hasClass("typeDate")){
+                item.children().children(".form-control").val(value);
+                onClickSuccess($(this), value, 'fr', "successDate", name);
+            }
+            else{
+                item.children(".value").text(value);
+                $('.information-' + name + '.locale-value').children(".input-group-btn").children(".btn").removeClass('disabled');
+                $('.alert-success').hide();
+            }
         });
         // Hide des alert-success
         $(document).on('click', '.locale-value', function () {
@@ -368,9 +378,6 @@
         });
         $('.date').datepicker()
             .on("changeDate", function(e) {
-                console.log($.format.date(e.date, "yyyy-MM-dd"));
-                //console.log($.datepicker.dateFormat('yyyy-mm-dd', new Date()));
-                //console.log($(this).children("input").text());
             onClickSuccess($(this), $.format.date(e.date, "yyyy-MM-dd"), 'fr', "successDate", $(this).attr("name"));
         });
     });

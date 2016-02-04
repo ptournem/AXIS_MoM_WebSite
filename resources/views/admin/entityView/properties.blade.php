@@ -82,7 +82,7 @@
                     @else
                     <td class="information-{{ $retour->name }}" name="{{ $retour->name }}">
                         @if($retour->value_dbpedia != null)
-                        <button type="button" name="{{ $retour->value_locale }}" class="btn btn-success-selected btn-success-selected-{{ $retour->name }}">
+                        <button type="button" name="{{ $retour->name }}" class="btn btn-success-selected btn-success-selected-{{ $retour->name }} @if($retour->type == 'date') typeDate @endif">
                             <span class="glyphicon glyphicon-transfer" aria-hidden="true"></span>
                         </button>
                         @endif
