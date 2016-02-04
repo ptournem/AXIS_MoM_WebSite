@@ -34,7 +34,7 @@ class AdminController extends Controller
         $this->userRepository = $userRepository;
     }
 
-    public function Index() {
+    public function getIndex() {
         $users = User::all();
         $entities = Semantics::GetAllEntities();
 	$logs = Log::all()->sortByDesc('created_at')->forPage(1, self::NB_LOGS_SHOWN);
@@ -69,7 +69,7 @@ class AdminController extends Controller
         return $retour;
     }  
     
-    public function view($uri) {
+    public function getView($uri) {
         $URIencode = $uri;
         $uri = Utils::unformatURI($uri);
         //var_dump($uri);
@@ -197,13 +197,28 @@ class AdminController extends Controller
         //TODO: update
     }
     
-    public function printQrCode($uri){
+    public function getPrintQrCode($uri){
 	$entity = Semantics::GetEntity(new Entity(Utils::unformatURI($uri)));
 	if($entity == null || $entity->name==null){
 	    Session::flash('messages',array("L'entité dont vous souhaitez imprimer le QrCode n'éxiste pas"));
 	    return redirect('admin');
 	}
 	return view('admin/printQrCode')->with(array('entity'=>$entity));
+    }
+    
+     /**
+     * Renvoie les recherches d'un tableau
+     * @param Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function anySearchEntitySameas(Request $request) {
+	// on test que l'on a bien le needle sinon on renvoie un tableau vide
+	if (!$request->has("needle") || $request->input("needle") == "") {
+	    return response()->json([]);
+	}
+
+	// on renvoie ce que l'on obtient du web service 
+	return response()->json(Semantics::SearchAllEntitiesFromText($request->input("needle")));
     }
     
 }

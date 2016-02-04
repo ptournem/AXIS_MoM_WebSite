@@ -380,7 +380,7 @@
 @section('contenu')
 <div class='pull-right ' id='entity-qrcode'>
     {!! QrCode::size(200)->generate(action('PublicController@anyEntity',['uid'=>Utils::formatURI($entity->URI)])) !!}
-    <a href='{{action('Admin\AdminController@printQrCode',['uid'=>Utils::formatURI($entity->URI)])}}' class='btn btn-default center-block' target="_blank" >Imprimer le QRCode</a>
+    <a href='{{action('Admin\AdminController@getPrintQrCode',['uid'=>Utils::formatURI($entity->URI)])}}' class='btn btn-default center-block' target="_blank" >Imprimer le QRCode</a>
     <br />
     <a href="{{action('PublicController@anyEntity',['uid'=>Utils::formatURI($entity->URI)])}}" class="btn btn-default center-block" target="_blank">Voir l'oeuvre</a>
 </div>

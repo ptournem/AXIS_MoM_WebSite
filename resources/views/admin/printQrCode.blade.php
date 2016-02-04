@@ -1,7 +1,7 @@
 @extends('admin/template')
 
 @section('title')
-
+    {{$entity->name}} - @parent
 @stop 
 
 @section('header')

@@ -12,7 +12,7 @@
 	    var global = {
 		showUrl: "{{route('public.show') }}",
 		searchUrl: "{{route('public.search')}}",
-                searchUrlSameas: "{{route('public.searchSameas')}}"
+                searchUrlSameas: "{{route('admin.searchSameas')}}"
 	    };
 	</script>
 
