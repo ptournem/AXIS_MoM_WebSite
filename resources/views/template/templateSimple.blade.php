@@ -69,8 +69,21 @@
 	@show
 
         @yield('top')
-
+	<div class='container'>
+	    <div class='row'>
+		@if(session('messages'))
+		@foreach(Session::get('messages') as $msg)
+		<div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-xs-8 col-xs-offset-2 alert alert-danger alert-dismissible message-error" role="alert">
+		    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		    <strong>Attention : </strong> {{$msg}}
+		</div>
+		@endforeach
+		@endif
+	    </div>
+	</div>
+	
         <div class="container">
+	    
 
             @yield('contenu')
         </div>

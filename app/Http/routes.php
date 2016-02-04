@@ -37,6 +37,7 @@ Route::controller('comments', 'CommentController', [
 Route::get('admin', 'Admin\AdminController@Index');
 Route::post('admin', 'Admin\AdminController@Index');
 Route::get('admin/view/{uri}', 'Admin\AdminController@view');
+Route::get('admin/printQrCode/{uri}', 'Admin\AdminController@printQrCode');
 Route::get('admin/view/{uri}/{name}/{value}/{type}/', 'Admin\AdminController@setEntityProperty');
 Route::get('admin/view/{uri}/{name}/{uriB}/', 'Admin\AdminController@deleteEntityProperty');
 Route::get('admin/delete/LOD/{EntityID}/{LODID}', 'Admin\AdminController@deleteLOD');

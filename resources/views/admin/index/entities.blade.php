@@ -23,11 +23,8 @@
 	<tbody class="tbody-entities">
 	    @if(is_array($entities))
 	    @foreach ($entities as $entity)
-	<div style="display: none">
-	    {!! $uri = str_replace('/', '|', $entity->URI) !!}
-	</div>
 	<tr class="type-{{ $entity->type }}">
-	    <td><a href="{{URL::to('admin/view/' . rawurlencode($uri)) }}" style="display: block;width: 100%; height: 100%;">{{ $entity->name }}</a></td>
+	    <td><a href="{{URL::to('admin/view/' . rawurlencode(Utils::formatURI($entity->URI))) }}" style="display: block;width: 100%; height: 100%;">{{ $entity->name }}</a></td>
 	    <td>{{ $entity->type }}</td>
 	</tr>
 	@endforeach

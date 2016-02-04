@@ -343,28 +343,34 @@
 @stop
 
 @section('contenu')
+<div class='pull-right ' id='entity-qrcode'>
+    {!! QrCode::size(200)->generate(action('PublicController@anyEntity',['uid'=>Utils::formatURI($entity->URI)])) !!}
+    <a href='{{action('Admin\AdminController@printQrCode',['uid'=>Utils::formatURI($entity->URI)])}}' class='btn btn-default center-block' target="_blank" >Imprimer le QRCode</a>
+    <br />
+    <a href="{{action('PublicController@anyEntity',['uid'=>Utils::formatURI($entity->URI)])}}" class="btn btn-default center-block" target="_blank">Voir l'oeuvre</a>
+</div>
 <h2 class="Entity-name" id="{{ $URIencode }}">@if($entity != null) {{ $entity->name }} @endif</h2>
-<button class='btn btn-default btn-retour'>
-    <a href="{{url('admin')}}">Retour</a>
-</button>
+<img src='{{$entity->image}}' class="center-block thumbnail entity-img" />
 
-{!! QrCode::size(100)->generate(URL::to('public/entity/' . $URIencode)); !!}
-<ul class="nav nav-tabs">
-    <li class="active"><a data-toggle="tab" href="#informations">Informations</a></li>
-    <li><a data-toggle="tab" href="#LODLink">Liens LoD</a></li>
-    <li>
-	<a data-toggle="tab" href="#commentaires">
-	    Commentaires
-	    @if($nbCommentNotValidated>0)
-		({{$nbCommentNotValidated}})
-	    @endif
-	</a>
-    </li>
-</ul>
-<div class="tab-content">
-    @include('admin.entityView.properties')
-    @include('admin.entityView.LOD')
-    @include('admin.entityView.comments')
-    
+
+<div class="clearBoth">
+    <ul class="nav nav-tabs nav-justified">
+	<li class="active"><a data-toggle="tab" href="#informations">Informations</a></li>
+	<li><a data-toggle="tab" href="#LODLink">Liens LoD</a></li>
+	<li>
+	    <a data-toggle="tab" href="#commentaires">
+		Commentaires
+		@if($nbCommentNotValidated>0)
+		    ({{$nbCommentNotValidated}})
+		@endif
+	    </a>
+	</li>
+    </ul>
+    <div class="tab-content">
+	@include('admin.entityView.properties')
+	@include('admin.entityView.LOD')
+	@include('admin.entityView.comments')
+
+    </div>
 </div>
 @stop
