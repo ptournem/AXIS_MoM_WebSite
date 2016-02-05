@@ -15,7 +15,7 @@ class CommentController extends Controller {
     public function __construct() {
 	// toutes les méthodes sont accessible en ajax uniquement 
 	$this->middleware('ajax');
-	$this->middleware('isAdmin', ['except' => 'postComment']);
+	$this->middleware('auth', ['except' => 'postComment']);
     }
 
     /**

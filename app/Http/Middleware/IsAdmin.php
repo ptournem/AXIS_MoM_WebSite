@@ -19,7 +19,7 @@ class IsAdmin{
 	    if ($request->ajax()) {
                 return response('Unauthorized.', 401);
             } else {
-                return redirect()->guest('auth/login');
+                return redirect('/')->with('messages',['Un compte administrateur est requis pour cette action !']);
             }
 	}
 

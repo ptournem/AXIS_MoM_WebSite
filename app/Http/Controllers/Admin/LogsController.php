@@ -6,6 +6,11 @@ use App\Log;
 use App\Http\Controllers\Controller;
 
 class LogsController extends Controller {
+   public function __construct() {
+       $this->middleware('ajax');
+       $this->middleware('isAdmin');
+   }
+    
    public function postDeleteLog(){
        Log::truncate();
        

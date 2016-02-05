@@ -44,8 +44,11 @@ Route::get('admin/update/LOD/{EntityID}/{LODID}/{value}', 'Admin\AdminController
 Route::get('admin/addEntity/{type}/{name}/{description}/{image}', 'Admin\AdminController@addEntity');
 
 // TODO
-Route::get('admin/users/{users}/editPW', array('as' => 'admin.users.editPW', 'uses' => 'UserController@editPW'));
-Route::get('admin/users/{id}', array('as' => 'admin.users.updatePW', 'uses' => 'UserController@show'));
+Route::controller('users','UserController',[
+    'postAdd'=>'user.add',
+    'postDelete'=>'user.delete'
+]);
+//Route::get('admin/users/{id}', array('as' => 'admin.users.updatePW', 'uses' => 'UserController@show'));
 
 // Authentication routes...
 Route::post('auth/connexion', 'Auth\AuthentificationController@postLogin');

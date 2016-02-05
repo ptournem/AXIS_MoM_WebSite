@@ -20,7 +20,7 @@ class Authenticate
 	    if ($request->ajax()) {
                 return response('Unauthorized.', 401);
             } else {
-                return redirect()->guest('auth/login');
+                return redirect('/')->with('messages',['Connection requise pour cette action !']);
             }
 	}
 
