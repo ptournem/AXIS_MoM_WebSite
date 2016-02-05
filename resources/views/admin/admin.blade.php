@@ -28,7 +28,7 @@
 @section('contenu')
 
 <ul class="nav nav-tabs" id='adminNavTab'>
-    <li><a data-toggle="tab" href="#membres">Gestion des membres</a></li>
+    
     <li class="active"><a data-toggle="tab" href="#entites">Gestion des entités</a></li>
     <li>
 	<a data-toggle="tab" href="#commentaires">
@@ -38,14 +38,20 @@
 	    @endif
 	</a>
     </li>
+    @if(Session::get('user')->admin == 1)
+    <li><a data-toggle="tab" href="#membres">Gestion des membres</a></li>
     <li><a data-toggle="tab" href="#logs">Logs</a></li>
+    @endif
 </ul>
 <br />
 <div class="tab-content">
-	@include('admin.index.users')
+	
 	@include('admin.index.entities')
 	@include('admin.index.comments')
-	@include('admin.index.logs')
+	@if(Session::get('user')->admin == 1)
+	    @include('admin.index.users')
+	    @include('admin.index.logs')
+	@endif
 </div>
 
 
