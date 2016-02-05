@@ -39,8 +39,6 @@ Route::controller('admin','Admin\AdminController',["anySearchEntitySameas" => "a
 Route::post('admin/delete-literal-property', array('as' => 'admin.deleteLiteral', 'uses' => 'Admin\AdminController@postDeleteLiteralProperty'));
 Route::get('admin/view/{uri}/{name}/{value}/{type}/', 'Admin\AdminController@setEntityProperty');
 Route::post('admin/view/{uri}/{name}/{uriB}', array('as' => 'admin.deleteEntity', 'uses' => 'Admin\AdminController@postDeleteEntityProperty'));
-Route::get('admin/delete/LOD/{EntityID}/{LODID}', 'Admin\AdminController@deleteLOD');
-Route::get('admin/update/LOD/{EntityID}/{LODID}/{value}', 'Admin\AdminController@updateLOD');
 Route::get('admin/addEntity/{type}/{name}/{description}/{image}', 'Admin\AdminController@addEntity');
 
 // TODO

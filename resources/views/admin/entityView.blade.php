@@ -115,7 +115,7 @@
             $.post(adminDeleteLiteral, {uri: EntityUri, name: name, _token: token}, function (data) {
                     if (data.success) {
                         // changement des classes
-                        console.log("remove OK");
+                        console.log("removeL OK");
                         setProperty(name, value, type, elt, successType);
                     }
                     elt.parent().children('.loadingDelete').hide();
@@ -163,9 +163,7 @@
 
         function onClickSuccess(elt, value, type, successType, name){
             if(!elt.hasClass('disabled')){
-                console.log("onclicksuccess");
                 value = encodeURIComponent(formatURI(value));
-                console.log("beforeRemove");
                 removeLiteralProperty(name, value, type, elt, successType);
             }
         }
@@ -344,7 +342,6 @@
         });
         
         // Permet de reporter les valeurs de DBpedia dans local
-        // TODO
         $(document).on('click', '.btn-success-selected', function () {
             var value = $(this).parent().children(".value").text();
             var name = $(this).parent().attr('name');
