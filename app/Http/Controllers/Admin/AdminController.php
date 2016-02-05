@@ -52,7 +52,15 @@ class AdminController extends Controller
 	return view('admin/admin')->with($data);
     }  
     
-    public function addEntity($type, $name, $description, $image) {
+    public function postAddEntity(Request $request) {
+        if (!$request->has('name')
+                || !$request->has('image') || !$request->has('type')) {
+	    return response()->json(['result' => false]);
+	}
+        $image  = $request->get('image');
+        //$description  = $request->get('description');
+        $name = $request->get('name');
+        $type  = $request->get('type');
         try{
             $entity = Semantics::AddEntity(new Entity("uRI",$name,Utils::unformatURI($image),$type));
             
@@ -111,21 +119,17 @@ class AdminController extends Controller
 	    'nbCommentNotValidated' => $cComments->where("validated", false)->count()
         );
 	return view('admin/entityView')->with($data);
-    }  
+    }
     
-    public function updateLOD($id, $value) {  
-        //return true;
-        $retour = [true, $id, $value];
-        return $retour;
-        
-        return json_encode($retour);
-        return 'reponse id : ' . $id . 'reponse value : ' . $value;
-        
-        //TODO: update
-    } 
-    
-    public function setEntityProperty($uri, $name, $value, $type) {
-        $uri  = Utils::unformatURI($uri);
+    public function postSetProperty(Request $request) {
+        if (!$request->has('uri') || !$request->has('name')
+                || !$request->has('value') || !$request->has('type')) {
+	    return response()->json(['result' => false]);
+	}
+        $uri  = $request->get('uri');
+        $value  = $request->get('value');
+        $name = $request->get('name');
+        $type  = $request->get('type');
         if($type != 'uri'){
             $entityValue = new Entity();
             $property = new Property($name, Utils::unformatURI($value), $type, null); 
@@ -163,7 +167,7 @@ class AdminController extends Controller
         $retours = Semantics::RemoveEntityProperty(new Entity($uri, null, null, null), 
             $property, $entityValue);    
         
-        return json_encode (['success' => true]);
+        return json_encode (['success' => TRUE]);
         if($retours)
             return json_encode (['success' => true]);
         else
@@ -175,7 +179,7 @@ class AdminController extends Controller
 	    return response()->json(['result' => "parametres non présent"]);
 	}
         $uri  = $request->get('uri');
-        $entityValue = new Entity(null, null, null, null);
+        $entityValue = new Entity("", null, null, null);
         $property = new Property($request->get('name'), null, null, null); 
         $retours = Semantics::RemoveEntityProperty(new Entity($uri, null, null, null), 
             $property, $entityValue);    
@@ -185,17 +189,6 @@ class AdminController extends Controller
             return json_encode (['success' => "true"]);
         else
             return json_encode (['success' => "false"]);
-    }
-    
-    
-    
-    public function deleteLOD($EntityID, $LODID) {  
-        $retour = [true, $EntityID, $LODID];
-        
-        return json_encode($retour);
-        return 'reponse id : ' . $id . 'reponse value : ' . $value;
-        
-        //TODO: update
     }
     
     public function getPrintQrCode($uri){

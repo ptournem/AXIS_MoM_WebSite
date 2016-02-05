@@ -10,7 +10,8 @@
     
     $(document).ready(function () {  
         var adminDeleteLiteral = "{{route('admin.deleteLiteral')}}";
-        var adminDeleteEntity = "{{route('admin.deleteEntity')}}";
+        var adminDeleteEntityProperty = "{{route('admin.deleteEntityProperty')}}";
+        var adminSetProperty = "{{route('admin.setProperty')}}";
         var token = "{{csrf_token()}}";
         var EntityUri = "{{$entity->URI}}";
         
@@ -66,41 +67,31 @@
         }
 
         function setProperty(name, value, type, elt, successType, ui) {
-            $.getJSON(top.location + '/' + name + '/' + value + '/' + type, null)
-                    .done(function (json) {
-                        console.log(json);
-                        if (json.success == true) {
-                            console.log("OK");
-                             switch(successType){
-                                case "successLiteral" : successLiteral(elt);
-                                    break;
-                                case "successSameas" : successSameas(elt);
-                                    break;
-                                case "successEntityDBpedia" : successEntityDBpedia(elt, value);
-                                    break;
-                                case "successEntityAutocompletion" : successEntityAutocompletion(elt, ui);
-                                    break;
-                                case "successEntityAutocompletionSameas" : successEntityAutocompletionSameas(elt, ui);
-                                    break;
-                                case "successDate" : successDate(elt);
-                                    break;
-                             }
+            $.post(adminSetProperty, {uri: EntityUri, name: name, value: value, type: type, _token: token}, function (data) {
+                    if (data.success) {
+                        console.log("OK");
+                        switch(successType){
+                           case "successLiteral" : successLiteral(elt);
+                               break;
+                           case "successSameas" : successSameas(elt);
+                               break;
+                           case "successEntityDBpedia" : successEntityDBpedia(elt, value);
+                               break;
+                           case "successEntityAutocompletion" : successEntityAutocompletion(elt, ui);
+                               break;
+                           case "successEntityAutocompletionSameas" : successEntityAutocompletionSameas(elt, ui);
+                               break;
+                           case "successDate" : successDate(elt);
+                               break;
                         }
-                        else {
-                            console.log("fail");
-                        }
-                        elt.parent().children('.loadingSet').hide();
-                    })
-                    .fail(function (jqxhr, textStatus, error) {
-                        var err = textStatus + ", " + error;
-                        console.log("Request Failed: " + err);
-                        elt.parent().children('.loadingSet').hide();
-                    });
+                    }
+                    elt.parent().children('.loadingSet').hide();
+                }, 'json');
         }
 
         function removeEntityProperty(name, uriB, elt) {
-            console.log("adminDeleteEntity : " + adminDeleteEntity);
-            $.post(adminDeleteEntity, {uri: EntityUri, name: name, uriB: uriB, _token: token}, function (data) {
+            console.log("adminDeleteEntityProperty : " + adminDeleteEntityProperty);
+            $.post(adminDeleteEntityProperty, {uri: EntityUri, name: name, uriB: uriB, _token: token}, function (data) {
                     console.log(data.success);
                     if (data.success) {
                         // changement des classes
@@ -163,7 +154,6 @@
 
         function onClickSuccess(elt, value, type, successType, name){
             if(!elt.hasClass('disabled')){
-                value = encodeURIComponent(formatURI(value));
                 removeLiteralProperty(name, value, type, elt, successType);
             }
         }
@@ -333,8 +323,8 @@
             },
             select: function (event, ui) {
                 $(this).children('.value-edited').text('');
-                elt = $(this);
-                setProperty(elt.parent().attr('name'), encodeURIComponent(formatURI(ui.item.URI)), "uri", elt, "successEntityAutocompletion", ui);
+                var elt = $(this);
+                setProperty(elt.parent().attr('name'), ui.item.URI, "uri", elt, "successEntityAutocompletion", ui);
 
                 return false;
             },
