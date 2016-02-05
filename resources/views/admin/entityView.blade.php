@@ -33,9 +33,12 @@
             $('.alert-success-update').show();
             console.log(elt.parent().children(".input-group-btn"));
             elt.parent().children(".input-group-btn").children(".btn").hide();
-            $("<span class='entity' name='" + ui.item.name + "' style='background-color: pink; padding: 2px; margin: 2px;'></span>").insertBefore(elt.parent().children(".value-edited"));
+            $("<span class='entity btn btn-default center-block' target='_blank' style='background-color: rgb(34, 238, 70);'>"
+                    + "<span name='{{ $dbpedia->entity_locale->URI }}' class='value'>{{ $dbpedia->entity_locale->name }}</span></span>").insertBefore(elt.parent().children(".value-edited"));
             elt.parent().children(".entity[name='" + ui.item.name + "']").append('<span name="' + ui.item.URI + '" class="value">' + ui.item.name + '</span>');
             elt.remove();
+                                
+                            
         }
 
         function successEntityDBpedia(elt, value) {
@@ -188,7 +191,7 @@
                 select: function (event, ui) {
                     $(this).children('.value-edited').text('');
                     elt = $(this);
-                    setProperty("sameas", encodeURIComponent(formatURI(ui.item.URI)), "uri", elt, "successEntityAutocompletionSameas", ui);
+                    setProperty("sameas", ui.item.URI, "uri", elt, "successEntityAutocompletionSameas", ui);
 
                     return false;
                 },
@@ -262,7 +265,7 @@
         // Supprimer un lien sameas
         $(document).on('click', '.btn-delete', function () {
             $('.alert-success').hide();
-            removeEntityProperty("sameas", encodeURIComponent(formatURI($(this).attr("uri"))), $(this));
+            removeEntityProperty("sameas", $(this).attr("uri"), $(this).parent());
         });
         // autocomplétion
         $('.searchSameas').catcomplete({
@@ -273,7 +276,7 @@
             select: function (event, ui) {
                 $(this).children('.value-edited').text('');
                 elt = $(this);
-                setProperty("sameas", encodeURIComponent(formatURI(ui.item.URI)), "uri", elt, "successEntityAutocompletionSameas", ui);
+                setProperty("sameas", ui.item.URI, "uri", elt, "successEntityAutocompletionSameas", ui);
 
                 return false;
             },
@@ -303,7 +306,7 @@
             var parent = $(this).parent();
             parent.children('.loadingSet').show();
             setProperty(parent.attr('name'), 
-                encodeURIComponent(formatURI($(this).attr('name'))), "uri", $(this), "successEntityDBpedia");
+                $(this).attr('name'), "uri", $(this), "successEntityDBpedia");
                       
         });
         // effet de style sur une entity en mouseover
