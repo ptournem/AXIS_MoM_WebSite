@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Semantics;
 use Logs;
 use Session;
+use Validator;
 use Comments;
 use App\Classes\Dialog\Entity;
 use App\Classes\Dialog\Property;
@@ -53,28 +54,61 @@ class AdminController extends Controller
     }  
     
     public function postAddEntity(Request $request) {
-        if (!$request->has('name')
-                || !$request->has('image') || !$request->has('type')) {
-	    return response()->json(['result' => false]);
+	
+	// on crée le validator pour la requête
+	$validator = Validator::make($request->all(), [
+		    'name' => 'required|max:255',
+		    'type' => 'required|in:object,activity,person,event,location,organisation',
+		    'image'=>"active_url|required_without_all:imgFile",
+		    'imgFile'=>"required_without_all:image|image"
+	]);
+	
+	// Si la requête fail, on revoit un tableau avec les errors
+	if ($validator->fails()) {
+	    return response()->json(['require' => $validator->errors()]);
 	}
-        $image  = $request->get('image');
-        //$description  = $request->get('description');
+	
+	// on regarde si on a une image a uploadé
+	$imgFile = $request->file('imgFile');    
+	if ($imgFile!=null && $imgFile->isValid()) {
+	    // on récupère où on doit la stocker
+	    $chemin = config('upload.path');
+	    $extension = $imgFile->getClientOriginalExtension();
+	    do {// on crée un nom aléatoire
+		$nom = str_random(10) . '.' . $extension;
+	    } while (file_exists($chemin . '/' . $nom));
+
+	    // on déplace le fichier
+	    if ($imgFile->move($chemin, $nom)) {
+		// et on set son lien pour l'ajout
+		$image = url('/') .'/'. $chemin . '/' . $nom;
+	    }else  {
+		//si error, on renvoie un json false
+		return response()->json(['result' => false]);
+	    }
+	} else { // si pas de fichier image, on utilise le lien
+	    $image  = $request->get('image');
+	}
+
+	// on récupère les inputs
         $name = $request->get('name');
         $type  = $request->get('type');
         try{
-            $entity = Semantics::AddEntity(new Entity("uRI",$name,Utils::unformatURI($image),$type));
+	    // on ajoute
+            $entity = Semantics::AddEntity(new Entity(null,$name,$image,$type));
             
-            //if($entity === Entity::class){
-                $retour['success'] = true;
-                $retour['type'] = $entity->type;
-                $retour['URI'] = $entity->URI;
-                $retour['name'] = $entity->name;
-                Logs::add("SUCCED : ADD ENTITY", "Name Entity : " . $name . " type : " . $type, session("user"));
-            //}
+	    // si pas de soucis , on log et on renvoie true
+            if(isset($entity->URI) && $entity->URI != null){
+                Logs::add("SUCCEED : ADD ENTITY", "Name Entity : " . $name . " type : " . $type, session("user"));
+		return response()->json(['result' => true]);
+            } else { // sinon on renvoie un json false
+		return response()->json(['result' => false]);
+	    }
         }  
         catch (Exception $e){
-            $retour['success'] = false;
+	    // en cas d'erreur on log et on renvoie un JSON false
             Logs::add("FAILED : ADD ENTITY", "Name Entity : " . $name . " type : " . $type, session("user"));
+	    return response()->json(['result' => false]);
         }
         
         return $retour;

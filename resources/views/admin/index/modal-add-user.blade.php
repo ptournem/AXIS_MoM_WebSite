@@ -63,8 +63,6 @@
 		    resetForm();
 		    $('#ajouterMembre form p').hide();
 		    $.each(data.require,function(key,msg){
-			console.log(key);
-			console.log(msg);
 			$('#ajouterMembreModalError-'+key).parent().addClass('has-error');
 			$('#ajouterMembreModalError-'+key).text(msg).show('fade');
 		    })
