@@ -14,7 +14,7 @@
 	    </tr>
 	</thead>
 	<tbody class="table-LOD">
-            @if($dbpedia != null)
+            @if($dbpedia != null && $dbpedia[0]->entity_locale != null)
                 @if(is_array($dbpedia[0]->entity_locale))
                     @foreach($dbpedia[0]->entity_locale as $retour)
                         <tr>
