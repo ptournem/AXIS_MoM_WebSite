@@ -15,32 +15,30 @@
 	</thead>
 	<tbody class="table-LOD">
             @if($dbpedia != null)
-                @if(is_array($dbpedia))
-                    @foreach($dbpedia as $retour)
-                        @if($retour->entity_locale != null)
+                @if(is_array($dbpedia[0]->entity_locale))
+                    @foreach($dbpedia[0]->entity_locale as $retour)
                         <tr>
                             <td class="sameasValue">
                                 <span class="entity btn btn-default center-block" target="_blank" style="background-color: rgb(34, 238, 70);">
-                                    <span name="{{ $retour->entity_locale->URI }}" class="value">{{ $retour->entity_locale->name }}</span>
+                                    <span name="{{ $retour->URI }}" class="value">{{ $retour->name }}</span>
                                 </span>
                             </td>
                             <td class="delete">
-                                <button uri="{{ $retour->entity_locale->URI }}" class='btn btn-danger btn-block btn-delete'>
+                                <button uri="{{ $retour->URI }}" class='btn btn-danger btn-block btn-delete'>
                                     Supprimer
                                 </button>
                             </td>
                         </tr>
-                        @endif
                     @endforeach
                 @else
                     <tr>
                         <td class="sameasValue">
                             <span class="entity btn btn-default center-block" target="_blank" style="background-color: rgb(34, 238, 70);">
-                                <span name="{{ $dbpedia->entity_locale->URI }}" class="value">{{ $dbpedia->entity_locale->name }}</span>
+                                <span name="{{ $dbpedia[0]->entity_locale->URI }}" class="value">{{ $dbpedia[0]->entity_locale->name }}</span>
                             </span>
                         </td>
                         <td class="delete">
-                            <button uri="{{ $dbpedia->entity_locale->URI }}" class='btn btn-danger btn-block btn-delete'>
+                            <button uri="{{ $dbpedia[0]->entity_locale->URI }}" class='btn btn-danger btn-block btn-delete'>
                                 Supprimer
                             </button>
                         </td>
