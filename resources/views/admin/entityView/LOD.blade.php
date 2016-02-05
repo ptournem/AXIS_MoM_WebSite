@@ -14,52 +14,31 @@
 	    </tr>
 	</thead>
 	<tbody class="table-LOD">
-            @if($dbpedia != null)
-                @if(is_array($dbpedia))
-                    @foreach($dbpedia as $retour)
-                        @if($retour->entity_locale != null)
+            @if($dbpedia != null && $dbpedia[0]->entity_locale != null)
+                @if(is_array($dbpedia[0]->entity_locale))
+                    @foreach($dbpedia[0]->entity_locale as $retour)
                         <tr>
                             <td class="sameasValue">
-                                <span contenteditable="true" 
-                                      class="value value-edited searchSameas"
-                                      name="sameas"
-                                      style="display: block; width: 100%; height: 100%;">{{ $retour->entity_locale->name }}</span>
-                                <span class="hidden" style="display: none">{{ $retour->entity_locale->name }}</span>
-                                <div contenteditable="false" style="position: relative; right: 0px;" class="input-group-btn" role="group">
-                                    <button type="button" style="position: relative; right: 0px;" name="sameas" class="btn btn-warning btn-warning-sameas btn-warning-name-{{ $retour->name }} disabled">
-                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                    </button>
-                                    <button type="button" style="position: relative; right: 0px;" uri="{{ $retour->entity_locale->URI }}" name="sameas" class="btn btn-success btn-success-sameas btn-success-name-{{ $retour->name }}  disabled">
-                                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                                    </button>
-                                </div>
+                                <span class="entity btn btn-default center-block" target="_blank" style="background-color: rgb(34, 238, 70);">
+                                    <span name="{{ $retour->URI }}" class="value">{{ $retour->name }}</span>
+                                </span>
                             </td>
                             <td class="delete">
-                                <button class='btn btn-danger btn-block btn-delete'>
+                                <button uri="{{ $retour->URI }}" class='btn btn-danger btn-block btn-delete'>
                                     Supprimer
                                 </button>
                             </td>
                         </tr>
-                        @endif
                     @endforeach
                 @else
                     <tr>
                         <td class="sameasValue">
-                            <span contenteditable="true" 
-                                  class="value value-edited searchSameas" 
-                                  style="display: block; width: 100%; height: 100%;">{{ $dbpedia->entity_locale->name }}</span>
-                            <span class="hidden" style="display: none">{{ $dbpedia->entity_locale->name }}</span>
-                            <div contenteditable="false" style="position: relative; right: 0px;" class="input-group-btn" role="group">
-                                <button type="button" style="position: relative; right: 0px;" name="{{ $retour->entity_locale->name }}" class="btn btn-warning btn-warning-sameas btn-warning-name-{{ $retour->name }} disabled">
-                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                </button>
-                                <button type="button" style="position: relative; right: 0px;" name="{{ $retour->entity_locale->name }}" class="btn btn-success btn-success-sameas btn-success-name-{{ $retour->name }}  disabled">
-                                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                                </button>
-                            </div>
+                            <span class="entity btn btn-default center-block" target="_blank" style="background-color: rgb(34, 238, 70);">
+                                <span name="{{ $dbpedia[0]->entity_locale->URI }}" class="value">{{ $dbpedia[0]->entity_locale->name }}</span>
+                            </span>
                         </td>
                         <td class="delete">
-                            <button class='btn btn-danger btn-block btn-delete'>
+                            <button uri="{{ $dbpedia[0]->entity_locale->URI }}" class='btn btn-danger btn-block btn-delete'>
                                 Supprimer
                             </button>
                         </td>

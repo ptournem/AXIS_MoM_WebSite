@@ -19,7 +19,7 @@
                 @foreach($retours as $retour)
                     @if($retour->name != 'sameas')
                     <tr>
-                    <td class="information-{{ $retour->name }}">{{ $retour->name }}</td>
+                    <td class="information-{{ $retour->name }}" language="{{ $retour->lang }}">{{ $retour->name }}</td>
 
                     @if($retour->entity_locale != null)
                     <td id="searchEntitis" name="{{ $retour->name }}" class="information-{{ $retour->name }} locale-value">
