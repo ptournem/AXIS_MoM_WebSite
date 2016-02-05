@@ -11,7 +11,9 @@
     $(document).ready(function () {  
         var adminDeleteLiteral = "{{route('admin.deleteLiteral')}}";
         var adminDeleteEntityProperty = "{{route('admin.deleteEntityProperty')}}";
+        var adminDeleteEntity = "{{route('admin.deleteEntity')}}";
         var adminSetProperty = "{{route('admin.setProperty')}}";
+        var adminGetIndex = "{{route('admin.getIndex')}}";
         var token = "{{csrf_token()}}";
         var EntityUri = "{{$entity->URI}}";
         
@@ -103,6 +105,17 @@
         }
         
         function removeLiteralProperty(name, value, type, elt, successType) {
+            $.post(adminDeleteLiteral, {uri: EntityUri, name: name, _token: token}, function (data) {
+                    if (data.success) {
+                        // changement des classes
+                        console.log("removeL OK");
+                        setProperty(name, value, type, elt, successType);
+                    }
+                    elt.parent().children('.loadingDelete').hide();
+                }, 'json');
+        }
+        
+        function removeEntity(name, value, type, elt, successType) {
             $.post(adminDeleteLiteral, {uri: EntityUri, name: name, _token: token}, function (data) {
                     if (data.success) {
                         // changement des classes
@@ -330,7 +343,20 @@
             },
             delay: 600
         });
-        
+        // Supprime l'entity
+        $(document).on('click', '.btn-delete-entity', function () {
+            $.post(adminDeleteEntity, {uri: EntityUri, _token: token}, function (data) {
+                    if (data.success) {
+                        // changement des classes
+                        console.log("remove Entity OK");
+                        window.location = adminGetIndex;
+                    }
+                    else{
+                        
+                    }
+                        
+                }, 'json');
+        });
         // Permet de reporter les valeurs de DBpedia dans local
         $(document).on('click', '.btn-success-selected', function () {
             var value = $(this).parent().children(".value").text();
@@ -377,6 +403,8 @@
     <a href='{{action('Admin\AdminController@getPrintQrCode',['uid'=>Utils::formatURI($entity->URI)])}}' class='btn btn-default center-block' target="_blank" >Imprimer le QRCode</a>
     <br />
     <a href="{{action('PublicController@anyEntity',['uid'=>Utils::formatURI($entity->URI)])}}" class="btn btn-default center-block" target="_blank">Voir l'oeuvre</a>
+    <br />
+    <span name="{{action('Admin\AdminController@postDeleteEntity',['uri'=>$entity->URI])}}" class="btn btn-danger btn-delete-entity center-block" target="_blank">Supprimer l'oeuvre</span>
 </div>
 <h2 class="Entity-name" id="{{ $URIencode }}">@if($entity != null) {{ $entity->name }} @endif</h2>
 <img src='{{$entity->image}}' class="center-block thumbnail entity-img" />

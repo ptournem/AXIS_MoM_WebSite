@@ -37,7 +37,9 @@ Route::controller('comments', 'CommentController', [
 // Controller admin pour la gestion de l'administration
 Route::controller('admin','Admin\AdminController',[
     "anySearchEntitySameas" => "admin.searchSameas",
+    "getIndex" => "admin.getIndex",
     "postSetProperty" => "admin.setProperty",
+    "postDeleteEntity" => "admin.deleteEntity",
     "postDeleteLiteralProperty" => "admin.deleteLiteral",
     "postDeleteEntityProperty" => "admin.deleteEntityProperty",
     "postAddEntity" => "admin.addEntity"    

@@ -69,10 +69,12 @@ class AdminController extends Controller
                 $retour['type'] = $entity->type;
                 $retour['URI'] = $entity->URI;
                 $retour['name'] = $entity->name;
+                Logs::add("SUCCED : ADD ENTITY", "Name Entity : " . $name . " type : " . $type, session("user"));
             //}
         }  
         catch (Exception $e){
             $retour['success'] = false;
+            Logs::add("FAILED : ADD ENTITY", "Name Entity : " . $name . " type : " . $type, session("user"));
         }
         
         return $retour;
@@ -151,7 +153,25 @@ class AdminController extends Controller
             Logs::add("FAILED : SET PROPERTY", "Uri Entity : " . $uri . " name : " . $name . " value : " . $value . " type : " . $type, session("user"));
             return json_encode (['success' => false]);            
         }
+    } 
+    
+    public function postDeleteEntity(Request $request) {
+        if (!$request->has('uri')) {
+	    return response()->json(['result' => false]);
+	}
         
+        $uri  = $request->get('uri');
+        
+        $retours = Semantics::RemoveEntity(new Entity($uri, null, null, null));   
+        
+        if($retours){
+            Logs::add("SUCCED : DELETE ENTITY", "Uri Entity : " . $uri, session("user"));
+            return json_encode (['success' => true]);
+        }
+        else{
+            Logs::add("FAILED : DELETE ENTITY", "Uri Entity : " . $uri, session("user"));
+            return json_encode (['success' => false]);            
+        }
     } 
     
     public function postDeleteEntityProperty(Request $request) { 
@@ -168,10 +188,14 @@ class AdminController extends Controller
             $property, $entityValue);    
         
         return json_encode (['success' => TRUE]);
-        if($retours)
+        if($retours){
+            Logs::add("SUCCED : DELETE ENTITY PROPERTY", "Uri Entity : " . $uri . " name property : " . $name . " uri property : " . $uriB, session("user"));
             return json_encode (['success' => true]);
-        else
+        }
+        else{
+            Logs::add("FAILED : DELETE ENTITY PROPERTY", "Uri Entity : " . $uri . " name property : " . $name . " uri property : " . $uriB, session("user"));
             return json_encode (['success' => false]);
+        }
     }
     	
     public function postDeleteLiteralProperty(Request $request) { 
@@ -184,11 +208,15 @@ class AdminController extends Controller
         $retours = Semantics::RemoveEntityProperty(new Entity($uri, null, null, null), 
             $property, $entityValue);    
         
-        return json_encode (['success' => $request->get('name')]);
-        if($retours)
-            return json_encode (['success' => "true"]);
-        else
-            return json_encode (['success' => "false"]);
+        return json_encode (['success' => TRUE]);
+        if($retours){
+            Logs::add("SUCCED : DELETE LITERAL PROPERTY", "Uri Entity : " . $uri . " name property : " . $name, session("user"));
+            return json_encode (['success' => true]);
+        }
+        else{
+            Logs::add("FAILED : DELETE LITERAL PROPERTY", "Uri Entity : " . $uri . " name property : " . $name, session("user"));
+            return json_encode (['success' => false]);
+        }
     }
     
     public function getPrintQrCode($uri){
