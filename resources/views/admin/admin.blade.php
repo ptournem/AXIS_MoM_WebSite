@@ -13,10 +13,6 @@
 	    $('#entities tbody tr:not(.type-' + c + ')').hide();
 	});
 
-	$('.btn-add-entity').on('click', function () {
-	    addEntity($('.entity-type').val(), $('.entity-name').val(), $('.entity-description').val(), $('.entity-image').val());
-	});
-
 	$('.btn-form-entity-show').on('click', function () {
 	    $('.alert-success-new-entity').hide();
 	});
