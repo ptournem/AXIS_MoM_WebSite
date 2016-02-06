@@ -34,7 +34,7 @@
             console.log(elt.parent().children(".input-group-btn"));
             elt.parent().children(".input-group-btn").children(".btn").hide();
             $("<span class='entity btn btn-default center-block' target='_blank' style='background-color: rgb(34, 238, 70);'>"
-                    + "<span name='{{ $dbpedia->entity_locale->URI }}' class='value'>{{ $dbpedia->entity_locale->name }}</span></span>").insertBefore(elt.parent().children(".value-edited"));
+                    + "<span name='" + ui.item.URI + "' class='value'>" + ui.item.name + "</span></span>").insertBefore(elt.parent().children(".value-edited"));
             elt.parent().children(".entity[name='" + ui.item.name + "']").append('<span name="' + ui.item.URI + '" class="value">' + ui.item.name + '</span>');
             elt.remove();
                                 
