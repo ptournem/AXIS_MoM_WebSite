@@ -72,6 +72,9 @@ class Utils {
 	    // si c'est un tableau , on les ajoute tous
 	    if (is_array($instance)) {
 		foreach ($instance as $obj) {
+		    if($obj == null ){// si l'objet est null, on passe au suivant 
+			continue;
+		    }
 		    $ret[] = $this->_cast($obj, $class);
 		}
 	    } else if (is_object($instance)) {// sinon, on en ajoute qu'une 
