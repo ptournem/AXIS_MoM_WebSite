@@ -14,9 +14,10 @@
 	    </tr>
 	</thead>
 	<tbody class="table-LOD">
-            @if($dbpedia != null && $dbpedia[0]->entity_locale != null)
-                @if(is_array($dbpedia[0]->entity_locale))
-                    @foreach($dbpedia[0]->entity_locale as $retour)
+            @if($dbpedia != null)
+            @foreach($dbpedia as $db)
+                @if(is_array($db->entity_locale))
+                    @foreach($db->entity_locale as $retour)
                         <tr>
                             <td class="sameasValue">
                                 <span class="entity btn btn-default center-block" target="_blank" style="background-color: rgb(34, 238, 70);">
@@ -34,16 +35,17 @@
                     <tr>
                         <td class="sameasValue">
                             <span class="entity btn btn-default center-block" target="_blank" style="background-color: rgb(34, 238, 70);">
-                                <span name="{{ $dbpedia[0]->entity_locale->URI }}" class="value">{{ $dbpedia[0]->entity_locale->name }}</span>
+                                <span name="{{ $db->entity_locale->URI }}" class="value">{{ $db->entity_locale->name }}</span>
                             </span>
                         </td>
                         <td class="delete">
-                            <button uri="{{ $dbpedia[0]->entity_locale->URI }}" class='btn btn-danger btn-block btn-delete'>
+                            <button uri="{{ $db->entity_locale->URI }}" class='btn btn-danger btn-block btn-delete'>
                                 Supprimer
                             </button>
                         </td>
                     </tr>
                 @endif
+            @endforeach
             @endif
 	    <tr>
 		<td class="new-LOD"></td>

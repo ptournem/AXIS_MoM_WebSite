@@ -126,19 +126,18 @@ class AdminController extends Controller
         //var_dump($retours);
         $dbpedia = array();
         $dbpediaInfo = false;
-        
+        $prop = collect($retours);
+        $dbpedia = $prop->where("name", 'sameas')->all();
+       
         if($retours != null){
             foreach($retours as $retour){
-                if($retour->name == 'sameas')
-                    $dbpedia[] = $retour;
                 if($retour->value_dbpedia != null
                     || $retour->entity_dbpedia != null){
                     $dbpediaInfo = true;
-                    //var_dump($retour);
+                    break;
                 }
             }
         }
-        //var_dump($dbpedia);
         
         Blade::extend(function($value)
         {
@@ -221,7 +220,7 @@ class AdminController extends Controller
         $retours = Semantics::RemoveEntityProperty(new Entity($uri, null, null, null), 
             $property, $entityValue);    
         
-        return json_encode (['success' => TRUE]);
+        //return json_encode (['success' => TRUE]);
         if($retours){
             Logs::add("SUCCED : DELETE ENTITY PROPERTY", "Uri Entity : " . $uri . " name property : " . $name . " uri property : " . $uriB, session("user"));
             return json_encode (['success' => true]);
@@ -234,7 +233,7 @@ class AdminController extends Controller
     	
     public function postDeleteLiteralProperty(Request $request) { 
         if (!$request->has('uri') || !$request->has('name') ) {
-	    return response()->json(['result' => "parametres non présent"]);
+	    return response()->json(['result' => false]);
 	}
         $uri  = $request->get('uri');
         $entityValue = new Entity("", null, null, null);
