@@ -62,7 +62,7 @@
         function successLiteral(elt) {
             console.log("successLiteral");
             $('.alert-success-update').show();
-            elt.parent().parent().children(".hidden").text(elt.parent().parent().children(".value").text());
+            elt.parent().parent().parent().children(".hidden").text(elt.parent().parent().children(".value").text());
             elt.parent().children(".btn").addClass("disabled");
         }
 
@@ -162,7 +162,7 @@
             if(!elt.hasClass('disabled')){
                 var item = $(classUsed);
                 // On remet dans 'value' sa valeur initiale (qui est dans 'hidden')
-                item.children('.input-group').children('.value').val(item.children('.hidden').val());
+                item.children('.input-group').children('.value').text(item.children('.hidden').text());
                 elt.parent().children('.btn').addClass('disabled');
                 $('.alert-success').hide();
             }
@@ -328,7 +328,7 @@
         });
         // Pour set une propriÃ©tÃ© litÃ©rale
         $(document).on('click', '.btn-success-locale', function () {
-            var value = $(this).parent().parent().children('.value-edited').val();
+            var value = $(this).parent().parent().children('.value-edited').text();
             var successType = "successLiteral";
             var type = 'fr';
             onClickSuccess($(this), value, type, successType, $(this).attr('name'));
