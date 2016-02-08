@@ -161,8 +161,8 @@
         function onClickCancel(elt, classUsed){
             if(!elt.hasClass('disabled')){
                 var item = $(classUsed);
-                // On remet dans 'value' sa valeur initiale (qui est dans 'hidden'
-                item.children('.value').text(item.children('.hidden').text());
+                // On remet dans 'value' sa valeur initiale (qui est dans 'hidden')
+                item.children('.input-group').children('.value').val(item.children('.hidden').val());
                 elt.parent().children('.btn').addClass('disabled');
                 $('.alert-success').hide();
             }
@@ -336,7 +336,7 @@
         });
         // Pour set une propriÃ©tÃ© litÃ©rale
         $(document).on('click', '.btn-success-locale', function () {
-            var value = $(this).parent().parent().children('.value-edited').text();
+            var value = $(this).parent().parent().children('.value-edited').val();
             var successType = "successLiteral";
             var type = 'fr';
             onClickSuccess($(this), value, type, successType, $(this).attr('name'));
@@ -349,7 +349,7 @@
             select: function (event, ui) {
                 $(this).children('.value-edited').text('');
                 var elt = $(this);
-                setProperty(elt.parent().attr('name'), ui.item.URI, "uri", elt, "successEntityAutocompletion", ui);
+                setProperty(elt.attr('name'), ui.item.URI, "uri", elt, "successEntityAutocompletion", ui);
 
                 return false;
             },

@@ -37,7 +37,7 @@
                         </span>
                         @endif
                         <img class="loadingDelete" src="{{ URL::asset('img/waiting.gif') }}" style="display: block; display: none;"/>
-                        <span contenteditable="true" class="value-edited searchEntities form-control"></span>
+                        <span contenteditable="true" name="{{ $retour->name }}" class="value value-edited searchEntities form-control"></span>
                     </td>
                     @else
                     <td name="{{ $retour->name }}" class="information-{{ $retour->name }} locale-value">
@@ -51,7 +51,7 @@
                         @else
                         <span class="hidden" style="display: none">{{ $retour->value_locale }}</span>
 			<div class="input-group">
-			    <input contenteditable="true" class="value value-edited searchEntities form-control"/>{{ $retour->value_locale }}</span>                      
+			    <input contenteditable="true" name="{{ $retour->name }}" class="value value-edited searchEntities form-control"/>{{ $retour->value_locale }}</span>                      
 			    <div class="input-group-btn" role="group">
 				<button type="button"  name="{{ $retour->name }}" class="btn btn-warning btn-warning-locale btn-warning-name-{{ $retour->name }} disabled">
 				    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
