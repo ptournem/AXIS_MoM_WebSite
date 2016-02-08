@@ -48,16 +48,26 @@
                             
         }
 
-        function successEntityDBpedia(elt, value) {
+        function successEntityDBpedia(elt, value, name) {
             console.log("successEntityDBpedia");
+            //todo
             $('.locale-value.information-' + elt.parent().parent().attr('name')).children(".hidden").text(decodeURIComponent(unformatURI(value)));
             $('.alert-success-update').show();
-            var thisClone = elt.clone().css('background-color', 'rgb( 34, 238, 70)')
-                .removeClass('entity-dbpedia');
-            thisClone.append('<span class="glyphicon glyphicon-remove entity-delete" aria-hidden="true" style="position-top: 0px; position-left: 0px;"></span>');
+            
+            
+             
+            var inputGroup = $("<div class='input-group'></div>");
             elt.parent().parent().children('.locale-value')
-                .prepend(thisClone); 
-            elt.parent().parent().children('.locale-value').children(".input-group-btn").children(".btn").hide();
+                .prepend(inputGroup);
+            inputGroup.append('<span name="' + elt.attr("name") + '" class="entity btn btn-default form-control disabled value">' + elt.text() + '</span>');
+            
+            var inputGroupBtn = $("<div class='input-group-btn'></div>");
+            inputGroup.append(inputGroupBtn);
+            
+            var entityDelete = $('<span name="' + name + '" class="btn btn-danger entity-delete"></span>');
+            inputGroupBtn.append(entityDelete);
+            
+            entityDelete.append('<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>');
         }
 
         function successSameas(elt) {
@@ -87,7 +97,7 @@
                                break;
                            case "successSameas" : successSameas(elt);
                                break;
-                           case "successEntityDBpedia" : successEntityDBpedia(elt, value);
+                           case "successEntityDBpedia" : successEntityDBpedia(elt, value, name);
                                break;
                            case "successEntityAutocompletion" : successEntityAutocompletion(elt, ui, name);
                                break;
