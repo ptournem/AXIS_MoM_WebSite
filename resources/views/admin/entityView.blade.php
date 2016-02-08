@@ -176,14 +176,18 @@
 
         function makeSameasLigne(elt){
             // Création du content editable
-            $('.new-LOD').append('<span></span>');
-            $('.new-LOD span').attr('class', 'value value-edited searchSameas');
-            $('.new-LOD span').attr('name', 'sameas');
-            $('.new-LOD span').attr('style', "display: block; width: 100%; height: 100%;");
-            $('.new-LOD span').attr('contenteditable', true);
-            $('.new-LOD span').attr('autofocus', true);
+	    var $newLod = $('.new-LOD');
+	    
+	    var $div =  $('<div></div>');
+	    $newLod.append($div);
+	    $div.addClass('input-group');
+            var $span = $('<span></span>');
+	    $div.append($span);
+            $span.attr('class', 'value value-edited searchSameas form-control');
+            $span.attr('name', 'sameas');
+            $span.attr('contenteditable', true);
             // autocomplétion
-            $('.new-LOD span').catcomplete({
+            $span.catcomplete({
                 source: function (request, response) {
                     console.log("searchSameas");
                     $.getJSON(global.searchUrlSameas, {needle: request.term}, response);
@@ -198,28 +202,33 @@
                 delay: 600
             });
             // Création du bouton delete
-            $('.new-LOD').append('<span class="hidden"></span>');
-            $('.new-LOD .hidden').attr('style', 'display: none');
+            var $hidden = $('<span class="hidden"></span>');
+	    $div.append($hidden);
+            $hidden.attr('style', 'display: none');
 
             // Ajout des boutons validation ou annulation
             // D'abord le div qui contient les deux boutons
-            $('.new-LOD').append('<div></div>');
-            $('.new-LOD div').attr('class', 'input-group-btn');
-            $('.new-LOD div').attr('role', 'group');
-            $('.new-LOD div').attr('style', 'position: relative; right: 0px;');
-            // Le 1er bouton
-            $('.new-LOD div').append('<button type="button" class="btn btn-warning btn-warning-sameas btn-warning-name-sameas disabled"></button>');
-            $('.new-LOD div .btn-warning-sameas').attr('style', 'position: relative; right: 0px;');
-            $('.new-LOD div .btn-warning-sameas').attr('name', 'sameas');
-            $('.new-LOD div .btn-warning-sameas').append('<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>');
-            // Le 2ieme bouton
-            $('.new-LOD div').append('<button type="button" class="btn btn-success btn-success-sameas btn-success-name-sameas disabled"></button>');
-            $('.new-LOD div .btn-success-sameas').attr('style', 'position: relative; right: 0px;');
-            $('.new-LOD div .btn-success-sameas').attr('name', 'sameas');
-            $('.new-LOD div .btn-success-sameas').append('<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>');
+            var $inputBtn = $('<div></div>');
+	    $div.append($inputBtn);
+            $inputBtn.attr('class', 'input-group-btn');
+            $inputBtn.attr('role', 'group');
+            $inputBtn.attr('style', 'position: relative; right: 0px;');
+            // Le 1er bouton :	Annuler
+            var $annulerBtn = $('<button type="button" class="btn btn-warning btn-warning-sameas btn-warning-name-sameas disabled"></button>');
+	    $inputBtn.append($annulerBtn);
+            $annulerBtn.attr('style', 'position: relative; right: 0px;');
+            $annulerBtn.attr('name', 'sameas');
+            $annulerBtn.append('<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>');
+	    
+            // Le 2ieme bouton : Valider 
+            var $validerBtn = $('<button type="button" class="btn btn-success btn-success-sameas btn-success-name-sameas disabled"></button>');
+	    $inputBtn.append($validerBtn);
+            $validerBtn.attr('style', 'position: relative; right: 0px;');
+            $validerBtn.attr('name', 'sameas');
+            $validerBtn.append('<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>');
 
-            $('.new-LOD').addClass("sameasValue");
-            $('.new-LOD').removeClass("new-LOD");
+            $newLod.addClass("sameasValue");
+            $newLod.removeClass("new-LOD");
 
             // Remplacement du bouton ajouter par supprimer
             elt.attr('class', 'btn btn-danger btn-block btn-delete');

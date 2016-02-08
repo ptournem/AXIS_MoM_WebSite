@@ -37,7 +37,7 @@
                         </span>
                         @endif
                         <img class="loadingDelete" src="{{ URL::asset('img/waiting.gif') }}" style="display: block; display: none;"/>
-                        <span contenteditable="true" class="value-edited searchEntities" style="background-color: rgb(239, 228, 176); display: inline-block; width: 100%; padding-top: 2px;"></span>
+                        <span contenteditable="true" class="value-edited searchEntities form-control"></span>
                     </td>
                     @else
                     <td name="{{ $retour->name }}" class="information-{{ $retour->name }} locale-value">
@@ -50,16 +50,18 @@
                         </div>
                         @else
                         <span class="hidden" style="display: none">{{ $retour->value_locale }}</span>
-                        <span contenteditable="true" class="value value-edited searchEntities" style="background-color: rgb(239, 228, 176); display: inline-block; width: 100%; padding-top: 2px;" >{{ $retour->value_locale }}</span>
-                        <div style="position: relative; bottom: 0px; right: 0px;" class="input-group-btn" role="group">
-                            <button type="button" style="position: relative; right: 0px;" name="{{ $retour->name }}" class="btn btn-warning btn-warning-locale btn-warning-name-{{ $retour->name }} disabled">
-                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                            </button>
-                            <button type="button" style="position: relative; right: 0px;" name="{{ $retour->name }}" class="btn btn-success btn-success-locale btn-success-name-{{ $retour->name }}  disabled">
-                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                            </button>
-                        </div>
-                        @endif
+			<div class="input-group">
+			    <input contenteditable="true" class="value value-edited searchEntities form-control"/>{{ $retour->value_locale }}</span>                      
+			    <div class="input-group-btn" role="group">
+				<button type="button"  name="{{ $retour->name }}" class="btn btn-warning btn-warning-locale btn-warning-name-{{ $retour->name }} disabled">
+				    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+				</button>
+				<button type="button"  name="{{ $retour->name }}" class="btn btn-success btn-success-locale btn-success-name-{{ $retour->name }}  disabled">
+				    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+				</button>
+			    </div>
+			</div>
+			@endif
                     </td>
                     @endif
 

@@ -123,26 +123,13 @@ class AdminController extends Controller
         $entity = Semantics::GetEntity(new Entity($uri,"",'',''));
 	$comments = Comments::LoadComment($entity);
 	$cComments = collect($comments);
-        //var_dump($retours);
-        $dbpedia = array();
-        $dbpediaInfo = false;
-        $prop = collect($retours);
+      
+	// Traitement des propriétés
+	$prop = collect($retours);
+	// récupère les props sameas
         $dbpedia = $prop->where("name", 'sameas')->all();
-       
-        if($retours != null){
-            foreach($retours as $retour){
-                if($retour->value_dbpedia != null
-                    || $retour->entity_dbpedia != null){
-                    $dbpediaInfo = true;
-                    break;
-                }
-            }
-        }
-        
-        Blade::extend(function($value)
-        {
-            return preg_replace('/(\s*)@break(\s*)/', '$1<?php break; ?>$2', $value);
-        });
+	// vérifie que l'on a des valeurs venant du lod 
+	$dbpediaInfo = $this->filterDbPediaProp($prop)->count()>0;
         
         $data = array(
             'retours' => $retours,
@@ -274,6 +261,17 @@ class AdminController extends Controller
 
 	// on renvoie ce que l'on obtient du web service 
 	return response()->json(Semantics::SearchAllEntitiesFromText($request->input("needle")));
+    }
+    
+    /**
+     * Renvoie les propriété dont on a une valeur dbpedia 
+     * @param \Illuminate\Support\Collection $collect
+     * @return \Illuminate\Support\Collection collection filtrée
+     */
+    private function filterDbPediaProp($prop){
+	return $prop->filter(function($item){
+	   return $item->value_dbpedia != null || $item->entity_dbpedia != null; 
+	});
     }
     
 }
