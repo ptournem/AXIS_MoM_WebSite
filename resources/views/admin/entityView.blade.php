@@ -17,15 +17,22 @@
         var token = "{{csrf_token()}}";
         var EntityUri = "{{$entity->URI}}";
         
-        function successEntityAutocompletion(elt, ui) {
+        function successEntityAutocompletion(elt, ui, name) {
             console.log("successEntityAutocompletion");
             $('.alert-success-update').show();
             elt.text("");
-            console.log(elt.parent().children(".input-group-btn"));
             elt.parent().children(".input-group-btn").children(".btn").hide();
-            $("<span class='entity' name='" + ui.item.name + "' style='background-color: pink; padding: 2px; margin: 2px;'></span>").insertBefore(elt.parent().children(".value-edited"));
-            elt.parent().children(".entity[name='" + ui.item.name + "']").append('<span name="' + ui.item.URI + '" class="value">' + ui.item.name + '</span>');
-            elt.parent().children(".entity[name='" + ui.item.name + "']").append('<span class="glyphicon glyphicon-remove entity-delete" aria-hidden="true" style="position-top: 0px; position-left: 0px;"></span>');
+            var inputGroup = $("<div class='input-group'></div>");
+            inputGroup.insertBefore(elt.parent().children(".value-edited"));
+            inputGroup.append($('<span name="' + ui.item.URI + '" class="entity btn btn-default form-control disabled value">' + ui.item.name + '</span>').insertBefore(elt.parent().children(".value-edited")));
+            
+            var inputGroupBtn = $("<div class='input-group-btn'></div>");
+            inputGroup.append(inputGroupBtn);
+            
+            var entityDelete = $('<span name="' + name + '" class="btn btn-danger entity-delete"></span>');
+            inputGroupBtn.append(entityDelete);
+            
+            entityDelete.append('<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>');
         }
 
         function successEntityAutocompletionSameas(elt, ui) {
@@ -82,7 +89,7 @@
                                break;
                            case "successEntityDBpedia" : successEntityDBpedia(elt, value);
                                break;
-                           case "successEntityAutocompletion" : successEntityAutocompletion(elt, ui);
+                           case "successEntityAutocompletion" : successEntityAutocompletion(elt, ui, name);
                                break;
                            case "successEntityAutocompletionSameas" : successEntityAutocompletionSameas(elt, ui);
                                break;
