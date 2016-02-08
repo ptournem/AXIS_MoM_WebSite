@@ -45,7 +45,7 @@
 			</div>
                         @endif
                         <img class="loadingDelete" src="{{ URL::asset('img/waiting.gif') }}" style="display: block; display: none;"/>
-                        <span contenteditable="true" class="value-edited searchEntities form-control"></span>
+                        <span contenteditable="true" name="{{ $retour->name }}" class="value value-edited searchEntities form-control"></span>
                     </td>
                     @else
                     <td name="{{ $retour->name }}" class="information-{{ $retour->name }} locale-value">
