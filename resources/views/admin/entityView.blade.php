@@ -97,13 +97,9 @@
         function removeEntityProperty(name, uriB, elt) {
             console.log("adminDeleteEntityProperty : " + adminDeleteEntityProperty);
             $.post(adminDeleteEntityProperty, {uri: EntityUri, name: name, uriB: uriB, _token: token}, function (data) {
-                    console.log(data.success);
                     if (data.success) {
-                        // changement des classes
-                        console.log("remove OK");
-                        elt.parent().remove();
+                        elt.parent().parent().remove();
                     }
-                    elt.parent().children('.loadingDelete').hide();
                 }, 'json');
         }
         
@@ -114,7 +110,6 @@
                         console.log("removeL OK");
                         setProperty(name, value, type, elt, successType);
                     }
-                    elt.parent().children('.loadingDelete').hide();
                 }, 'json');
         }
         
@@ -125,7 +120,6 @@
                         console.log("removeL OK");
                         setProperty(name, value, type, elt, successType);
                     }
-                    elt.parent().children('.loadingDelete').hide();
                 }, 'json');
         }
 
@@ -303,12 +297,8 @@
          */
         // click sur la 'croix' d'une entitÃ© -> delete de celle-ci
         $(document).on('click', '.entity-delete', function () {
-            $(this).parent().children('.loadingDelete').show();
-            //console.log()
-            console.log($(this).parent().parent().attr('name'));
-            console.log($(this).parent().children('.value').attr('name'));
-            var value = $(this).parent().children('.value').attr('name');
-            removeEntityProperty($(this).parent().parent().attr('name'), value, $(this));
+            var value = $(this).parent().parent().children('.value').attr('name');
+            removeEntityProperty($(this).attr('name'), value, $(this));
         });
         // click sur une entity DBpedia (set de celle-ci dans le local de la property)
         $(document).on('click', '.entity-dbpedia', function () {

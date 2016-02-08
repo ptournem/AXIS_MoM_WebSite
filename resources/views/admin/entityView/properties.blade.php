@@ -28,7 +28,7 @@
 			<div class='input-group'>
 			    <span name="{{ $entity->URI }}" class="entity btn btn-default form-control disabled value">{{ $entity->name }}</span>
 			    <div class='input-group-btn'>
-				<span class="btn btn-danger entity-delete">
+				<span name="{{ $retour->name }}" class="btn btn-danger entity-delete">
 				    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 				</span>
 			    </div>
@@ -38,7 +38,7 @@
 			<div class='input-group'>
 			    <span name="{{ $retour->entity_locale->URI }}" class="entity btn btn-default form-control disabled value">{{ $retour->entity_locale->name }}</span>
 			    <div class='input-group-btn'>
-				<span class="btn btn-danger entity-delete">
+				<span name="{{ $retour->name }}" class="btn btn-danger entity-delete">
 				    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 				</span>
 			    </div>
