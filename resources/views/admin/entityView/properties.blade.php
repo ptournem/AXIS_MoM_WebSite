@@ -99,7 +99,7 @@
 			    @else 
 				<button type="button" name="{{ $retour->name }}" class="btn btn-success-selected btn-success-selected-{{ $retour->name }} ">
 			    @endif
-                            <span class="glyphicon glyphicon-transfer" aria-hidden="true"></span>
+                            <span name="{{ $retour->name }}" class="glyphicon glyphicon-transfer" aria-hidden="true"></span>
 			    </button>
 			    </div>
                         

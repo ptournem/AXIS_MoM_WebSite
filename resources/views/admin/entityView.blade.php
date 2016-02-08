@@ -40,12 +40,11 @@
             $('.alert-success-update').show();
             console.log(elt.parent().children(".input-group-btn"));
             elt.parent().children(".input-group-btn").children(".btn").hide();
-            $("<span class='entity btn btn-default center-block' target='_blank' style='background-color: rgb(34, 238, 70);'>"
+            $("<span class='entity btn btn-default center-block disabled'>"
                     + "<span name='" + ui.item.URI + "' class='value'>" + ui.item.name + "</span></span>").insertBefore(elt.parent().children(".value-edited"));
             elt.parent().children(".entity[name='" + ui.item.name + "']").append('<span name="' + ui.item.URI + '" class="value">' + ui.item.name + '</span>');
+            elt.parent().parent().children(".delete").children().attr("uri", ui.item.URI);
             elt.remove();
-                                
-                            
         }
 
         function successEntityDBpedia(elt, value, name) {
@@ -115,7 +114,12 @@
             console.log("adminDeleteEntityProperty : " + adminDeleteEntityProperty);
             $.post(adminDeleteEntityProperty, {uri: EntityUri, name: name, uriB: uriB, _token: token}, function (data) {
                     if (data.success) {
-                        elt.parent().parent().remove();
+                        switch(name){
+                           case "sameas" : elt.parent().remove();
+                               break;
+                           default : elt.parent().parent().remove();
+                               break;
+                        }
                     }
                 }, 'json');
         }
@@ -189,14 +193,8 @@
             // Création du content editable
 	    var $newLod = $('.new-LOD');
 	    
-	    var $div =  $('<div></div>');
-	    $newLod.append($div);
-	    $div.addClass('input-group');
-            var $span = $('<span></span>');
-	    $div.append($span);
-            $span.attr('class', 'value value-edited searchSameas form-control');
-            $span.attr('name', 'sameas');
-            $span.attr('contenteditable', true);
+            var $span = $('<span contenteditable="true" name="sameas" class="value value-edited searchEntities form-control"></span>');
+	    $newLod.append($span);
             // autocomplétion
             $span.catcomplete({
                 source: function (request, response) {
@@ -212,32 +210,7 @@
                 },
                 delay: 600
             });
-            // Création du bouton delete
-            var $hidden = $('<span class="hidden"></span>');
-	    $div.append($hidden);
-            $hidden.attr('style', 'display: none');
-
-            // Ajout des boutons validation ou annulation
-            // D'abord le div qui contient les deux boutons
-            var $inputBtn = $('<div></div>');
-	    $div.append($inputBtn);
-            $inputBtn.attr('class', 'input-group-btn');
-            $inputBtn.attr('role', 'group');
-            $inputBtn.attr('style', 'position: relative; right: 0px;');
-            // Le 1er bouton :	Annuler
-            var $annulerBtn = $('<button type="button" class="btn btn-warning btn-warning-sameas btn-warning-name-sameas disabled"></button>');
-	    $inputBtn.append($annulerBtn);
-            $annulerBtn.attr('style', 'position: relative; right: 0px;');
-            $annulerBtn.attr('name', 'sameas');
-            $annulerBtn.append('<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>');
-	    
-            // Le 2ieme bouton : Valider 
-            var $validerBtn = $('<button type="button" class="btn btn-success btn-success-sameas btn-success-name-sameas disabled"></button>');
-	    $inputBtn.append($validerBtn);
-            $validerBtn.attr('style', 'position: relative; right: 0px;');
-            $validerBtn.attr('name', 'sameas');
-            $validerBtn.append('<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>');
-
+            
             $newLod.addClass("sameasValue");
             $newLod.removeClass("new-LOD");
 
@@ -370,20 +343,16 @@
         });
         // Permet de reporter les valeurs de DBpedia dans local
         $(document).on('click', '.btn-success-selected', function () {
-            var value = $(this).parent().children(".value").text();
-            var name = $(this).parent().attr('name');
+            var value = $(this).parent().parent().children(".value").text();
+            var name = $(this).attr('name');
             var item = $('.locale-value.information-' + name);
-            console.log(item);
-            console.log(value);
-            console.log(name);
-            console.log(item.children().children(".form-control"));
             if($(this).hasClass("typeDate")){
                 item.children().children(".form-control").val(value);
                 onClickSuccess($(this), value, 'fr', "successDate", name);
             }
             else{
-                item.children(".value").text(value);
-                $('.information-' + name + '.locale-value').children(".input-group-btn").children(".btn").removeClass('disabled');
+                item.children().children(".form-control").text(value);
+                $('.information-' + name + '.locale-value').children(".input-group").children(".input-group-btn").children(".btn").removeClass('disabled');
                 $('.alert-success').hide();
             }
         });
