@@ -20,7 +20,7 @@
                     @foreach($db->entity_locale as $retour)
                         <tr>
                             <td class="sameasValue">
-                                <span class="entity btn btn-default center-block" target="_blank" style="background-color: rgb(34, 238, 70);">
+                                <span class="entity btn btn-default center-block disabled" >
                                     <span name="{{ $retour->URI }}" class="value">{{ $retour->name }}</span>
                                 </span>
                             </td>
@@ -34,7 +34,7 @@
                 @else
                     <tr>
                         <td class="sameasValue">
-                            <span class="entity btn btn-default center-block" target="_blank" style="background-color: rgb(34, 238, 70);">
+                            <span class="entity btn btn-default center-block disabled">
                                 <span name="{{ $db->entity_locale->URI }}" class="value">{{ $db->entity_locale->name }}</span>
                             </span>
                         </td>
