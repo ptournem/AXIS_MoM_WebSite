@@ -318,14 +318,6 @@
                 $(this).attr('name'), "uri", $(this), "successEntityDBpedia");
                       
         });
-        // effet de style sur une entity en mouseover
-        $(document).on('mouseover', '.entity', function () {
-            var color  = $(this).css("background-color");
-            $(this).css("background", "grey");
-            $(this).bind("mouseout", function(){
-                $(this).css("background-color", color);
-            }) 
-        });
         // Si literal on rend cliquable les boutons set ou cancel
         $(document).on('keyup', '.locale-value', function () {
             onKeyUp($(this));

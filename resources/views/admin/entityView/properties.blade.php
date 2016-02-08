@@ -25,16 +25,24 @@
                     <td id="searchEntitis" name="{{ $retour->name }}" class="information-{{ $retour->name }} locale-value">
                         @if(is_array($retour->entity_locale))
                         @foreach($retour->entity_locale as $entity)
-                        <span class="entity btn btn-default center-block" target="_blank" style="background-color: rgb(34, 238, 70);">
-                            <span name="{{ $entity->URI }}" class="value">{{ $entity->name }}</span>
-                            <span class="glyphicon glyphicon-remove entity-delete" aria-hidden="true" style="position-top: 0px; position-left: 0px;"></span>
-                        </span>
+			<div class='input-group'>
+			    <span name="{{ $entity->URI }}" class="entity btn btn-default form-control disabled value">{{ $entity->name }}</span>
+			    <div class='input-group-btn'>
+				<span class="btn btn-danger entity-delete">
+				    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+				</span>
+			    </div>
+			</div>
                         @endforeach
                         @else
-                        <span class="entity btn btn-default center-block" target="_blank" style="background-color: rgb(34, 238, 70);">
-                            <span name="{{ $retour->entity_locale->URI }}" class="value">{{ $retour->entity_locale->name }}</span>
-                            <span class="glyphicon glyphicon-remove entity-delete" aria-hidden="true" style="position-top: 0px; position-left: 0px;"></span>
-                        </span>
+			<div class='input-group'>
+			    <span name="{{ $retour->entity_locale->URI }}" class="entity btn btn-default form-control disabled value">{{ $retour->entity_locale->name }}</span>
+			    <div class='input-group-btn'>
+				<span class="btn btn-danger entity-delete">
+				    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+				</span>
+			    </div>
+			</div>
                         @endif
                         <img class="loadingDelete" src="{{ URL::asset('img/waiting.gif') }}" style="display: block; display: none;"/>
                         <span contenteditable="true" class="value-edited searchEntities form-control"></span>
@@ -85,9 +93,9 @@
                     <td class="information-{{ $retour->name }}" name="{{ $retour->name }}">
                         @if($retour->value_dbpedia != null)
 			    @if($retour->type== 'date')
-				<button type="button" name="{{ $retour->name }}" class="btn btn-success-selected btn-success-selected-{{ $retour->name }}">
-			    @else 
 				<button type="button" name="{{ $retour->name }}" class="btn btn-success-selected btn-success-selected-{{ $retour->name }} typeDate">
+			    @else 
+				<button type="button" name="{{ $retour->name }}" class="btn btn-success-selected btn-success-selected-{{ $retour->name }} ">
 			    @endif
                             <span class="glyphicon glyphicon-transfer" aria-hidden="true"></span>
                         </button>
