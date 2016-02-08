@@ -92,15 +92,20 @@
                     @else
                     <td class="information-{{ $retour->name }}" name="{{ $retour->name }}">
                         @if($retour->value_dbpedia != null)
+			<div class="input-group">
+			    <div class="input-group-btn">
 			    @if($retour->type== 'date')
 				<button type="button" name="{{ $retour->name }}" class="btn btn-success-selected btn-success-selected-{{ $retour->name }} typeDate">
 			    @else 
 				<button type="button" name="{{ $retour->name }}" class="btn btn-success-selected btn-success-selected-{{ $retour->name }} ">
 			    @endif
                             <span class="glyphicon glyphicon-transfer" aria-hidden="true"></span>
-                        </button>
-                        @endif
-                        <span class="value">{{ $retour->value_dbpedia }}</span>
+			    </button>
+			    </div>
+                        
+			    <span class="value value-dbPedia disabled form-control">{{ $retour->value_dbpedia }}</span>
+			</div>
+			@endif
                     </td>
                     @endif
                     @endif
