@@ -423,7 +423,7 @@
 
 
 <div class="clearBoth">
-    <ul class="nav nav-tabs nav-justified">
+    <ul id='admin-nav-tabs' class="nav nav-tabs nav-justified">
 	<li class="active"><a data-toggle="tab" href="#informations">Informations</a></li>
 	<li><a data-toggle="tab" href="#LODLink">Liens LoD</a></li>
 	<li>
