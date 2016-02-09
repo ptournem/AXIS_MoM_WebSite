@@ -6,3 +6,7 @@ site_dir: docWeb
 pages:
 - [index.md, Home]
 - [installation.md, Installation]
+- [Dependances.md, Dépendances]
+- [Modeles.md, Modèles]
+- [Facades.md, Façades]
+- [Controlleurs.md, Contrôlleurs]
