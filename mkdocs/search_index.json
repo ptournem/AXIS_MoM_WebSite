@@ -1,0 +1,314 @@
+{
+    "docs": [
+        {
+            "location": "/",
+            "text": "Application AXIS-MOM - Website\n\n\n1. Pr\u00e9sentation du projet\n\n\nApplication d\u00e9velopp\u00e9e par le Groupe LookOut en 5e ann\u00e9e \u00e0 l'IG2I en collaboration avec l'\nASBL Titan\n et la soci\u00e9t\u00e9 \nTiteMaison Production\n\n\nGroupe Lookout :\n\n\n\n\nLoan Nguyen - Chef de Projet - \nloan.nguyen@ig2i.fr\n\n\nHaton Corentin - Responsable Qualit\u00e9 - \nhaton.corentin@ig2i.fr\n\n\nPaul Tournemaine - Responsable Technique - \npaul.tournemaie@ig2i.fr\n\n\nM\u00e9lanie Bailleul - Responsable Communication - \nmelanie.bailleul@ig2i.fr\n\n\nRobin Siematkowski - Responsable Fonctionnel - \nrobin.siematkowski@ig2i.fr\n\n\nRiad Belmahi - Consultant Technique - \nriad.belmahi@ig2i.fr\n\n\n\n\n2. Contexte, enjeux, et objectifs du projet\n\n\nBien que les nouvelles technologies offrent de plus en plus de possibilit\u00e9s, celles-ci restent peu utilis\u00e9es dans de nombreux domaines. \n\n\nL'ASBL Titan \u00e0 cr\u00e9er un mod\u00e8le s\u00e9mantique permettant de repr\u00e9senter le monde qui nous entoure. \n\n\nLe but de ce projet, qui est un POC, est donc de l'impl\u00e9menter pour prouver son employabilit\u00e9 dans un projet concret.\n\n\nC'est pourquoi le monde mus\u00e9al a \u00e9t\u00e9 choisi comme point de d\u00e9part et comme sujet pour cette application. \n\n\n3. Composition du projet\n\n\nLe projet est d\u00e9coup\u00e9 en deux applications : \n\n Une application web\n\n Un web service \n\n\n3.1 L'application Web\n\n\nLe but de l'application web est de rentre transparent \u00e0 l'utilisateur l'acc\u00e8s aux donn\u00e9es stock\u00e9es s\u00e9mantiquement, mais aussi de permettre aux administrateurs de l'application \nd'ajouter et de mod\u00e9rer les entit\u00e9s stock\u00e9es dans le syst\u00e8me. L'application permet donc: \n\n\n\n\nl'authentification des administrateurs de l'application\n\n\nla gestion des comptes d'administrateur \n\n\nla gestion des entit\u00e9s stock\u00e9es dans l'application \n\n\nle suivi d'activit\u00e9 des utilisateurs authentifi\u00e9s \n\n\nl'affichage des entit\u00e9s stock\u00e9es en mode graphe et tableau\n\n\nle partage sur les r\u00e9seaux sociaux des entit\u00e9s stock\u00e9es\n\n\nl'ajout de commentaire sur les entit\u00e9s\n\n\nla mod\u00e9ration des commentaires post\u00e9s sur les entit\u00e9s\n\n\n\n\n3.2 Le Web Service\n\n\nVous pouvez retrouver la documentation sur le web service \u00e0 cette adresse : \nhttp://ptournem.io.github/AXIS_MOM_WebService",
+            "title": "Home"
+        },
+        {
+            "location": "/#application-axis-mom-website",
+            "text": "",
+            "title": "Application AXIS-MOM - Website"
+        },
+        {
+            "location": "/#1-presentation-du-projet",
+            "text": "Application d\u00e9velopp\u00e9e par le Groupe LookOut en 5e ann\u00e9e \u00e0 l'IG2I en collaboration avec l' ASBL Titan  et la soci\u00e9t\u00e9  TiteMaison Production  Groupe Lookout :   Loan Nguyen - Chef de Projet -  loan.nguyen@ig2i.fr  Haton Corentin - Responsable Qualit\u00e9 -  haton.corentin@ig2i.fr  Paul Tournemaine - Responsable Technique -  paul.tournemaie@ig2i.fr  M\u00e9lanie Bailleul - Responsable Communication -  melanie.bailleul@ig2i.fr  Robin Siematkowski - Responsable Fonctionnel -  robin.siematkowski@ig2i.fr  Riad Belmahi - Consultant Technique -  riad.belmahi@ig2i.fr",
+            "title": "1. Pr\u00e9sentation du projet"
+        },
+        {
+            "location": "/#2-contexte-enjeux-et-objectifs-du-projet",
+            "text": "Bien que les nouvelles technologies offrent de plus en plus de possibilit\u00e9s, celles-ci restent peu utilis\u00e9es dans de nombreux domaines.   L'ASBL Titan \u00e0 cr\u00e9er un mod\u00e8le s\u00e9mantique permettant de repr\u00e9senter le monde qui nous entoure.   Le but de ce projet, qui est un POC, est donc de l'impl\u00e9menter pour prouver son employabilit\u00e9 dans un projet concret.  C'est pourquoi le monde mus\u00e9al a \u00e9t\u00e9 choisi comme point de d\u00e9part et comme sujet pour cette application.",
+            "title": "2. Contexte, enjeux, et objectifs du projet"
+        },
+        {
+            "location": "/#3-composition-du-projet",
+            "text": "Le projet est d\u00e9coup\u00e9 en deux applications :   Une application web  Un web service",
+            "title": "3. Composition du projet"
+        },
+        {
+            "location": "/#31-lapplication-web",
+            "text": "Le but de l'application web est de rentre transparent \u00e0 l'utilisateur l'acc\u00e8s aux donn\u00e9es stock\u00e9es s\u00e9mantiquement, mais aussi de permettre aux administrateurs de l'application \nd'ajouter et de mod\u00e9rer les entit\u00e9s stock\u00e9es dans le syst\u00e8me. L'application permet donc:    l'authentification des administrateurs de l'application  la gestion des comptes d'administrateur   la gestion des entit\u00e9s stock\u00e9es dans l'application   le suivi d'activit\u00e9 des utilisateurs authentifi\u00e9s   l'affichage des entit\u00e9s stock\u00e9es en mode graphe et tableau  le partage sur les r\u00e9seaux sociaux des entit\u00e9s stock\u00e9es  l'ajout de commentaire sur les entit\u00e9s  la mod\u00e9ration des commentaires post\u00e9s sur les entit\u00e9s",
+            "title": "3.1 L'application Web"
+        },
+        {
+            "location": "/#32-le-web-service",
+            "text": "Vous pouvez retrouver la documentation sur le web service \u00e0 cette adresse :  http://ptournem.io.github/AXIS_MOM_WebService",
+            "title": "3.2 Le Web Service"
+        },
+        {
+            "location": "/installation/",
+            "text": "Installation de l'application\n\n\nPr\u00e9requis\n\n\n\n\nGestionnaire de d\u00e9pendance php pour Laravel : \ncomposer\n\n\n\n\nPour la documentation :\n\n\n\n\nPython 2.7.x + pip 1.5.x et Mkdocs : \nMkDocs\n\n\n\n\nPour le serveur :\n\n\n\n\n\n\nServeur Apache avec PHP 5.5.9 minimum\n\n\n\n\n\n\nMySQL\n\n\n\n\n\n\n1. Clonage du repository\n\n\nSe rendre \u00e0 l'adresse du repository et t\u00e9l\u00e9charger un copy de la branche \nmaster\n du repository\n\n\nSi Git est install\u00e9 sur votre machine lancez la commande : \n\n\ngit clone adresse_du_repo repartoire_cible\n\n\n\n2. Installation des d\u00e9pendances php\n\n\nDans le dossier de laravel o\u00f9 vous avez clon\u00e9 le repository, ouvrez une console et entrer:\n\n\ncomposer.phar install\n\n\n\nCela peut prendre plusieurs minutes. \n\n\n3. Renseignement du fichier .env\n\n\nOuvrez le fichier .env situ\u00e9 \u00e0 la racine du repository \n\n\nAPP_DEBUG=false\nDB_HOST= adresse du serveur MySQL\nDB_DATABASE= nom de la base de donn\u00e9es\nDB_USERNAME= utilisateur de la base de donn\u00e9es\nDB_PASSWORD= mot de passe de l'utilisateur\nAXIS_MoM_WSDL= url du WSDL du web service\n\n\n\n4. Installation de la base de donn\u00e9es\n\n\nDans la console \u00e0 la raine du repository.\nCr\u00e9er les tables avec la commande :  \n\n\nphp artisan migrate\n\n\n\nCr\u00e9er les donn\u00e9es de base avec la commande : \n\n\nphp artisan db:seed\n\n\n\n5. R\u00e9pertoires et droits\n\n\nCr\u00e9er le r\u00e9pertoire \"\nuploads\n\" \u00e0 la racine du repository, c'est lui qui recevra les images upload\u00e9es pour les entit\u00e9s.\n\n\n(!) Tous les fichiers du repository doivent \u00eatre accessibles et lisibles par Apache. De m\u00eame, Apache doit avoir les droits d'\u00e9criture dans les dossiers \nbootstrap\n et \nstorage\n.",
+            "title": "Installation"
+        },
+        {
+            "location": "/installation/#installation-de-lapplication",
+            "text": "",
+            "title": "Installation de l'application"
+        },
+        {
+            "location": "/installation/#prerequis",
+            "text": "Gestionnaire de d\u00e9pendance php pour Laravel :  composer   Pour la documentation :   Python 2.7.x + pip 1.5.x et Mkdocs :  MkDocs   Pour le serveur :    Serveur Apache avec PHP 5.5.9 minimum    MySQL",
+            "title": "Pr\u00e9requis"
+        },
+        {
+            "location": "/installation/#1-clonage-du-repository",
+            "text": "Se rendre \u00e0 l'adresse du repository et t\u00e9l\u00e9charger un copy de la branche  master  du repository  Si Git est install\u00e9 sur votre machine lancez la commande :   git clone adresse_du_repo repartoire_cible",
+            "title": "1. Clonage du repository"
+        },
+        {
+            "location": "/installation/#2-installation-des-dependances-php",
+            "text": "Dans le dossier de laravel o\u00f9 vous avez clon\u00e9 le repository, ouvrez une console et entrer:  composer.phar install  Cela peut prendre plusieurs minutes.",
+            "title": "2. Installation des d\u00e9pendances php"
+        },
+        {
+            "location": "/installation/#3-renseignement-du-fichier-env",
+            "text": "Ouvrez le fichier .env situ\u00e9 \u00e0 la racine du repository   APP_DEBUG=false\nDB_HOST= adresse du serveur MySQL\nDB_DATABASE= nom de la base de donn\u00e9es\nDB_USERNAME= utilisateur de la base de donn\u00e9es\nDB_PASSWORD= mot de passe de l'utilisateur\nAXIS_MoM_WSDL= url du WSDL du web service",
+            "title": "3. Renseignement du fichier .env"
+        },
+        {
+            "location": "/installation/#4-installation-de-la-base-de-donnees",
+            "text": "Dans la console \u00e0 la raine du repository.\nCr\u00e9er les tables avec la commande :    php artisan migrate  Cr\u00e9er les donn\u00e9es de base avec la commande :   php artisan db:seed",
+            "title": "4. Installation de la base de donn\u00e9es"
+        },
+        {
+            "location": "/installation/#5-repertoires-et-droits",
+            "text": "Cr\u00e9er le r\u00e9pertoire \" uploads \" \u00e0 la racine du repository, c'est lui qui recevra les images upload\u00e9es pour les entit\u00e9s.  (!) Tous les fichiers du repository doivent \u00eatre accessibles et lisibles par Apache. De m\u00eame, Apache doit avoir les droits d'\u00e9criture dans les dossiers  bootstrap  et  storage .",
+            "title": "5. R\u00e9pertoires et droits"
+        },
+        {
+            "location": "/Dependances/",
+            "text": "D\u00e9pendances Laravel\n\n\nPour fonctionner, le site web utilise plusieurs librairies open sources :\n\n\n1. simplesoftwareio/simple-qrcode\n\n\nCette librairie est utilis\u00e9e pour g\u00e9n\u00e9rer des QrCode. \n\n\nLa librairie Simple-qrcode de SimpleSofhWareIO est disponible \u00e0 l\u2019adresse :\n\n\nhttps://github.com/SimpleSoftwareIO/simple-qrcode\n\n\nVersion utilis\u00e9e : 3.1.*\n\n\n2. artisaninweb/laravel-soap\n\n\nCette librairie est utilis\u00e9e pour r\u00e9aliser les appels SOAP sur le web service java. \n\n\nLa librairie Laravel-SOAP de ArtisanInWeb est disponible \u00e0 l\u2019adresse : \n\n\nhttps://github.com/artisaninweb/laravel-soap\n\n\nVersion utilis\u00e9e : 0.2.*\n\n\n3. hisorange/browser-detect\n\n\nCette librairie est utilis\u00e9e pour d\u00e9tecter l\u2019utilisation du site web avec un mobile ou une tablette. \n\n\nLa libraire Browser-detect de Hisorange est disponible \u00e0 l\u2019adresse : \n\n\nhttps://github.com/hisorange/browser-detect\n\n\nVersion utilis\u00e9e : 2.*\n\n\n4. laravelcollective/html\n\n\nCette librairie est utilis\u00e9e pour la cr\u00e9ation de formulaires html.\n\n\nLa librairie html de LaraveCollective est disponible \u00e0 l\u2019adresse : \n\n\nhttps://github.com/LaravelCollective/html\n\n\nVersion utilis\u00e9e : ~5.0",
+            "title": "D\u00e9pendances"
+        },
+        {
+            "location": "/Dependances/#dependances-laravel",
+            "text": "Pour fonctionner, le site web utilise plusieurs librairies open sources :",
+            "title": "D\u00e9pendances Laravel"
+        },
+        {
+            "location": "/Dependances/#1-simplesoftwareiosimple-qrcode",
+            "text": "Cette librairie est utilis\u00e9e pour g\u00e9n\u00e9rer des QrCode.   La librairie Simple-qrcode de SimpleSofhWareIO est disponible \u00e0 l\u2019adresse :  https://github.com/SimpleSoftwareIO/simple-qrcode  Version utilis\u00e9e : 3.1.*",
+            "title": "1. simplesoftwareio/simple-qrcode"
+        },
+        {
+            "location": "/Dependances/#2-artisaninweblaravel-soap",
+            "text": "Cette librairie est utilis\u00e9e pour r\u00e9aliser les appels SOAP sur le web service java.   La librairie Laravel-SOAP de ArtisanInWeb est disponible \u00e0 l\u2019adresse :   https://github.com/artisaninweb/laravel-soap  Version utilis\u00e9e : 0.2.*",
+            "title": "2. artisaninweb/laravel-soap"
+        },
+        {
+            "location": "/Dependances/#3-hisorangebrowser-detect",
+            "text": "Cette librairie est utilis\u00e9e pour d\u00e9tecter l\u2019utilisation du site web avec un mobile ou une tablette.   La libraire Browser-detect de Hisorange est disponible \u00e0 l\u2019adresse :   https://github.com/hisorange/browser-detect  Version utilis\u00e9e : 2.*",
+            "title": "3. hisorange/browser-detect"
+        },
+        {
+            "location": "/Dependances/#4-laravelcollectivehtml",
+            "text": "Cette librairie est utilis\u00e9e pour la cr\u00e9ation de formulaires html.  La librairie html de LaraveCollective est disponible \u00e0 l\u2019adresse :   https://github.com/LaravelCollective/html  Version utilis\u00e9e : ~5.0",
+            "title": "4. laravelcollective/html"
+        },
+        {
+            "location": "/Modeles/",
+            "text": "Mod\u00e8les\n\n\nL\u2019application web utilise un mod\u00e8le pour dialoguer avec une base de donn\u00e9es plate.\n\n\n1. Utilisateurs (User)\n\n\nClasse : \nUser\n\n\nNamespace : \nApp\n\n\nLes utilisateurs sont dans le mod\u00e8le \u201cUser\u201d. \n\n\nIls sont utilis\u00e9s pour l\u2019authentification \u00e0 l\u2019application. \n\n\nLe mod\u00e8le \nUser\n se base sur le mod\u00e8le de base des utilisateurs dans Laravel. \nLe champ bool\u00e9en \u201cadmin\u201d a \u00e9t\u00e9 rajout\u00e9 pour pouvoir reconna\u00eetre un utilisateur basique d\u2019un administrateur. \n\n\n2. Log d\u2019activit\u00e9 (Log)\n\n\nClasse : \nLog\n\n\nNamespace : \nApp\n\n\nLes logs d\u2019activit\u00e9 sont dans le mod\u00e8le \u201cLog\u201d.\n\n\nIls sont utilis\u00e9s pour tracer l\u2019activit\u00e9 r\u00e9alis\u00e9e par les utilisateurs authentifi\u00e9s de l\u2019application. \n\n\nLes attributs du mod\u00e8le \u201cLog\u201d sont :\n\n\n\n\n\n\nmessage : \nla description du log d\u2019activit\u00e9\n\n\n\n\n\n\ncreate_at : \nla date de cr\u00e9ation du log d\u2019activit\u00e9\n\n\n\n\n\n\nuser : \nl\u2019utilisateur qui a r\u00e9alis\u00e9 l\u2019activit\u00e9",
+            "title": "Mod\u00e8les"
+        },
+        {
+            "location": "/Modeles/#modeles",
+            "text": "L\u2019application web utilise un mod\u00e8le pour dialoguer avec une base de donn\u00e9es plate.",
+            "title": "Mod\u00e8les"
+        },
+        {
+            "location": "/Modeles/#1-utilisateurs-user",
+            "text": "Classe :  User  Namespace :  App  Les utilisateurs sont dans le mod\u00e8le \u201cUser\u201d.   Ils sont utilis\u00e9s pour l\u2019authentification \u00e0 l\u2019application.   Le mod\u00e8le  User  se base sur le mod\u00e8le de base des utilisateurs dans Laravel. \nLe champ bool\u00e9en \u201cadmin\u201d a \u00e9t\u00e9 rajout\u00e9 pour pouvoir reconna\u00eetre un utilisateur basique d\u2019un administrateur.",
+            "title": "1. Utilisateurs (User)"
+        },
+        {
+            "location": "/Modeles/#2-log-dactivite-log",
+            "text": "Classe :  Log  Namespace :  App  Les logs d\u2019activit\u00e9 sont dans le mod\u00e8le \u201cLog\u201d.  Ils sont utilis\u00e9s pour tracer l\u2019activit\u00e9 r\u00e9alis\u00e9e par les utilisateurs authentifi\u00e9s de l\u2019application.   Les attributs du mod\u00e8le \u201cLog\u201d sont :    message :  la description du log d\u2019activit\u00e9    create_at :  la date de cr\u00e9ation du log d\u2019activit\u00e9    user :  l\u2019utilisateur qui a r\u00e9alis\u00e9 l\u2019activit\u00e9",
+            "title": "2. Log d\u2019activit\u00e9 (Log)"
+        },
+        {
+            "location": "/Facades/",
+            "text": "Facades\n\n\nPour faciliter l\u2019utilisation de l\u2019application, des Facades laravel ont \u00e9t\u00e9 ajout\u00e9es.\n\n\n1. Utils\n\n\nClasse : \nUtils\n\n\nNamespace : \nApp\\Classes\n\n\nLa fa\u00e7ade Utils donne acc\u00e8s aux fonctions utiles de l\u2019application :\n\n\nA - formatURI\n\n\nsignature : \nstring formatURI(string URI)\n\n\nRenvoie le string \u201cURI\u201d format\u00e9 pour pouvoir passer en tant que param\u00e8tre dans les requ\u00eates \n\n\nB - GETunformatURI\n\n\nsignature : \nstring unformatURI(string URI)\n\n\nRenvoie le string \u201cURI\u201d d\u00e9format\u00e9 pour pouvoir le renvoyer au web service. \n\n\nC - cast\n\n\nsignature : \nstdObject cast(Object instance, String classname)\n\n\nRenvoie l\u2019Object \u201cinstance\u201d cast\u00e9 dans la classe \u201cclassname\u201d. \n\n\nSi le string \u201cclassname\u201d finit par \u201c[]\u201d, un tableau sera envoy\u00e9 avec les instances qu\u2019il contient cast\u00e9es dans la classe demand\u00e9e.\n\n\n2. Comments\n\n\nClasse : \nComments\n\n\nNamespace : \nApp\\Classes\n\n\nLa fa\u00e7ade Comments donne acc\u00e8s aux fonctions du web service en relation avec les commentaires. \n\n\nA - AddComment\n\n\nsignature : \nComment AddComment(Comment c, Entity e)\n\n\nAppelle la fonction \u201cAddComment\u201d du web service pour ajouter un commentaire.\nL\u2019objet Comment \nc\n est le commentaire que l\u2019on veut ajouter. Ses attributs \nemail\n, \nauthorName\n et \ncomment\n doivent \u00eatre renseign\u00e9s.\nL\u2019objet Entity \ne\n est l\u2019entit\u00e9 que l\u2019on veut commenter. Son attribut \nURI\n doit \u00eatre renseign\u00e9.\nLa fonction renvoie le commentaire ins\u00e9r\u00e9 dans la base donn\u00e9e s\u00e9mantique locale avec tous ses attributs renseign\u00e9s.\n\n\nB - GrantComment\n\n\nsignature : \nBoolean GrantComment(Comment c)\n\n\nAppelle la fonction \nGrantComment\n du web service pour valider un commentaire afin qu\u2019il soit affich\u00e9 au public du site web.\nL\u2019objet Comment \nc\n est le commentaire que l\u2019on veut valider. Son attribut \nid\n doit \u00eatre renseign\u00e9.\nLa fonction renvoie un bool\u00e9en \u201cVrai\u201d si la validation s\u2019est bien d\u00e9roul\u00e9e.\n\n\nC - DenyComment\n\n\nsignature : \nBoolean DenyComment(Comment c)\n\n\nAppelle la fonction \nDenyComment\n du web service pour refuser un commentaire afin qu\u2019il ne soit plus affich\u00e9 au public mais pas supprim\u00e9.\nL\u2019objet Comment \nc\n est le commentaire que l\u2019on veut refuser. Son attribut \nid\n doit \u00eatre renseign\u00e9.\nLa fonction renvoie un bool\u00e9en \u201cVrai\u201d si le refus s\u2019est bien d\u00e9roul\u00e9.\n\n\nD - RemoveComment\n\n\nsignature : \nBoolean RemoveComment(Comment c)\n\n\nAppelle la fonction \nRemoveComment\n du web service pour supprimer un commentaire de la base de donn\u00e9es s\u00e9mantique locale.\nL\u2019objet Comment \nc\n est le commentaire que l\u2019on veut supprimer. Son attribut \nid\n doit \u00eatre renseign\u00e9.\nL\u2019objet Entity \ne\n est l\u2019entit\u00e9 que l\u2019on veut supprimer. Son attribut \nURI\n doit \u00eatre renseign\u00e9.\nLa fonction renvoie un bool\u00e9en \u201cVrai\u201d si la suppression s\u2019est bien d\u00e9roul\u00e9e.\n\n\nE - LoadComment\n\n\nsignature : \nComment[] LoadComment(Entity e)\n\n\nAppelle la fonction \nLoadComment\n du web service pour charger tous les commentaires sur une entit\u00e9.\nL\u2019objet Entity \ne\n est l\u2019entit\u00e9 dont on veut r\u00e9cup\u00e9rer les commentaires. Son attribut \nURI\n doit \u00eatre renseign\u00e9.\nLa fonction renvoie un tableau d\u2019objet Comment.\nSi l\u2019objet Entity \ne\n est \nnull\n,  la fonction renvoie tous les commentaires de la base de donn\u00e9es s\u00e9mantiques locale.\n\n\n3. Semantics\n\n\nClasse : \nSemantics\n\n\nNamespace : \nApp\\Classes\n\n\nLa fa\u00e7ade Semantics donne acc\u00e8s aux fonctions du web service en relation avec le mod\u00e8le AXIS_CSRM. \n\n\nA - AddEntity\n\n\nSignature : \nEntity AddEntity(Entity e)\n\n\nAppelle la fonction \nAddEntity\n du web service pour ajouter une entit\u00e9 dans la base de donn\u00e9es s\u00e9mantique.\nL\u2019objet Entity pass\u00e9 en param\u00e8tre doit avoir l\u2019attribut \nURI\n vide.\nL\u2019objet Entity renvoy\u00e9 a l\u2019attribut \nURI\n renseign\u00e9.\n\n\nB - RemoveEntity\n\n\nSignature : \nBoolean RemoveEntity(Entity e)\n\n\nAppelle la fonction \nRemoveEntity\n du web service pour supprimer une entit\u00e9 de la base de donn\u00e9es s\u00e9mantique.\nL\u2019objet Entity pass\u00e9 en param\u00e8tre doit avoir l\u2019attribut \nURI\n renseign\u00e9.\nLa fonction renvoie un bool\u00e9en \u201cVrai\u201d si la suppression s\u2019est bien pass\u00e9e.\n\n\nC - SetEntityProperty\n\n\nSignature : \nBoolean SetEntityProperty(Entity e, Property p, Entity valueEntity)\n\n\nAppelle la fonction \nSetEntityProperty\n du web service pour modifier une propri\u00e9t\u00e9 d\u2019une entit\u00e9.\nL\u2019objet Entity \ne\n est l\u2019entit\u00e9 dont on veut modifier la propri\u00e9t\u00e9. Son attribut \nURI\n doit \u00eatre renseign\u00e9.\nL\u2019objet Property \np\n est la propri\u00e9t\u00e9 que l\u2019on veut modifier. Ses attributs \nURI\n et \ntype\n doivent \u00eatre renseign\u00e9s.\nSi l\u2019attribut \ntype\n est \nURI\n, l\u2019objet Entity \nvalueEntity\n doit \u00eatre fourni avec son attribut \nURI\n renseign\u00e9. Sinon, l\u2019objet Property \np\n doit avoir son attribut \nvalue\n renseign\u00e9 et l\u2019objet Entity \nvalueEntity\n peut \u00eatre \nnull\n.\nLa fonction renvoie un bool\u00e9en \u201cVrai\u201d si la modification de la propri\u00e9t\u00e9 s\u2019est bien pass\u00e9e.\n\n\nD - RemoveEntityProperty\n\n\nSignature : \nBoolean RemoveEntityProperty(Entity e, Property p, Entity valueEntity)\n\n\nAppelle la fonction \nRemoveEntityProperty\n du web service pour supprimer une propri\u00e9t\u00e9 d\u2019une entit\u00e9.\nL\u2019objet Entity \ne\n est l\u2019entit\u00e9 dont on veut supprimer la propri\u00e9t\u00e9. Son attribut \nURI\n doit \u00eatre renseign\u00e9.\nL\u2019objet Property \np\n est la propri\u00e9t\u00e9 que l\u2019on veut supprimer. Ses attributs \nURI\n et \ntype\n doivent \u00eatre renseign\u00e9s.\nSi l\u2019attribut \ntype\n est \nURI\n, l\u2019objet Entity \nvalueEntity\n doit \u00eatre fourni avec son attribut \nURI\n renseign\u00e9. Sinon, l\u2019objet Property \np\n doit avoir son attribut \nvalue\n renseign\u00e9 et l\u2019objet Entity \nvalueEntity\n peut \u00eatre \nnull\n.\nLa fonction renvoie un bool\u00e9en \u201cVrai\u201d si la suppression s\u2019est bien pass\u00e9e.\n\n\nE - LoadEntityProperties\n\n\nSignature : \nArray(Property) LoadEntityProperties(Entity e)\n\n\nAppelle la fonction \nLoadEntityProperties\n du web service pour charger les propri\u00e9t\u00e9s remplies d\u2019une entit\u00e9.\nL\u2019objet Entity \ne\n est l\u2019entit\u00e9 dont on veut charger les propri\u00e9t\u00e9s. Son attribut \nURI\n doit \u00eatre renseign\u00e9.\nLa fonction renvoie un tableau d\u2019objet Property.\n\n\nF - SearchOurEntitesFromText\n\n\nSignature : \nArray(Entity) SearchOurEntitiesFromText(String needle)\n\n\nAppelle la fonction \nSearchOurEntitiesFromText\n du web service pour chercher les entit\u00e9s pr\u00e9sentes dans notre base de donn\u00e9es s\u00e9mantiques dont le nom correspond au texte pass\u00e9 en param\u00e8tre.\nLe String \nneedle\n repr\u00e9sente le texte recherch\u00e9 dans le nom des entit\u00e9s.\nLa fonction renvoie un tableau d\u2019objets Entity qui correspondent \u00e0 la recherche.\n\n\nG - SearchAllEntitiesFromText\n\n\nSignature : \nArray(Entity) SearchAllEntitiesFromText(String needle)\n\n\nAppelle la fonction \nSearchAllEntitiesFromText\n du web service pour chercher les entit\u00e9s pr\u00e9sentes dans le Linked Open Data dont le nom correspond au texte pass\u00e9 en param\u00e8tre.\nLe String \nneedle\n repr\u00e9sente le texte recherch\u00e9 dans le nom des entit\u00e9s.\nLa fonction renvoie un tableau d\u2019objets Entity qui correspondent \u00e0 la recherche.\n\n\nH - GetAllEntities\n\n\nSignature : \nArray(Entity) GetAllEntities()\n \n\n\nAppelle la fonction \nGetAllEntities\n du web service pour charger toutes les entit\u00e9s pr\u00e9sentes dans notre base de donn\u00e9es.\nLa fonction renvoie un tableau d\u2019objets Entity qui sont pr\u00e9sents dans notre base de donn\u00e9es s\u00e9mantique locale.\n\n\nI - GetAllPropertiesAdmin\n\n\nSignature : \nArray(PropertyAdmin) GetAllPropertiesAdmin(Entity e)\n\n\nAppelle la fonction \nGetAllPropertiesAdmin\n du web service pour charger toutes les propri\u00e9t\u00e9s possibles d\u2019une entit\u00e9 pour l\u2019administration de celles-ci.\nL\u2019objet Entity \ne\n est l\u2019entit\u00e9 dont on veut charger les propri\u00e9t\u00e9s. Son attribut \nURI\n doit \u00eatre renseign\u00e9.\nLa fonction renvoie un tableau d\u2019objet PropertyAdmin.\n\n\nJ - GetEntity\n\n\nSignature : \nEntity GetEntity(Entity e)\n  \n\n\nAppelle la fonction \nGetEntity\n du web service pour r\u00e9cup\u00e9rer une entit\u00e9.\nL\u2019objet Entity \ne\n est l\u2019entit\u00e9 que l\u2019on veut r\u00e9cup\u00e9rer. Son attribut \nURI\n doit \u00eatre renseign\u00e9.\nLa fonction renvoie un objet Entity correspondant \u00e0 l\u2019attribut \nURI\n donn\u00e9 en param\u00e8tre et dont tous les attributs sont renseign\u00e9s.\n\n\n4. Logs\n\n\nClasse : \nLogs\n\n\nNamespace : \nApp\\Classes\n\n\nLa fa\u00e7ade Logs donne acc\u00e8s aux fonctions qui logguent les activit\u00e9s des utilisateurs authentifi\u00e9s.\n\n\nA - add\n\n\nsignature : \nvoid add( String action, String message, User user)\n\n\nCette fonction permet d\u2019ajouter un log d\u2019activit\u00e9 dans la base de donn\u00e9es du site web. \nLa variable \naction\n sp\u00e9cifie l\u2019action faite par l\u2019utilisateur\nLa variable \nmessage\n est le message de l\u2019action faite par l\u2019utilisateur\nLa variable \nuser\n sp\u00e9cifie l\u2019utilisateur qui a fait l\u2019action. Si elle est \nnull\n, l\u2019action n\u2019est li\u00e9e \u00e0 personne.\n\n\nB - debug\n\n\nsignature : \nvoid debug(String type, String message, User user)\n\n\nCette fonction permet d\u2019ajouter un log d\u2019activit\u00e9 dans la base de donn\u00e9es du site web uniquement si l\u2019application est en mode \ndebug\n. \nLa variable \ntype\n sp\u00e9cifie le type de debug\nLa variable \nmessage\n est le message de debug\nLa variable \nuser\n sp\u00e9cifie l\u2019utilisateur qui a provoqu\u00e9 le log de debug. Si elle est \nnull\n, l\u2019action n\u2019est li\u00e9e \u00e0 personne.",
+            "title": "Fa\u00e7ades"
+        },
+        {
+            "location": "/Facades/#facades",
+            "text": "Pour faciliter l\u2019utilisation de l\u2019application, des Facades laravel ont \u00e9t\u00e9 ajout\u00e9es.",
+            "title": "Facades"
+        },
+        {
+            "location": "/Facades/#1-utils",
+            "text": "Classe :  Utils  Namespace :  App\\Classes  La fa\u00e7ade Utils donne acc\u00e8s aux fonctions utiles de l\u2019application :",
+            "title": "1. Utils"
+        },
+        {
+            "location": "/Facades/#a-formaturi",
+            "text": "signature :  string formatURI(string URI)  Renvoie le string \u201cURI\u201d format\u00e9 pour pouvoir passer en tant que param\u00e8tre dans les requ\u00eates",
+            "title": "A - formatURI"
+        },
+        {
+            "location": "/Facades/#b-getunformaturi",
+            "text": "signature :  string unformatURI(string URI)  Renvoie le string \u201cURI\u201d d\u00e9format\u00e9 pour pouvoir le renvoyer au web service.",
+            "title": "B - GETunformatURI"
+        },
+        {
+            "location": "/Facades/#c-cast",
+            "text": "signature :  stdObject cast(Object instance, String classname)  Renvoie l\u2019Object \u201cinstance\u201d cast\u00e9 dans la classe \u201cclassname\u201d.   Si le string \u201cclassname\u201d finit par \u201c[]\u201d, un tableau sera envoy\u00e9 avec les instances qu\u2019il contient cast\u00e9es dans la classe demand\u00e9e.",
+            "title": "C - cast"
+        },
+        {
+            "location": "/Facades/#2-comments",
+            "text": "Classe :  Comments  Namespace :  App\\Classes  La fa\u00e7ade Comments donne acc\u00e8s aux fonctions du web service en relation avec les commentaires.",
+            "title": "2. Comments"
+        },
+        {
+            "location": "/Facades/#a-addcomment",
+            "text": "signature :  Comment AddComment(Comment c, Entity e)  Appelle la fonction \u201cAddComment\u201d du web service pour ajouter un commentaire.\nL\u2019objet Comment  c  est le commentaire que l\u2019on veut ajouter. Ses attributs  email ,  authorName  et  comment  doivent \u00eatre renseign\u00e9s.\nL\u2019objet Entity  e  est l\u2019entit\u00e9 que l\u2019on veut commenter. Son attribut  URI  doit \u00eatre renseign\u00e9.\nLa fonction renvoie le commentaire ins\u00e9r\u00e9 dans la base donn\u00e9e s\u00e9mantique locale avec tous ses attributs renseign\u00e9s.",
+            "title": "A - AddComment"
+        },
+        {
+            "location": "/Facades/#b-grantcomment",
+            "text": "signature :  Boolean GrantComment(Comment c)  Appelle la fonction  GrantComment  du web service pour valider un commentaire afin qu\u2019il soit affich\u00e9 au public du site web.\nL\u2019objet Comment  c  est le commentaire que l\u2019on veut valider. Son attribut  id  doit \u00eatre renseign\u00e9.\nLa fonction renvoie un bool\u00e9en \u201cVrai\u201d si la validation s\u2019est bien d\u00e9roul\u00e9e.",
+            "title": "B - GrantComment"
+        },
+        {
+            "location": "/Facades/#c-denycomment",
+            "text": "signature :  Boolean DenyComment(Comment c)  Appelle la fonction  DenyComment  du web service pour refuser un commentaire afin qu\u2019il ne soit plus affich\u00e9 au public mais pas supprim\u00e9.\nL\u2019objet Comment  c  est le commentaire que l\u2019on veut refuser. Son attribut  id  doit \u00eatre renseign\u00e9.\nLa fonction renvoie un bool\u00e9en \u201cVrai\u201d si le refus s\u2019est bien d\u00e9roul\u00e9.",
+            "title": "C - DenyComment"
+        },
+        {
+            "location": "/Facades/#d-removecomment",
+            "text": "signature :  Boolean RemoveComment(Comment c)  Appelle la fonction  RemoveComment  du web service pour supprimer un commentaire de la base de donn\u00e9es s\u00e9mantique locale.\nL\u2019objet Comment  c  est le commentaire que l\u2019on veut supprimer. Son attribut  id  doit \u00eatre renseign\u00e9.\nL\u2019objet Entity  e  est l\u2019entit\u00e9 que l\u2019on veut supprimer. Son attribut  URI  doit \u00eatre renseign\u00e9.\nLa fonction renvoie un bool\u00e9en \u201cVrai\u201d si la suppression s\u2019est bien d\u00e9roul\u00e9e.",
+            "title": "D - RemoveComment"
+        },
+        {
+            "location": "/Facades/#e-loadcomment",
+            "text": "signature :  Comment[] LoadComment(Entity e)  Appelle la fonction  LoadComment  du web service pour charger tous les commentaires sur une entit\u00e9.\nL\u2019objet Entity  e  est l\u2019entit\u00e9 dont on veut r\u00e9cup\u00e9rer les commentaires. Son attribut  URI  doit \u00eatre renseign\u00e9.\nLa fonction renvoie un tableau d\u2019objet Comment.\nSi l\u2019objet Entity  e  est  null ,  la fonction renvoie tous les commentaires de la base de donn\u00e9es s\u00e9mantiques locale.",
+            "title": "E - LoadComment"
+        },
+        {
+            "location": "/Facades/#3-semantics",
+            "text": "Classe :  Semantics  Namespace :  App\\Classes  La fa\u00e7ade Semantics donne acc\u00e8s aux fonctions du web service en relation avec le mod\u00e8le AXIS_CSRM.",
+            "title": "3. Semantics"
+        },
+        {
+            "location": "/Facades/#a-addentity",
+            "text": "Signature :  Entity AddEntity(Entity e)  Appelle la fonction  AddEntity  du web service pour ajouter une entit\u00e9 dans la base de donn\u00e9es s\u00e9mantique.\nL\u2019objet Entity pass\u00e9 en param\u00e8tre doit avoir l\u2019attribut  URI  vide.\nL\u2019objet Entity renvoy\u00e9 a l\u2019attribut  URI  renseign\u00e9.",
+            "title": "A - AddEntity"
+        },
+        {
+            "location": "/Facades/#b-removeentity",
+            "text": "Signature :  Boolean RemoveEntity(Entity e)  Appelle la fonction  RemoveEntity  du web service pour supprimer une entit\u00e9 de la base de donn\u00e9es s\u00e9mantique.\nL\u2019objet Entity pass\u00e9 en param\u00e8tre doit avoir l\u2019attribut  URI  renseign\u00e9.\nLa fonction renvoie un bool\u00e9en \u201cVrai\u201d si la suppression s\u2019est bien pass\u00e9e.",
+            "title": "B - RemoveEntity"
+        },
+        {
+            "location": "/Facades/#c-setentityproperty",
+            "text": "Signature :  Boolean SetEntityProperty(Entity e, Property p, Entity valueEntity)  Appelle la fonction  SetEntityProperty  du web service pour modifier une propri\u00e9t\u00e9 d\u2019une entit\u00e9.\nL\u2019objet Entity  e  est l\u2019entit\u00e9 dont on veut modifier la propri\u00e9t\u00e9. Son attribut  URI  doit \u00eatre renseign\u00e9.\nL\u2019objet Property  p  est la propri\u00e9t\u00e9 que l\u2019on veut modifier. Ses attributs  URI  et  type  doivent \u00eatre renseign\u00e9s.\nSi l\u2019attribut  type  est  URI , l\u2019objet Entity  valueEntity  doit \u00eatre fourni avec son attribut  URI  renseign\u00e9. Sinon, l\u2019objet Property  p  doit avoir son attribut  value  renseign\u00e9 et l\u2019objet Entity  valueEntity  peut \u00eatre  null .\nLa fonction renvoie un bool\u00e9en \u201cVrai\u201d si la modification de la propri\u00e9t\u00e9 s\u2019est bien pass\u00e9e.",
+            "title": "C - SetEntityProperty"
+        },
+        {
+            "location": "/Facades/#d-removeentityproperty",
+            "text": "Signature :  Boolean RemoveEntityProperty(Entity e, Property p, Entity valueEntity)  Appelle la fonction  RemoveEntityProperty  du web service pour supprimer une propri\u00e9t\u00e9 d\u2019une entit\u00e9.\nL\u2019objet Entity  e  est l\u2019entit\u00e9 dont on veut supprimer la propri\u00e9t\u00e9. Son attribut  URI  doit \u00eatre renseign\u00e9.\nL\u2019objet Property  p  est la propri\u00e9t\u00e9 que l\u2019on veut supprimer. Ses attributs  URI  et  type  doivent \u00eatre renseign\u00e9s.\nSi l\u2019attribut  type  est  URI , l\u2019objet Entity  valueEntity  doit \u00eatre fourni avec son attribut  URI  renseign\u00e9. Sinon, l\u2019objet Property  p  doit avoir son attribut  value  renseign\u00e9 et l\u2019objet Entity  valueEntity  peut \u00eatre  null .\nLa fonction renvoie un bool\u00e9en \u201cVrai\u201d si la suppression s\u2019est bien pass\u00e9e.",
+            "title": "D - RemoveEntityProperty"
+        },
+        {
+            "location": "/Facades/#e-loadentityproperties",
+            "text": "Signature :  Array(Property) LoadEntityProperties(Entity e)  Appelle la fonction  LoadEntityProperties  du web service pour charger les propri\u00e9t\u00e9s remplies d\u2019une entit\u00e9.\nL\u2019objet Entity  e  est l\u2019entit\u00e9 dont on veut charger les propri\u00e9t\u00e9s. Son attribut  URI  doit \u00eatre renseign\u00e9.\nLa fonction renvoie un tableau d\u2019objet Property.",
+            "title": "E - LoadEntityProperties"
+        },
+        {
+            "location": "/Facades/#f-searchourentitesfromtext",
+            "text": "Signature :  Array(Entity) SearchOurEntitiesFromText(String needle)  Appelle la fonction  SearchOurEntitiesFromText  du web service pour chercher les entit\u00e9s pr\u00e9sentes dans notre base de donn\u00e9es s\u00e9mantiques dont le nom correspond au texte pass\u00e9 en param\u00e8tre.\nLe String  needle  repr\u00e9sente le texte recherch\u00e9 dans le nom des entit\u00e9s.\nLa fonction renvoie un tableau d\u2019objets Entity qui correspondent \u00e0 la recherche.",
+            "title": "F - SearchOurEntitesFromText"
+        },
+        {
+            "location": "/Facades/#g-searchallentitiesfromtext",
+            "text": "Signature :  Array(Entity) SearchAllEntitiesFromText(String needle)  Appelle la fonction  SearchAllEntitiesFromText  du web service pour chercher les entit\u00e9s pr\u00e9sentes dans le Linked Open Data dont le nom correspond au texte pass\u00e9 en param\u00e8tre.\nLe String  needle  repr\u00e9sente le texte recherch\u00e9 dans le nom des entit\u00e9s.\nLa fonction renvoie un tableau d\u2019objets Entity qui correspondent \u00e0 la recherche.",
+            "title": "G - SearchAllEntitiesFromText"
+        },
+        {
+            "location": "/Facades/#h-getallentities",
+            "text": "Signature :  Array(Entity) GetAllEntities()    Appelle la fonction  GetAllEntities  du web service pour charger toutes les entit\u00e9s pr\u00e9sentes dans notre base de donn\u00e9es.\nLa fonction renvoie un tableau d\u2019objets Entity qui sont pr\u00e9sents dans notre base de donn\u00e9es s\u00e9mantique locale.",
+            "title": "H - GetAllEntities"
+        },
+        {
+            "location": "/Facades/#i-getallpropertiesadmin",
+            "text": "Signature :  Array(PropertyAdmin) GetAllPropertiesAdmin(Entity e)  Appelle la fonction  GetAllPropertiesAdmin  du web service pour charger toutes les propri\u00e9t\u00e9s possibles d\u2019une entit\u00e9 pour l\u2019administration de celles-ci.\nL\u2019objet Entity  e  est l\u2019entit\u00e9 dont on veut charger les propri\u00e9t\u00e9s. Son attribut  URI  doit \u00eatre renseign\u00e9.\nLa fonction renvoie un tableau d\u2019objet PropertyAdmin.",
+            "title": "I - GetAllPropertiesAdmin"
+        },
+        {
+            "location": "/Facades/#j-getentity",
+            "text": "Signature :  Entity GetEntity(Entity e)     Appelle la fonction  GetEntity  du web service pour r\u00e9cup\u00e9rer une entit\u00e9.\nL\u2019objet Entity  e  est l\u2019entit\u00e9 que l\u2019on veut r\u00e9cup\u00e9rer. Son attribut  URI  doit \u00eatre renseign\u00e9.\nLa fonction renvoie un objet Entity correspondant \u00e0 l\u2019attribut  URI  donn\u00e9 en param\u00e8tre et dont tous les attributs sont renseign\u00e9s.",
+            "title": "J - GetEntity"
+        },
+        {
+            "location": "/Facades/#4-logs",
+            "text": "Classe :  Logs  Namespace :  App\\Classes  La fa\u00e7ade Logs donne acc\u00e8s aux fonctions qui logguent les activit\u00e9s des utilisateurs authentifi\u00e9s.",
+            "title": "4. Logs"
+        },
+        {
+            "location": "/Facades/#a-add",
+            "text": "signature :  void add( String action, String message, User user)  Cette fonction permet d\u2019ajouter un log d\u2019activit\u00e9 dans la base de donn\u00e9es du site web. \nLa variable  action  sp\u00e9cifie l\u2019action faite par l\u2019utilisateur\nLa variable  message  est le message de l\u2019action faite par l\u2019utilisateur\nLa variable  user  sp\u00e9cifie l\u2019utilisateur qui a fait l\u2019action. Si elle est  null , l\u2019action n\u2019est li\u00e9e \u00e0 personne.",
+            "title": "A - add"
+        },
+        {
+            "location": "/Facades/#b-debug",
+            "text": "signature :  void debug(String type, String message, User user)  Cette fonction permet d\u2019ajouter un log d\u2019activit\u00e9 dans la base de donn\u00e9es du site web uniquement si l\u2019application est en mode  debug . \nLa variable  type  sp\u00e9cifie le type de debug\nLa variable  message  est le message de debug\nLa variable  user  sp\u00e9cifie l\u2019utilisateur qui a provoqu\u00e9 le log de debug. Si elle est  null , l\u2019action n\u2019est li\u00e9e \u00e0 personne.",
+            "title": "B - debug"
+        },
+        {
+            "location": "/Controlleurs/",
+            "text": "1. Contr\u00f4leurs\n\n\nPlusieurs contr\u00f4leurs sont disponibles dans l\u2019application\n\n\nA - Commentaire\n\n\nNamespace : \nApp\\Http\\Controllers\n\n\nLe contr\u00f4leur des commentaires \nCommentController\n permet :\n\n\n\n\nl\u2019ajout d\u2019un commentaire\n\n\nla validation d\u2019un commentaire\n\n\nle refus d\u2019un commentaire \n\n\nla suppression d\u2019un commentaire.\n\n\n\n\nB - Administrateur\n\n\nNamespace : \nApp\\Http\\Controllers\\Admin\n\n\nLe contr\u00f4leur d\u2019administration \nAdminController\n permet :\n\n\n\n\nl\u2019affichage de la zone d\u2019administration\n\n\nl\u2019affichage de l\u2019administration d\u2019une entit\u00e9\n\n\nl\u2019ajout d\u2019entit\u00e9\n\n\nla modification d\u2019une propri\u00e9t\u00e9 d\u2019une entit\u00e9\n\n\nla suppression de la valeur d\u2019une propri\u00e9t\u00e9 d\u2019une entit\u00e9\n\n\n\n\nC - Public\n\n\nNamespace : \nApp\\Http\\Controller\n\n\nLe contr\u00f4leur d\u2019affichage public \nPublicController\n permet :\n\n\n\n\nl\u2019affichage de l\u2019index\n\n\nl\u2019affichage d\u2019une entit\u00e9\n\n\nla recherche d\u2019une entit\u00e9 depuis un texte\n\n\n\n\nD - Logs\n\n\nNamespace : \nApp\\Http\\Controllers\\Admin\n\n\nLe contr\u00f4leur des logs d\u2019activit\u00e9 \u201cLogController\u201d permet :\n\n\n\n\nLa suppression de tous les logs d\u2019activit\u00e9\n\n\n\n\nE - Authentification\n\n\nNamespace : \nApp\\Http\\Controllers\\Auth\n\n\nLe contr\u00f4leur d\u2019authentification \nAuthentificationController\n permet : \n\n\n\n\nla connexion d\u2019un utilisateur\n\n\nla d\u00e9connexion d\u2019un utilisateur\n\n\n\n\n2. Middleware\n\n\nPlusieurs middlewares ont \u00e9t\u00e9 ajout\u00e9s \u00e0 l\u2019application.\n\n\nA - auth\n\n\nClasse : \nAuthenticate\n\n\nNamespace : \nApp\\Http\\Middleware\n\n\nCe middleware a \u00e9t\u00e9 ajout\u00e9 pour v\u00e9rifier qu\u2019un utilisateur est bien authentifi\u00e9. \n\n\nB - isAdmin\n\n\nClasse : \nIsAdmin\n\n\nNamespace : \nApp\\Http\\Middleware\n\n\nCe middleware a \u00e9t\u00e9 ajout\u00e9 pour v\u00e9rifier qu\u2019un utilisateur est bien authentifi\u00e9 et a les droits d\u2019administration. \n\n\n3. Tests unitaires\n\n\nLes tests unitaires sont r\u00e9alis\u00e9s sur les contr\u00f4leurs : \n\n\n\n\nPublicController\n\n\nCommentController\n\n\nAdmin\\LogsController\n\n\nAdmin\\AdminController",
+            "title": "Contr\u00f4lleurs"
+        },
+        {
+            "location": "/Controlleurs/#1-controleurs",
+            "text": "Plusieurs contr\u00f4leurs sont disponibles dans l\u2019application",
+            "title": "1. Contr\u00f4leurs"
+        },
+        {
+            "location": "/Controlleurs/#a-commentaire",
+            "text": "Namespace :  App\\Http\\Controllers  Le contr\u00f4leur des commentaires  CommentController  permet :   l\u2019ajout d\u2019un commentaire  la validation d\u2019un commentaire  le refus d\u2019un commentaire   la suppression d\u2019un commentaire.",
+            "title": "A - Commentaire"
+        },
+        {
+            "location": "/Controlleurs/#b-administrateur",
+            "text": "Namespace :  App\\Http\\Controllers\\Admin  Le contr\u00f4leur d\u2019administration  AdminController  permet :   l\u2019affichage de la zone d\u2019administration  l\u2019affichage de l\u2019administration d\u2019une entit\u00e9  l\u2019ajout d\u2019entit\u00e9  la modification d\u2019une propri\u00e9t\u00e9 d\u2019une entit\u00e9  la suppression de la valeur d\u2019une propri\u00e9t\u00e9 d\u2019une entit\u00e9",
+            "title": "B - Administrateur"
+        },
+        {
+            "location": "/Controlleurs/#c-public",
+            "text": "Namespace :  App\\Http\\Controller  Le contr\u00f4leur d\u2019affichage public  PublicController  permet :   l\u2019affichage de l\u2019index  l\u2019affichage d\u2019une entit\u00e9  la recherche d\u2019une entit\u00e9 depuis un texte",
+            "title": "C - Public"
+        },
+        {
+            "location": "/Controlleurs/#d-logs",
+            "text": "Namespace :  App\\Http\\Controllers\\Admin  Le contr\u00f4leur des logs d\u2019activit\u00e9 \u201cLogController\u201d permet :   La suppression de tous les logs d\u2019activit\u00e9",
+            "title": "D - Logs"
+        },
+        {
+            "location": "/Controlleurs/#e-authentification",
+            "text": "Namespace :  App\\Http\\Controllers\\Auth  Le contr\u00f4leur d\u2019authentification  AuthentificationController  permet :    la connexion d\u2019un utilisateur  la d\u00e9connexion d\u2019un utilisateur",
+            "title": "E - Authentification"
+        },
+        {
+            "location": "/Controlleurs/#2-middleware",
+            "text": "Plusieurs middlewares ont \u00e9t\u00e9 ajout\u00e9s \u00e0 l\u2019application.",
+            "title": "2. Middleware"
+        },
+        {
+            "location": "/Controlleurs/#a-auth",
+            "text": "Classe :  Authenticate  Namespace :  App\\Http\\Middleware  Ce middleware a \u00e9t\u00e9 ajout\u00e9 pour v\u00e9rifier qu\u2019un utilisateur est bien authentifi\u00e9.",
+            "title": "A - auth"
+        },
+        {
+            "location": "/Controlleurs/#b-isadmin",
+            "text": "Classe :  IsAdmin  Namespace :  App\\Http\\Middleware  Ce middleware a \u00e9t\u00e9 ajout\u00e9 pour v\u00e9rifier qu\u2019un utilisateur est bien authentifi\u00e9 et a les droits d\u2019administration.",
+            "title": "B - isAdmin"
+        },
+        {
+            "location": "/Controlleurs/#3-tests-unitaires",
+            "text": "Les tests unitaires sont r\u00e9alis\u00e9s sur les contr\u00f4leurs :    PublicController  CommentController  Admin\\LogsController  Admin\\AdminController",
+            "title": "3. Tests unitaires"
+        }
+    ]
+}

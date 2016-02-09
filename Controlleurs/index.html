@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+
+	<title>Contrôlleurs - AXIS-MOM WebSite</title>
+
+        <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../css/highlight.css">
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+        
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+
+            <!-- Main title -->
+            <a class="navbar-brand" href="..">AXIS-MOM WebSite</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+            
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                
+                
+                    <li >
+                        <a href="..">Home</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../installation/">Installation</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../Dependances/">Dépendances</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../Modeles/">Modèles</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../Facades/">Façades</a>
+                    </li>
+                
+                
+                
+                    <li class="active">
+                        <a href="./">Contrôlleurs</a>
+                    </li>
+                
+                
+                </ul>
+            
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                
+                    <li >
+                        <a rel="next" href="../Facades/">
+                            <i class="fa fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li class="disabled">
+                        <a rel="prev" >
+                            Next <i class="fa fa-arrow-right"></i>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a href="https://github.com/ptournem/AXIS_MOM_WebSite">
+                            
+                                <i class="fa fa-github"></i>
+                            
+                            GitHub
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+            
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+    
+        <li class="main active"><a href="#1-controleurs">1. Contrôleurs</a></li>
+        
+            <li><a href="#a-commentaire">A - Commentaire</a></li>
+        
+            <li><a href="#b-administrateur">B - Administrateur</a></li>
+        
+            <li><a href="#c-public">C - Public</a></li>
+        
+            <li><a href="#d-logs">D - Logs</a></li>
+        
+            <li><a href="#e-authentification">E - Authentification</a></li>
+        
+    
+        <li class="main "><a href="#2-middleware">2. Middleware</a></li>
+        
+            <li><a href="#a-auth">A - auth</a></li>
+        
+            <li><a href="#b-isadmin">B - isAdmin</a></li>
+        
+    
+        <li class="main "><a href="#3-tests-unitaires">3. Tests unitaires</a></li>
+        
+    
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="1-controleurs">1. Contrôleurs</h1>
+<p>Plusieurs contrôleurs sont disponibles dans l’application</p>
+<h2 id="a-commentaire">A - Commentaire</h2>
+<p>Namespace : <code>App\Http\Controllers</code></p>
+<p>Le contrôleur des commentaires <code>CommentController</code> permet :</p>
+<ul>
+<li>l’ajout d’un commentaire</li>
+<li>la validation d’un commentaire</li>
+<li>le refus d’un commentaire </li>
+<li>la suppression d’un commentaire.</li>
+</ul>
+<h2 id="b-administrateur">B - Administrateur</h2>
+<p>Namespace : <code>App\Http\Controllers\Admin</code></p>
+<p>Le contrôleur d’administration <code>AdminController</code> permet :</p>
+<ul>
+<li>l’affichage de la zone d’administration</li>
+<li>l’affichage de l’administration d’une entité</li>
+<li>l’ajout d’entité</li>
+<li>la modification d’une propriété d’une entité</li>
+<li>la suppression de la valeur d’une propriété d’une entité</li>
+</ul>
+<h2 id="c-public">C - Public</h2>
+<p>Namespace : <code>App\Http\Controller</code></p>
+<p>Le contrôleur d’affichage public <code>PublicController</code> permet :</p>
+<ul>
+<li>l’affichage de l’index</li>
+<li>l’affichage d’une entité</li>
+<li>la recherche d’une entité depuis un texte</li>
+</ul>
+<h2 id="d-logs">D - Logs</h2>
+<p>Namespace : <code>App\Http\Controllers\Admin</code></p>
+<p>Le contrôleur des logs d’activité “LogController” permet :</p>
+<ul>
+<li>La suppression de tous les logs d’activité</li>
+</ul>
+<h2 id="e-authentification">E - Authentification</h2>
+<p>Namespace : <code>App\Http\Controllers\Auth</code></p>
+<p>Le contrôleur d’authentification <code>AuthentificationController</code> permet : </p>
+<ul>
+<li>la connexion d’un utilisateur</li>
+<li>la déconnexion d’un utilisateur</li>
+</ul>
+<h1 id="2-middleware">2. Middleware</h1>
+<p>Plusieurs middlewares ont été ajoutés à l’application.</p>
+<h2 id="a-auth">A - auth</h2>
+<p>Classe : <code>Authenticate</code></p>
+<p>Namespace : <code>App\Http\Middleware</code></p>
+<p>Ce middleware a été ajouté pour vérifier qu’un utilisateur est bien authentifié. </p>
+<h2 id="b-isadmin">B - isAdmin</h2>
+<p>Classe : <code>IsAdmin</code></p>
+<p>Namespace : <code>App\Http\Middleware</code></p>
+<p>Ce middleware a été ajouté pour vérifier qu’un utilisateur est bien authentifié et a les droits d’administration. </p>
+<h1 id="3-tests-unitaires">3. Tests unitaires</h1>
+<p>Les tests unitaires sont réalisés sur les contrôleurs : </p>
+<ul>
+<li>PublicController</li>
+<li>CommentController</li>
+<li>Admin\LogsController</li>
+<li>Admin\AdminController</li>
+</ul></div>
+            
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+
+        <script src="../js/jquery-1.10.2.min.js"></script>
+        <script src="../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../js/highlight.pack.js"></script>
+        <script>var base_url = '..';</script>
+        <script data-main="../mkdocs/js/search.js" src="../mkdocs/js/require.js"></script>
+        <script src="../js/base.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            From here you can search these documents. Enter
+                            your search terms below.
+                        </p>
+                        <form role="form">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                            </div>
+                        </form>
+                        <div id="mkdocs-search-results"></div>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>

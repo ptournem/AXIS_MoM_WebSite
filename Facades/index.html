@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+
+	<title>Façades - AXIS-MOM WebSite</title>
+
+        <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../css/highlight.css">
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+        
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+
+            <!-- Main title -->
+            <a class="navbar-brand" href="..">AXIS-MOM WebSite</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+            
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                
+                
+                    <li >
+                        <a href="..">Home</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../installation/">Installation</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../Dependances/">Dépendances</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../Modeles/">Modèles</a>
+                    </li>
+                
+                
+                
+                    <li class="active">
+                        <a href="./">Façades</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../Controlleurs/">Contrôlleurs</a>
+                    </li>
+                
+                
+                </ul>
+            
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                
+                    <li >
+                        <a rel="next" href="../Modeles/">
+                            <i class="fa fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="prev" href="../Controlleurs/">
+                            Next <i class="fa fa-arrow-right"></i>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a href="https://github.com/ptournem/AXIS_MOM_WebSite">
+                            
+                                <i class="fa fa-github"></i>
+                            
+                            GitHub
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+            
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+    
+        <li class="main active"><a href="#facades">Facades</a></li>
+        
+            <li><a href="#1-utils">1. Utils</a></li>
+        
+            <li><a href="#2-comments">2. Comments</a></li>
+        
+            <li><a href="#3-semantics">3. Semantics</a></li>
+        
+            <li><a href="#4-logs">4. Logs</a></li>
+        
+    
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="facades">Facades</h1>
+<p>Pour faciliter l’utilisation de l’application, des Facades laravel ont été ajoutées.</p>
+<h2 id="1-utils">1. Utils</h2>
+<p>Classe : <code>Utils</code></p>
+<p>Namespace : <code>App\Classes</code></p>
+<p>La façade Utils donne accès aux fonctions utiles de l’application :</p>
+<h3 id="a-formaturi">A - formatURI</h3>
+<p>signature : <code>string formatURI(string URI)</code></p>
+<p>Renvoie le string “URI” formaté pour pouvoir passer en tant que paramètre dans les requêtes </p>
+<h3 id="b-getunformaturi">B - GETunformatURI</h3>
+<p>signature : <code>string unformatURI(string URI)</code></p>
+<p>Renvoie le string “URI” déformaté pour pouvoir le renvoyer au web service. </p>
+<h3 id="c-cast">C - cast</h3>
+<p>signature : <code>stdObject cast(Object instance, String classname)</code></p>
+<p>Renvoie l’Object “instance” casté dans la classe “classname”. </p>
+<p>Si le string “classname” finit par “[]”, un tableau sera envoyé avec les instances qu’il contient castées dans la classe demandée.</p>
+<h2 id="2-comments">2. Comments</h2>
+<p>Classe : <code>Comments</code></p>
+<p>Namespace : <code>App\Classes</code></p>
+<p>La façade Comments donne accès aux fonctions du web service en relation avec les commentaires. </p>
+<h3 id="a-addcomment">A - AddComment</h3>
+<p>signature : <code>Comment AddComment(Comment c, Entity e)</code></p>
+<p>Appelle la fonction “AddComment” du web service pour ajouter un commentaire.
+L’objet Comment <code>c</code> est le commentaire que l’on veut ajouter. Ses attributs <code>email</code>, <code>authorName</code> et <code>comment</code> doivent être renseignés.
+L’objet Entity <code>e</code> est l’entité que l’on veut commenter. Son attribut <code>URI</code> doit être renseigné.
+La fonction renvoie le commentaire inséré dans la base donnée sémantique locale avec tous ses attributs renseignés.</p>
+<h3 id="b-grantcomment">B - GrantComment</h3>
+<p>signature : <code>Boolean GrantComment(Comment c)</code></p>
+<p>Appelle la fonction <code>GrantComment</code> du web service pour valider un commentaire afin qu’il soit affiché au public du site web.
+L’objet Comment <code>c</code> est le commentaire que l’on veut valider. Son attribut <code>id</code> doit être renseigné.
+La fonction renvoie un booléen “Vrai” si la validation s’est bien déroulée.</p>
+<h3 id="c-denycomment">C - DenyComment</h3>
+<p>signature : <code>Boolean DenyComment(Comment c)</code></p>
+<p>Appelle la fonction <code>DenyComment</code> du web service pour refuser un commentaire afin qu’il ne soit plus affiché au public mais pas supprimé.
+L’objet Comment <code>c</code> est le commentaire que l’on veut refuser. Son attribut <code>id</code> doit être renseigné.
+La fonction renvoie un booléen “Vrai” si le refus s’est bien déroulé.</p>
+<h3 id="d-removecomment">D - RemoveComment</h3>
+<p>signature : <code>Boolean RemoveComment(Comment c)</code></p>
+<p>Appelle la fonction <code>RemoveComment</code> du web service pour supprimer un commentaire de la base de données sémantique locale.
+L’objet Comment <code>c</code> est le commentaire que l’on veut supprimer. Son attribut <code>id</code> doit être renseigné.
+L’objet Entity <code>e</code> est l’entité que l’on veut supprimer. Son attribut <code>URI</code> doit être renseigné.
+La fonction renvoie un booléen “Vrai” si la suppression s’est bien déroulée.</p>
+<h3 id="e-loadcomment">E - LoadComment</h3>
+<p>signature : <code>Comment[] LoadComment(Entity e)</code></p>
+<p>Appelle la fonction <code>LoadComment</code> du web service pour charger tous les commentaires sur une entité.
+L’objet Entity <code>e</code> est l’entité dont on veut récupérer les commentaires. Son attribut <code>URI</code> doit être renseigné.
+La fonction renvoie un tableau d’objet Comment.
+Si l’objet Entity <code>e</code> est <code>null</code>,  la fonction renvoie tous les commentaires de la base de données sémantiques locale.</p>
+<h2 id="3-semantics">3. Semantics</h2>
+<p>Classe : <code>Semantics</code></p>
+<p>Namespace : <code>App\Classes</code></p>
+<p>La façade Semantics donne accès aux fonctions du web service en relation avec le modèle AXIS_CSRM. </p>
+<h3 id="a-addentity">A - AddEntity</h3>
+<p>Signature : <code>Entity AddEntity(Entity e)</code></p>
+<p>Appelle la fonction <code>AddEntity</code> du web service pour ajouter une entité dans la base de données sémantique.
+L’objet Entity passé en paramètre doit avoir l’attribut <code>URI</code> vide.
+L’objet Entity renvoyé a l’attribut <code>URI</code> renseigné.</p>
+<h3 id="b-removeentity">B - RemoveEntity</h3>
+<p>Signature : <code>Boolean RemoveEntity(Entity e)</code></p>
+<p>Appelle la fonction <code>RemoveEntity</code> du web service pour supprimer une entité de la base de données sémantique.
+L’objet Entity passé en paramètre doit avoir l’attribut <code>URI</code> renseigné.
+La fonction renvoie un booléen “Vrai” si la suppression s’est bien passée.</p>
+<h3 id="c-setentityproperty">C - SetEntityProperty</h3>
+<p>Signature : <code>Boolean SetEntityProperty(Entity e, Property p, Entity valueEntity)</code></p>
+<p>Appelle la fonction <code>SetEntityProperty</code> du web service pour modifier une propriété d’une entité.
+L’objet Entity <code>e</code> est l’entité dont on veut modifier la propriété. Son attribut <code>URI</code> doit être renseigné.
+L’objet Property <code>p</code> est la propriété que l’on veut modifier. Ses attributs <code>URI</code> et <code>type</code> doivent être renseignés.
+Si l’attribut <code>type</code> est <code>URI</code>, l’objet Entity <code>valueEntity</code> doit être fourni avec son attribut <code>URI</code> renseigné. Sinon, l’objet Property <code>p</code> doit avoir son attribut <code>value</code> renseigné et l’objet Entity <code>valueEntity</code> peut être <code>null</code>.
+La fonction renvoie un booléen “Vrai” si la modification de la propriété s’est bien passée.</p>
+<h3 id="d-removeentityproperty">D - RemoveEntityProperty</h3>
+<p>Signature : <code>Boolean RemoveEntityProperty(Entity e, Property p, Entity valueEntity)</code></p>
+<p>Appelle la fonction <code>RemoveEntityProperty</code> du web service pour supprimer une propriété d’une entité.
+L’objet Entity <code>e</code> est l’entité dont on veut supprimer la propriété. Son attribut <code>URI</code> doit être renseigné.
+L’objet Property <code>p</code> est la propriété que l’on veut supprimer. Ses attributs <code>URI</code> et <code>type</code> doivent être renseignés.
+Si l’attribut <code>type</code> est <code>URI</code>, l’objet Entity <code>valueEntity</code> doit être fourni avec son attribut <code>URI</code> renseigné. Sinon, l’objet Property <code>p</code> doit avoir son attribut <code>value</code> renseigné et l’objet Entity <code>valueEntity</code> peut être <code>null</code>.
+La fonction renvoie un booléen “Vrai” si la suppression s’est bien passée.</p>
+<h3 id="e-loadentityproperties">E - LoadEntityProperties</h3>
+<p>Signature : <code>Array(Property) LoadEntityProperties(Entity e)</code></p>
+<p>Appelle la fonction <code>LoadEntityProperties</code> du web service pour charger les propriétés remplies d’une entité.
+L’objet Entity <code>e</code> est l’entité dont on veut charger les propriétés. Son attribut <code>URI</code> doit être renseigné.
+La fonction renvoie un tableau d’objet Property.</p>
+<h3 id="f-searchourentitesfromtext">F - SearchOurEntitesFromText</h3>
+<p>Signature : <code>Array(Entity) SearchOurEntitiesFromText(String needle)</code></p>
+<p>Appelle la fonction <code>SearchOurEntitiesFromText</code> du web service pour chercher les entités présentes dans notre base de données sémantiques dont le nom correspond au texte passé en paramètre.
+Le String <code>needle</code> représente le texte recherché dans le nom des entités.
+La fonction renvoie un tableau d’objets Entity qui correspondent à la recherche.</p>
+<h3 id="g-searchallentitiesfromtext">G - SearchAllEntitiesFromText</h3>
+<p>Signature : <code>Array(Entity) SearchAllEntitiesFromText(String needle)</code></p>
+<p>Appelle la fonction <code>SearchAllEntitiesFromText</code> du web service pour chercher les entités présentes dans le Linked Open Data dont le nom correspond au texte passé en paramètre.
+Le String <code>needle</code> représente le texte recherché dans le nom des entités.
+La fonction renvoie un tableau d’objets Entity qui correspondent à la recherche.</p>
+<h3 id="h-getallentities">H - GetAllEntities</h3>
+<p>Signature : <code>Array(Entity) GetAllEntities()</code> </p>
+<p>Appelle la fonction <code>GetAllEntities</code> du web service pour charger toutes les entités présentes dans notre base de données.
+La fonction renvoie un tableau d’objets Entity qui sont présents dans notre base de données sémantique locale.</p>
+<h3 id="i-getallpropertiesadmin">I - GetAllPropertiesAdmin</h3>
+<p>Signature : <code>Array(PropertyAdmin) GetAllPropertiesAdmin(Entity e)</code></p>
+<p>Appelle la fonction <code>GetAllPropertiesAdmin</code> du web service pour charger toutes les propriétés possibles d’une entité pour l’administration de celles-ci.
+L’objet Entity <code>e</code> est l’entité dont on veut charger les propriétés. Son attribut <code>URI</code> doit être renseigné.
+La fonction renvoie un tableau d’objet PropertyAdmin.</p>
+<h3 id="j-getentity">J - GetEntity</h3>
+<p>Signature : <code>Entity GetEntity(Entity e)</code>  </p>
+<p>Appelle la fonction <code>GetEntity</code> du web service pour récupérer une entité.
+L’objet Entity <code>e</code> est l’entité que l’on veut récupérer. Son attribut <code>URI</code> doit être renseigné.
+La fonction renvoie un objet Entity correspondant à l’attribut <code>URI</code> donné en paramètre et dont tous les attributs sont renseignés.</p>
+<h2 id="4-logs">4. Logs</h2>
+<p>Classe : <code>Logs</code></p>
+<p>Namespace : <code>App\Classes</code></p>
+<p>La façade Logs donne accès aux fonctions qui logguent les activités des utilisateurs authentifiés.</p>
+<h3 id="a-add">A - add</h3>
+<p>signature : <code>void add( String action, String message, User user)</code></p>
+<p>Cette fonction permet d’ajouter un log d’activité dans la base de données du site web. 
+La variable <code>action</code> spécifie l’action faite par l’utilisateur
+La variable <code>message</code> est le message de l’action faite par l’utilisateur
+La variable <code>user</code> spécifie l’utilisateur qui a fait l’action. Si elle est <code>null</code>, l’action n’est liée à personne.</p>
+<h3 id="b-debug">B - debug</h3>
+<p>signature : <code>void debug(String type, String message, User user)</code></p>
+<p>Cette fonction permet d’ajouter un log d’activité dans la base de données du site web uniquement si l’application est en mode <code>debug</code>. 
+La variable <code>type</code> spécifie le type de debug
+La variable <code>message</code> est le message de debug
+La variable <code>user</code> spécifie l’utilisateur qui a provoqué le log de debug. Si elle est <code>null</code>, l’action n’est liée à personne.</p></div>
+            
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+
+        <script src="../js/jquery-1.10.2.min.js"></script>
+        <script src="../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../js/highlight.pack.js"></script>
+        <script>var base_url = '..';</script>
+        <script data-main="../mkdocs/js/search.js" src="../mkdocs/js/require.js"></script>
+        <script src="../js/base.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            From here you can search these documents. Enter
+                            your search terms below.
+                        </p>
+                        <form role="form">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                            </div>
+                        </form>
+                        <div id="mkdocs-search-results"></div>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>
