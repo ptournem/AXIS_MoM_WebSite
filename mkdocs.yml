@@ -1,0 +1,8 @@
+site_name: AXIS-MOM WebSite
+repo_url: https://github.com/ptournem/AXIS_MOM_WebSite
+site_dir: docWeb
+
+#theme: readthedocs
+pages:
+- [index.md, Home]
+- [installation.md, Installation]
