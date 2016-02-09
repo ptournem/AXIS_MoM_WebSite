@@ -5,11 +5,11 @@
 
 * Gestionnaire de dépendance php pour Laravel : [composer](https://getcomposer.org/download/)
 
-Pour la doc :
+Pour la documentation :
 
 * Python 2.7.x + pip 1.5.x et Mkdocs : [MkDocs](http://www.mkdocs.org/)
 
-Pour le dev :
+Pour le serveur :
 
 * Serveur Apache avec PHP 5.5.9 minimum
 

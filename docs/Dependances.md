@@ -1,8 +1,8 @@
 # Dépendances Laravel 
 
 Pour fonctionner, le site web utilise plusieurs librairies open sources :
- 
-        simplesoftwareio/simple-qrcode
+
+## 1. simplesoftwareio/simple-qrcode
 
 Cette librairie est utilisée pour générer des QrCode. 
 
@@ -12,7 +12,7 @@ La librairie Simple-qrcode de SimpleSofhWareIO est disponible à l’adresse :
 
 Version utilisée : 3.1.*
 
-        artisaninweb/laravel-soap
+## 2. artisaninweb/laravel-soap
 
 Cette librairie est utilisée pour réaliser les appels SOAP sur le web service java. 
 
@@ -22,7 +22,7 @@ La librairie Laravel-SOAP de ArtisanInWeb est disponible à l’adresse :
 
 Version utilisée : 0.2.*
 
-        hisorange/browser-detect
+## 3. hisorange/browser-detect
 
 Cette librairie est utilisée pour détecter l’utilisation du site web avec un mobile ou une tablette. 
 
@@ -32,9 +32,9 @@ La libraire Browser-detect de Hisorange est disponible à l’adresse :
 
 Version utilisée : 2.*
 
-        laravelcollective/html
+## 4. laravelcollective/html
 
-Cette librarie est utilisée pour la création de formulaire html.
+Cette librairie est utilisée pour la création de formulaires html.
 
 La librairie html de LaraveCollective est disponible à l’adresse : 
 

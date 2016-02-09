@@ -1,8 +1,8 @@
-# Contrôleurs
+# 1. Contrôleurs
 
 Plusieurs contrôleurs sont disponibles dans l’application
-		
-##Commentaire
+  
+## A - Commentaire
 
 Namespace : `App\Http\Controllers`
 
@@ -13,7 +13,7 @@ Le contrôleur des commentaires `CommentController` permet :
 * le refus d’un commentaire 
 * la suppression d’un commentaire.
 
-##Administrateur
+## B - Administrateur
 
 Namespace : `App\Http\Controllers\Admin`
 
@@ -24,8 +24,8 @@ Le contrôleur d’administration `AdminController` permet :
 * l’ajout d’entité
 * la modification d’une propriété d’une entité
 * la suppression de la valeur d’une propriété d’une entité
-		
-##Public
+  
+## C - Public
 
 Namespace : `App\Http\Controller`
 
@@ -35,46 +35,46 @@ Le contrôleur d’affichage public `PublicController` permet :
 * l’affichage d’une entité
 * la recherche d’une entité depuis un texte
 
-##Logs
+## D - Logs
 
 Namespace : `App\Http\Controllers\Admin`
 
 Le contrôleur des logs d’activité “LogController” permet :
 
-* La suppresion de tous les logs d’activité
+* La suppression de tous les logs d’activité
 
-##Authentification
+## E - Authentification
 
 Namespace : `App\Http\Controllers\Auth`
 
-Le controlleur d’authentification `AuthentificationController` permet : 
+Le contrôleur d’authentification `AuthentificationController` permet : 
 
 * la connexion d’un utilisateur
 * la déconnexion d’un utilisateur
 
-#Middleware
+# 2. Middleware
 
-Plusieurs middleware ont été ajoutés à l’application.
+Plusieurs middlewares ont été ajoutés à l’application.
 
-##auth
+## A - auth
 
 Classe : `Authenticate`
 
 Namespace : `App\Http\Middleware`
 
-Ce middleware a été ajouté pour vérifié qu’une utilisateur est bien authentifié. 
+Ce middleware a été ajouté pour vérifier qu’un utilisateur est bien authentifié. 
 
-##isAdmin
+## B - isAdmin
 
 Classe : `IsAdmin`
 
 Namespace : `App\Http\Middleware`
 
-Ce middleware a été ajouté pour vérifié qu’un utilisateur est bien authentifié et a les droits d’administration. 
+Ce middleware a été ajouté pour vérifier qu’un utilisateur est bien authentifié et a les droits d’administration. 
 
-#Tests unitaires
+# 3. Tests unitaires
 
-Les tests unitaires sont réalisés sur les controllers : 
+Les tests unitaires sont réalisés sur les contrôleurs : 
 
 * PublicController
 * CommentController
