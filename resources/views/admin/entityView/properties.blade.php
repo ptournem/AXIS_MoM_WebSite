@@ -8,7 +8,7 @@
 	<thead>
 	    <tr>
 		<th>Informations</th>
-		<th width="35%">Local</th>
+		<th>Local</th>
 		@if($dbpediaInfo)
 		<th>DBPedia</th>
 		@endif
