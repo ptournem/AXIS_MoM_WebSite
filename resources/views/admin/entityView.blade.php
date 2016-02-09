@@ -17,15 +17,22 @@
         var token = "{{csrf_token()}}";
         var EntityUri = "{{$entity->URI}}";
         
-        function successEntityAutocompletion(elt, ui) {
+        function successEntityAutocompletion(elt, ui, name) {
             console.log("successEntityAutocompletion");
             $('.alert-success-update').show();
             elt.text("");
-            console.log(elt.parent().children(".input-group-btn"));
             elt.parent().children(".input-group-btn").children(".btn").hide();
-            $("<span class='entity' name='" + ui.item.name + "' style='background-color: pink; padding: 2px; margin: 2px;'></span>").insertBefore(elt.parent().children(".value-edited"));
-            elt.parent().children(".entity[name='" + ui.item.name + "']").append('<span name="' + ui.item.URI + '" class="value">' + ui.item.name + '</span>');
-            elt.parent().children(".entity[name='" + ui.item.name + "']").append('<span class="glyphicon glyphicon-remove entity-delete" aria-hidden="true" style="position-top: 0px; position-left: 0px;"></span>');
+            var inputGroup = $("<div class='input-group'></div>");
+            inputGroup.insertBefore(elt.parent().children(".value-edited"));
+            inputGroup.append($('<span name="' + ui.item.URI + '" class="entity btn btn-default form-control disabled value">' + ui.item.name + '</span>').insertBefore(elt.parent().children(".value-edited")));
+            
+            var inputGroupBtn = $("<div class='input-group-btn'></div>");
+            inputGroup.append(inputGroupBtn);
+            
+            var entityDelete = $('<span name="' + name + '" class="btn btn-danger entity-delete"></span>');
+            inputGroupBtn.append(entityDelete);
+            
+            entityDelete.append('<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>');
         }
 
         function successEntityAutocompletionSameas(elt, ui) {
@@ -33,24 +40,33 @@
             $('.alert-success-update').show();
             console.log(elt.parent().children(".input-group-btn"));
             elt.parent().children(".input-group-btn").children(".btn").hide();
-            $("<span class='entity btn btn-default center-block' target='_blank' style='background-color: rgb(34, 238, 70);'>"
+            $("<span class='entity btn btn-default center-block disabled'>"
                     + "<span name='" + ui.item.URI + "' class='value'>" + ui.item.name + "</span></span>").insertBefore(elt.parent().children(".value-edited"));
             elt.parent().children(".entity[name='" + ui.item.name + "']").append('<span name="' + ui.item.URI + '" class="value">' + ui.item.name + '</span>');
+            elt.parent().parent().children(".delete").children().attr("uri", ui.item.URI);
             elt.remove();
-                                
-                            
         }
 
-        function successEntityDBpedia(elt, value) {
+        function successEntityDBpedia(elt, value, name) {
             console.log("successEntityDBpedia");
+            //todo
             $('.locale-value.information-' + elt.parent().parent().attr('name')).children(".hidden").text(decodeURIComponent(unformatURI(value)));
             $('.alert-success-update').show();
-            var thisClone = elt.clone().css('background-color', 'rgb( 34, 238, 70)')
-                .removeClass('entity-dbpedia');
-            thisClone.append('<span class="glyphicon glyphicon-remove entity-delete" aria-hidden="true" style="position-top: 0px; position-left: 0px;"></span>');
+            
+            
+             
+            var inputGroup = $("<div class='input-group'></div>");
             elt.parent().parent().children('.locale-value')
-                .prepend(thisClone); 
-            elt.parent().parent().children('.locale-value').children(".input-group-btn").children(".btn").hide();
+                .prepend(inputGroup);
+            inputGroup.append('<span name="' + elt.attr("name") + '" class="entity btn btn-default form-control disabled value">' + elt.text() + '</span>');
+            
+            var inputGroupBtn = $("<div class='input-group-btn'></div>");
+            inputGroup.append(inputGroupBtn);
+            
+            var entityDelete = $('<span name="' + name + '" class="btn btn-danger entity-delete"></span>');
+            inputGroupBtn.append(entityDelete);
+            
+            entityDelete.append('<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>');
         }
 
         function successSameas(elt) {
@@ -62,7 +78,7 @@
         function successLiteral(elt) {
             console.log("successLiteral");
             $('.alert-success-update').show();
-            elt.parent().parent().children(".hidden").text(elt.parent().parent().children(".value").text());
+            elt.parent().parent().parent().children(".hidden").text(elt.parent().parent().children(".value").text());
             elt.parent().children(".btn").addClass("disabled");
         }
 
@@ -80,9 +96,9 @@
                                break;
                            case "successSameas" : successSameas(elt);
                                break;
-                           case "successEntityDBpedia" : successEntityDBpedia(elt, value);
+                           case "successEntityDBpedia" : successEntityDBpedia(elt, value, name);
                                break;
-                           case "successEntityAutocompletion" : successEntityAutocompletion(elt, ui);
+                           case "successEntityAutocompletion" : successEntityAutocompletion(elt, ui, name);
                                break;
                            case "successEntityAutocompletionSameas" : successEntityAutocompletionSameas(elt, ui);
                                break;
@@ -97,13 +113,14 @@
         function removeEntityProperty(name, uriB, elt) {
             console.log("adminDeleteEntityProperty : " + adminDeleteEntityProperty);
             $.post(adminDeleteEntityProperty, {uri: EntityUri, name: name, uriB: uriB, _token: token}, function (data) {
-                    console.log(data.success);
                     if (data.success) {
-                        // changement des classes
-                        console.log("remove OK");
-                        elt.parent().remove();
+                        switch(name){
+                           case "sameas" : elt.parent().remove();
+                               break;
+                           default : elt.parent().parent().remove();
+                               break;
+                        }
                     }
-                    elt.parent().children('.loadingDelete').hide();
                 }, 'json');
         }
         
@@ -114,7 +131,6 @@
                         console.log("removeL OK");
                         setProperty(name, value, type, elt, successType);
                     }
-                    elt.parent().children('.loadingDelete').hide();
                 }, 'json');
         }
         
@@ -125,7 +141,6 @@
                         console.log("removeL OK");
                         setProperty(name, value, type, elt, successType);
                     }
-                    elt.parent().children('.loadingDelete').hide();
                 }, 'json');
         }
 
@@ -162,7 +177,7 @@
             if(!elt.hasClass('disabled')){
                 var item = $(classUsed);
                 // On remet dans 'value' sa valeur initiale (qui est dans 'hidden')
-                item.children('.input-group').children('.value').val(item.children('.hidden').val());
+                item.children('.input-group').children('.value').text(item.children('.hidden').text());
                 elt.parent().children('.btn').addClass('disabled');
                 $('.alert-success').hide();
             }
@@ -178,14 +193,8 @@
             // Création du content editable
 	    var $newLod = $('.new-LOD');
 	    
-	    var $div =  $('<div></div>');
-	    $newLod.append($div);
-	    $div.addClass('input-group');
-            var $span = $('<span></span>');
-	    $div.append($span);
-            $span.attr('class', 'value value-edited searchSameas form-control');
-            $span.attr('name', 'sameas');
-            $span.attr('contenteditable', true);
+            var $span = $('<span contenteditable="true" name="sameas" class="value value-edited searchEntities form-control"></span>');
+	    $newLod.append($span);
             // autocomplétion
             $span.catcomplete({
                 source: function (request, response) {
@@ -201,32 +210,7 @@
                 },
                 delay: 600
             });
-            // Création du bouton delete
-            var $hidden = $('<span class="hidden"></span>');
-	    $div.append($hidden);
-            $hidden.attr('style', 'display: none');
-
-            // Ajout des boutons validation ou annulation
-            // D'abord le div qui contient les deux boutons
-            var $inputBtn = $('<div></div>');
-	    $div.append($inputBtn);
-            $inputBtn.attr('class', 'input-group-btn');
-            $inputBtn.attr('role', 'group');
-            $inputBtn.attr('style', 'position: relative; right: 0px;');
-            // Le 1er bouton :	Annuler
-            var $annulerBtn = $('<button type="button" class="btn btn-warning btn-warning-sameas btn-warning-name-sameas disabled"></button>');
-	    $inputBtn.append($annulerBtn);
-            $annulerBtn.attr('style', 'position: relative; right: 0px;');
-            $annulerBtn.attr('name', 'sameas');
-            $annulerBtn.append('<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>');
-	    
-            // Le 2ieme bouton : Valider 
-            var $validerBtn = $('<button type="button" class="btn btn-success btn-success-sameas btn-success-name-sameas disabled"></button>');
-	    $inputBtn.append($validerBtn);
-            $validerBtn.attr('style', 'position: relative; right: 0px;');
-            $validerBtn.attr('name', 'sameas');
-            $validerBtn.append('<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>');
-
+            
             $newLod.addClass("sameasValue");
             $newLod.removeClass("new-LOD");
 
@@ -303,12 +287,8 @@
          */
         // click sur la 'croix' d'une entitÃ© -> delete de celle-ci
         $(document).on('click', '.entity-delete', function () {
-            $(this).parent().children('.loadingDelete').show();
-            //console.log()
-            console.log($(this).parent().parent().attr('name'));
-            console.log($(this).parent().children('.value').attr('name'));
-            var value = $(this).parent().children('.value').attr('name');
-            removeEntityProperty($(this).parent().parent().attr('name'), value, $(this));
+            var value = $(this).parent().parent().children('.value').attr('name');
+            removeEntityProperty($(this).attr('name'), value, $(this));
         });
         // click sur une entity DBpedia (set de celle-ci dans le local de la property)
         $(document).on('click', '.entity-dbpedia', function () {
@@ -328,7 +308,7 @@
         });
         // Pour set une propriÃ©tÃ© litÃ©rale
         $(document).on('click', '.btn-success-locale', function () {
-            var value = $(this).parent().parent().children('.value-edited').val();
+            var value = $(this).parent().parent().children('.value-edited').text();
             var successType = "successLiteral";
             var type = 'fr';
             onClickSuccess($(this), value, type, successType, $(this).attr('name'));
@@ -363,20 +343,16 @@
         });
         // Permet de reporter les valeurs de DBpedia dans local
         $(document).on('click', '.btn-success-selected', function () {
-            var value = $(this).parent().children(".value").text();
-            var name = $(this).parent().attr('name');
+            var value = $(this).parent().parent().children(".value").text();
+            var name = $(this).attr('name');
             var item = $('.locale-value.information-' + name);
-            console.log(item);
-            console.log(value);
-            console.log(name);
-            console.log(item.children().children(".form-control"));
             if($(this).hasClass("typeDate")){
                 item.children().children(".form-control").val(value);
                 onClickSuccess($(this), value, 'fr', "successDate", name);
             }
             else{
-                item.children(".value").text(value);
-                $('.information-' + name + '.locale-value').children(".input-group-btn").children(".btn").removeClass('disabled');
+                item.children().children(".form-control").text(value);
+                $('.information-' + name + '.locale-value').children(".input-group").children(".input-group-btn").children(".btn").removeClass('disabled');
                 $('.alert-success').hide();
             }
         });

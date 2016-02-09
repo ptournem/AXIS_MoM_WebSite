@@ -31,7 +31,7 @@
                             </td>
                         </tr>
                     @endforeach
-                @else
+                @elseif($db->entity_locale != null)
                     <tr>
                         <td class="sameasValue">
                             <span class="entity btn btn-default center-block disabled">

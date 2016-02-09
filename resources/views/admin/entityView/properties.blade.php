@@ -8,7 +8,7 @@
 	<thead>
 	    <tr>
 		<th>Informations</th>
-		<th width="35%">Local</th>
+		<th>Local</th>
 		@if($dbpediaInfo)
 		<th>DBPedia</th>
 		@endif
@@ -28,7 +28,7 @@
 			<div class='input-group'>
 			    <span name="{{ $entity->URI }}" class="entity btn btn-default form-control disabled value">{{ $entity->name }}</span>
 			    <div class='input-group-btn'>
-				<span class="btn btn-danger entity-delete">
+				<span name="{{ $retour->name }}" class="btn btn-danger entity-delete">
 				    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 				</span>
 			    </div>
@@ -38,7 +38,7 @@
 			<div class='input-group'>
 			    <span name="{{ $retour->entity_locale->URI }}" class="entity btn btn-default form-control disabled value">{{ $retour->entity_locale->name }}</span>
 			    <div class='input-group-btn'>
-				<span class="btn btn-danger entity-delete">
+				<span name="{{ $retour->name }}" class="btn btn-danger entity-delete">
 				    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 				</span>
 			    </div>
@@ -59,7 +59,7 @@
                         @else
                         <span class="hidden" style="display: none">{{ $retour->value_locale }}</span>
 			<div class="input-group">
-			    <span contenteditable="true" class="value value-edited searchEntities form-control"/>{{ $retour->value_locale }}</span>                      
+			    <span contenteditable="true" name="{{ $retour->name }}" class="value value-edited searchEntities form-control"/>{{ $retour->value_locale }}</span>                      
 			    <div class="input-group-btn" role="group">
 				<button type="button"  name="{{ $retour->name }}" class="btn btn-warning btn-warning-locale btn-warning-name-{{ $retour->name }} disabled">
 				    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
@@ -99,7 +99,7 @@
 			    @else 
 				<button type="button" name="{{ $retour->name }}" class="btn btn-success-selected btn-success-selected-{{ $retour->name }} ">
 			    @endif
-                            <span class="glyphicon glyphicon-transfer" aria-hidden="true"></span>
+                            <span name="{{ $retour->name }}" class="glyphicon glyphicon-transfer" aria-hidden="true"></span>
 			    </button>
 			    </div>
                         
