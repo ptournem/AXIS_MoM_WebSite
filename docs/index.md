@@ -25,6 +25,7 @@ C'est pourquoi le monde muséal a été choisi comme point de départ et comme s
 ## 3. Composition du projet
 
 Le projet est découpé en deux applications : 
+
 * Une application web
 * Un web service 
 
@@ -44,7 +45,7 @@ d'ajouter et de modérer les entités stockées dans le système. L'application 
 
 ### 3.2 Le Web Service 
 
-Vous pouvez retrouver la documentation sur le web service à cette adresse : [http://ptournem.io.github/AXIS_MOM_WebService](http://ptournem.io.github/AXIS_MOM_WebService)
+Vous pouvez retrouver la documentation sur le web service à cette adresse : [http://ptournem.github.io/AXIS_MoM_WebService](http://ptournem.github.io/AXIS_MoM_WebService)
 
 
 
